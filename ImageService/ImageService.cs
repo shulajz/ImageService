@@ -14,6 +14,7 @@ namespace ImageService
 {
     public partial class ImageService : ServiceBase
     {
+        
         private System.ComponentModel.IContainer components;
         private System.Diagnostics.EventLog eventLog1;
         private int eventId = 1;
@@ -24,6 +25,7 @@ namespace ImageService
 
         public ImageService(string[] args)
         {
+            //t
             InitializeComponent();
             string eventSourceName = "MySource";
             string logName = "MyNewLog";
