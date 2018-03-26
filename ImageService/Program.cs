@@ -19,7 +19,7 @@ namespace ImageService
 
 
           //  ServiceBase[] ServicesToRun;  
- //  ServicesToRun = new ServiceBase[]
+            //  ServicesToRun = new ServiceBase[]
            /// {
            //     new ImageService()
            // };

@@ -22,16 +22,16 @@ namespace ImageService.Controller
             {
                 // For Now will contain NEW_FILE_COMMAND
 
-                { 1, new NewFileCommand(m_modal) }
-
-        };
+                {(int) CommandEnum.NewFileCommand, new NewFileCommand(m_modal) }
+        
+            };
         }
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
             ICommand commandObj = commands[commandID];
-            commandObj.Execute(args, out resultSuccesful);
-
-            // Write Code Here
+            string  value=commandObj.Execute(args, out resultSuccesful);
+            return value;
+           
         }
     }
 }
