@@ -21,11 +21,14 @@ namespace ImageService.Controller
             commands = new Dictionary<int, ICommand>()
             {
 				// For Now will contain NEW_FILE_COMMAND
+
+                
             };
         }
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
            // Write Code Here
+           
         }
     }
 }
