@@ -8,13 +8,13 @@ namespace ImageService.Logging.Modal
 {
     public class MessageRecievedEventArgs : EventArgs
     {
-        public MessageTypeEnum Status { get; set; }
-        public string Message { get; set; }
-        //cunstractor
-     //   public MessageRecievedEventArgs(MessageTypeEnum status, string message)
-      //  {
-       //     Status = status;
-       //     Message = message;
-      //      }
+        public MessageTypeEnum m_status { get; set; }
+        public string m_message { get; set; }
+
+        public MessageRecievedEventArgs(string message, MessageTypeEnum status)
+        {
+            m_status = status;
+            m_message = message;
+        }
     }
 }
