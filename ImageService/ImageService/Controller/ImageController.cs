@@ -12,7 +12,7 @@ namespace ImageService.Controller
 {
     public class ImageController : IImageController
     {
-        private IImageServiceModal m_modal;                      // The Modal Object
+        private IImageServiceModal m_modal;                      // /The Modal Object
         private Dictionary<int, ICommand> commands;
 
         public ImageController(IImageServiceModal modal)
