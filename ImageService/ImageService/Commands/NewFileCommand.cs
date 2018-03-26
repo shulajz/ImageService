@@ -19,9 +19,10 @@ namespace ImageService.Commands
 
         public string Execute(string[] args, out bool result)
         {
-            if(result == true)
+            m_modal.AddFile(args, out result);
+            if (result == true)
             {
-
+                
             }
 			// The String Will Return the New Path if result = true, and will return the error message
         }
