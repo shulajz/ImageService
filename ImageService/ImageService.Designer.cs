@@ -40,7 +40,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.eventLog2)).EndInit();
 
         }
-
+            
         #endregion
 
         private System.Diagnostics.EventLog eventLog;

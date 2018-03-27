@@ -29,7 +29,7 @@ namespace ImageService.Controller
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
             ICommand commandObj = commands[commandID];
-            string  value=commandObj.Execute(args, out resultSuccesful);
+            string  value = commandObj.Execute(args, out resultSuccesful);
             return value;
            
         }

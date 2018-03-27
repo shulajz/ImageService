@@ -11,6 +11,7 @@ using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System.Text.RegularExpressions;
 
+
 namespace ImageService.Controller.Handlers
 {
     public class DirectoyHandler : IDirectoryHandler
@@ -24,6 +25,44 @@ namespace ImageService.Controller.Handlers
 
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;              // The Event That Notifies that the Directory is being closed
 
-		// Implement Here!
+        public DirectoyHandler(string dirPath, IImageController controller)
+        {
+            m_dirWatcher = new FileSystemWatcher(dirPath);
+            m_controller = controller;
+
+
+        }
+
+        public void StartHandleDirectory(string dirPath)
+        {
+            m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
+
+        }
+
+        public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
+        {
+
+            //check if command is meant for its directory, 
+            //if yes – handle command (for now will just be to close handler)};
+        }
+
+        public void OnCreated(object source, FileSystemEventArgs e)
+        {
+            // get the file's extension 
+            Regex rgx = new Regex(@"(\.bmp$|\.png$|\.jpg$|\.gif$)");
+            Match m = rgx.Match(e.FullPath);
+            if (m.Success)
+            {
+                //  bool result;
+                //m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand,e. , out result);
+            }
+   
+        }
+
+        //close FileSystemWatcher and invoke onClose event
+        public void closeHandler()
+        {
+
+        }
     }
 }

@@ -9,12 +9,21 @@ using System.Runtime.InteropServices;
 
 using System.Text;
 using System.Threading.Tasks;
+using ImageService.Server;
+using ImageService.Modal;
+using ImageService.Controller;
+using ImageService.Logging;
 
 namespace ImageService
 {
     public partial class ImageService : ServiceBase
     {
-        
+        private ImageServer m_imageServer;          // The Image Server
+        private IImageServiceModal modal;
+        private IImageController controller;
+        private ILoggingService logging;
+
+
         private System.ComponentModel.IContainer components;
         private System.Diagnostics.EventLog eventLog1;
         private int eventId = 1;
@@ -47,7 +56,7 @@ namespace ImageService
         }
 
 
-
+        //Here You will use app config
         protected override void OnStart(string[] args)
         {
             // Update the service state to Start Pending.  
