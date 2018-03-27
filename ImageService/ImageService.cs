@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 using System.Runtime.InteropServices;
-
+using System.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using ImageService.Server;
@@ -34,7 +34,9 @@ namespace ImageService
 
         public ImageService(string[] args)
         {
-            //t
+         
+           
+
             InitializeComponent();
             string eventSourceName = "MySource";
             string logName = "MyNewLog";
@@ -53,6 +55,16 @@ namespace ImageService
             }
             eventLog1.Source = eventSourceName;
             eventLog1.Log = logName;
+        }
+
+        private void ReadSetting(string v)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ReadAllSettings()
+        {
+            throw new NotImplementedException();
         }
 
 
