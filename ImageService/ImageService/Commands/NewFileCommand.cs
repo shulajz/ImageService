@@ -21,6 +21,7 @@ namespace ImageService.Commands
         public string Execute(string[] args, out bool result)
         {
             {
+               // m_modal.AddFile(args[0], out result);
                 //  if(result == true)
                 //  {
 
