@@ -22,8 +22,9 @@ namespace ImageService.Controller.Handlers
         private string m_path;                              // The Path of directory
         #endregion
 
-        public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;              // The Event That Notifies that the Directory is being closed
-
+        public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;             
+        // The Event That Notifies that the Directory is being closed
+         
 		// Implement Here!
     }
 }

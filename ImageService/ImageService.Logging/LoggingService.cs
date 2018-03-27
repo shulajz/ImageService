@@ -1,5 +1,5 @@
 ﻿
-/using ImageService.Logging.Modal;
+using ImageService.Logging.Modal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +14,9 @@ namespace ImageService.Logging
         public void Log(string message, MessageTypeEnum type)
         {
             MessageRecieved?.Invoke(this, new MessageRecievedEventArgs(message, type));
+
+
+
         }
 
 
