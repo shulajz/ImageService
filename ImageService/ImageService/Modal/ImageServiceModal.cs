@@ -53,11 +53,11 @@ namespace ImageService.Modal
                 System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + year + "\\" + 
                     "Thumbnails" + "\\" + month);
 
-                File.Copy(path, m_OutputFolder + "\\" + "Thumbnails" +  "\\" + year + "\\" + month);
-                //System.Drawing.Image image = System.Drawing.Image.FromFile(path);
-                //System.Drawing.Image thumb = image.GetThumbnailImage(
-                //    m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
-                //thumb.Save(Path.ChangeExtension(fileName, "thumb"));
+                //File.Copy(path, m_OutputFolder + "\\" + "Thumbnails" +  "\\" + year + "\\" + month);
+                System.Drawing.Image image = System.Drawing.Image.FromFile(path);
+                System.Drawing.Image thumb = image.GetThumbnailImage(
+                    m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
+                thumb.Save(Path.ChangeExtension(m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month, ""));
 
                 string newPath = m_OutputFolder + "\\" + year + "\\" + month;
             result = true;
