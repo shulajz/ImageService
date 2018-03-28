@@ -16,14 +16,15 @@ namespace ImageService
         {
             ServiceBase[] ServicesToRun = new ServiceBase[] { new ImageService(args) };
             ServiceBase.Run(ServicesToRun);
-
+            //ImageService imageService = new ImageService(args);
+            
 
           //  ServiceBase[] ServicesToRun;  
-            //  ServicesToRun = new ServiceBase[]
-           /// {
-           //     new ImageService()
-           // };
-           // ServiceBase.Run(ServicesToRun);
+          //  ServicesToRun = new ServiceBase[]
+          /// {
+            //     new ImageService()
+            // };
+            // ServiceBase.Run(ServicesToRun);
         }
     }
 }

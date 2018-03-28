@@ -41,21 +41,21 @@ namespace ImageService
             InitializeComponent();
   
           
-            string eventSourceName = ConfigurationManager.AppSettings["SourceName"]; ;
+            string eventSourceName = ConfigurationManager.AppSettings["SourceName"];
             string logName = ConfigurationManager.AppSettings["LogName"];
-            if (args.Count() > 0)
-            {
-                eventSourceName = args[0];
-            }
-            if (args.Count() > 1)
-            {
-                logName = args[1];
-            }
+            //if (args.Count() > 0)
+            //{
+            //    eventSourceName = args[0];
+            //}
+            //if (args.Count() > 1)
+            //{
+            //    logName = args[1];
+            //}
             eventLog1 = new System.Diagnostics.EventLog();
-            if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
-            {
-                System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
-            }
+            //if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
+            //{
+            //    System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
+            //}
             eventLog1.Source = eventSourceName;
             eventLog1.Log = logName;
         }
@@ -93,8 +93,10 @@ namespace ImageService
 
         private void onMsg(object sender, MessageRecievedEventArgs e)
         {
-            Console.WriteLine($"Player moved in direction: {eventLog1.WriteEntry(e.m_message)}");
-        }
+            eventLog1.WriteEntry(e.m_message);  
+            //Console.WriteLine($"Player moved in direction: {eventLog1.WriteEntry(e.m_message)}");
+        }
+
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");
