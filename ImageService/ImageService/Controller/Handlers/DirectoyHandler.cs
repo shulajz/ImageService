@@ -23,12 +23,13 @@ namespace ImageService.Controller.Handlers
         private string m_path;                              // The Path of directory
         #endregion
 
-        public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;              // The Event That Notifies that the Directory is being closed
+        public event EventHandler<DirectoryCloseEventArgs> DirectoryCloseEvent;              // The Event That Notifies that the Directory is being closed
 
         public DirectoyHandler(string dirPath, IImageController controller)
         {
             m_dirWatcher = new FileSystemWatcher(dirPath);
             m_controller = controller;
+            m_path = dirPath;
 
 
         }
@@ -41,7 +42,10 @@ namespace ImageService.Controller.Handlers
 
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
-
+            bool result;
+            if (e.RequestDirPath == m_path) {
+               string  resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, e.Args, out result);
+            }
             //check if command is meant for its directory, 
             //if yes – handle command (for now will just be to close handler)};
         }
@@ -51,10 +55,17 @@ namespace ImageService.Controller.Handlers
             // get the file's extension 
             Regex rgx = new Regex(@"(\.bmp$|\.png$|\.jpg$|\.gif$)");
             Match m = rgx.Match(e.FullPath);
+
+
             if (m.Success)
             {
-                //  bool result;
-                //m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand,e. , out result);
+                //CommandRecievedEventArgs(int id, string[] args, string path
+                string[] paths = { e.FullPath };
+                CommandRecievedEventArgs e1 = new CommandRecievedEventArgs(
+                    (int)CommandEnum.NewFileCommand, paths, m_path);
+               
+                OnCommandRecieved(this, e1);
+                
             }
    
         }
@@ -62,7 +73,7 @@ namespace ImageService.Controller.Handlers
         //close FileSystemWatcher and invoke onClose event
         public void closeHandler()
         {
-
+            //DirectoryClose?.Invoke(this, new DirectoryCloseEventArgs(e));
         }
     }
 }

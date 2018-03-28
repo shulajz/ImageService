@@ -13,6 +13,9 @@ using ImageService.Server;
 using ImageService.Modal;
 using ImageService.Controller;
 using ImageService.Logging;
+using ImageService.Logging.Modal;
+using System.Configuration;
+
 
 namespace ImageService
 {
@@ -34,12 +37,12 @@ namespace ImageService
 
         public ImageService(string[] args)
         {
-         
-           
-
+            //t
             InitializeComponent();
-            string eventSourceName = "MySource";
-            string logName = "MyNewLog";
+  
+          
+            string eventSourceName = ConfigurationManager.AppSettings["SourceName"]; ;
+            string logName = ConfigurationManager.AppSettings["LogName"];
             if (args.Count() > 0)
             {
                 eventSourceName = args[0];
@@ -55,16 +58,6 @@ namespace ImageService
             }
             eventLog1.Source = eventSourceName;
             eventLog1.Log = logName;
-        }
-
-        private void ReadSetting(string v)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ReadAllSettings()
-        {
-            throw new NotImplementedException();
         }
 
 
@@ -86,8 +79,22 @@ namespace ImageService
             // Update the service state to Running.  
             serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+
+            //appconfig
+            string outPutDir = ConfigurationManager.AppSettings["OutputDir"];
+            int thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
+            
+            string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+
+            logging = new LoggingService();
+            m_imageServer = new ImageServer(logging, arrHandlers, outPutDir, thumbnailSize);
+            logging.MessageRecievedEvent += onMsg;
         }
 
+        private void onMsg(object sender, MessageRecievedEventArgs e)
+        {
+            Console.WriteLine($"Player moved in direction: {eventLog1.WriteEntry(e.m_message)}");
+        }
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");

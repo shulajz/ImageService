@@ -19,27 +19,41 @@ namespace ImageService.Server
         #endregion
 
         #region Properties
-        public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
+        public event EventHandler<CommandRecievedEventArgs> CommandRecievedEvent;  // The event that notifies about a new Command being recieved
         #endregion
+
+        public ImageServer(ILoggingService mLogging, string[] pathsForHandlers, string outputDir, int thumbnails)
+        {
+            m_logging = mLogging;
+            ImageServiceModal imageServiceModal = new ImageServiceModal(outputDir, thumbnails);
+            m_controller = new ImageController(imageServiceModal);
+            foreach (string path in pathsForHandlers)
+            {
+                createHandler(path);
+            }
+
+        }
         public void createHandler(string dirPath)
         { 
           IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller);
-
-            //CommandRecieved += handler.OnCommandRecieved();
-            //handler.onClose += onCloseServer
+            CommandRecievedEvent += handler.OnCommandRecieved;
+            handler.DirectoryCloseEvent += onCloseServer;
         }
+
         public void  sendCommand() {
-            
-            //CommandRecieved(“*”, CloseHandler) //– closes handlers
+
+            CommandRecievedEvent(*, CommandRecievedEvent); //– closes handlers
 
 
         } 
-        public void  onCloseServer(object sender) {
-            
-            //handler = sender;
-            //CommandRecieved -= handler.onCommandReceived();
-            ////– handler will call this function to tell server it closed
-            //CommandRecieved -= handler.onCloseServer();
+        public void  onCloseServer(object sender, DirectoryCloseEventArgs e) {
+            if (sender is DirectoyHandler)
+            {
+                DirectoyHandler handler = (DirectoyHandler)sender;
+                CommandRecievedEvent -= handler.OnCommandRecieved;
+                ////– handler will call this function to tell server it closed
+                //CommandRecievedEvent -= handler.closeHandler;
+            }
 
         } 
 
