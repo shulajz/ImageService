@@ -52,10 +52,10 @@ namespace ImageService
                 logName = args[1];
             }
             eventLog1 = new System.Diagnostics.EventLog();
-            if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
-            {
-                System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
-            }
+            //if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
+            //{
+            //    System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
+            //}
             eventLog1.Source = eventSourceName;
             eventLog1.Log = logName;
         }
@@ -64,37 +64,45 @@ namespace ImageService
         //Here You will use app config
         protected override void OnStart(string[] args)
         {
-            // Update the service state to Start Pending.  
-            ServiceStatus serviceStatus = new ServiceStatus();
-            serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
-            serviceStatus.dwWaitHint = 100000;
-            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-            eventLog1.WriteEntry("In OnStart");
-            // Set up a timer to trigger every minute.  
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Interval = 60000; // 60 seconds  
-            timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
-            timer.Start();
+            try
+            {
+                // Update the service state to Start Pending.  
+                ServiceStatus serviceStatus = new ServiceStatus();
+                serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
+                serviceStatus.dwWaitHint = 100000;
+                SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+                eventLog1.WriteEntry("In OnStart");
+                // Set up a timer to trigger every minute.  
+                System.Timers.Timer timer = new System.Timers.Timer();
+                timer.Interval = 60000; // 60 seconds  
+                timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
+                timer.Start();
 
-            // Update the service state to Running.  
-            serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
-            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+                // Update the service state to Running.  
+                serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
+                SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-            //appconfig
-            string outPutDir = ConfigurationManager.AppSettings["OutputDir"];
-            int thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
-            
-            string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+                //appconfig
+                string outPutDir = ConfigurationManager.AppSettings["OutputDir"];
+                int thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
 
-            logging = new LoggingService();
-            m_imageServer = new ImageServer(logging, arrHandlers, outPutDir, thumbnailSize);
-            logging.MessageRecievedEvent += onMsg;
+                string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+
+                logging = new LoggingService();
+                m_imageServer = new ImageServer(logging, arrHandlers, outPutDir, thumbnailSize);
+                logging.MessageRecievedEvent += onMsg;
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry(ex.Message, EventLogEntryType.Error);
+            }
         }
 
         private void onMsg(object sender, MessageRecievedEventArgs e)
         {
-            Console.WriteLine($"Player moved in direction: {eventLog1.WriteEntry(e.m_message)}");
-        }
+           // Console.WriteLine($"Player moved in direction: {eventLog1.WriteEntry(e.m_message)}");
+        }
+
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");

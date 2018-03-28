@@ -42,7 +42,7 @@ namespace ImageService.Server
 
         public void  sendCommand() {
 
-            CommandRecievedEvent(*, CommandRecievedEvent); //– closes handlers
+           // CommandRecievedEvent(*, CommandRecievedEvent); //– closes handlers
 
 
         } 
