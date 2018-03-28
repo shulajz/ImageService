@@ -28,9 +28,11 @@ namespace ImageService.Controller.Handlers
         public DirectoyHandler(string dirPath, IImageController controller)
         {
             m_dirWatcher = new FileSystemWatcher(dirPath);
+            
+            m_logging.Log("handlerCt'or", MessageTypeEnum.FAIL);
             m_controller = controller;
             m_path = dirPath;
-
+            StartHandleDirectory(dirPath);
 
         }
 
@@ -39,23 +41,24 @@ namespace ImageService.Controller.Handlers
             m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
 
         }
-
+        //A command from the server, for now - just "close" command
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
-            bool result;
+            
             if (e.RequestDirPath == m_path) {
-               string  resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, e.Args, out result);
+              //close
             }
             //check if command is meant for its directory, 
             //if yes – handle command (for now will just be to close handler)};
         }
 
+        //command within the handler, when a file is created
         public void OnCreated(object source, FileSystemEventArgs e)
         {
             // get the file's extension 
             Regex rgx = new Regex(@"(\.bmp$|\.png$|\.jpg$|\.gif$)");
             Match m = rgx.Match(e.FullPath);
-
+            bool result;
 
             if (m.Success)
             {
@@ -63,9 +66,14 @@ namespace ImageService.Controller.Handlers
                 string[] paths = { e.FullPath };
                 CommandRecievedEventArgs e1 = new CommandRecievedEventArgs(
                     (int)CommandEnum.NewFileCommand, paths, m_path);
-               
-                OnCommandRecieved(this, e1);
+                string resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, paths, out result);
+                //OnCommandRecieved(this, e1);
+                if (result == false)
+                {
+                    m_logging.Log(resultOfCommand, MessageTypeEnum.FAIL);
+                }
                 
+
             }
    
         }

@@ -83,9 +83,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ImageService\App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.Config" />
+    <None Include="ImageService\App.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ImageService.resx">

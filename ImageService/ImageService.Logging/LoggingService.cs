@@ -15,8 +15,6 @@ namespace ImageService.Logging
         {
             MessageRecievedEvent?.Invoke(this, new MessageRecievedEventArgs(message, type));
 
-
-
         }
 
 
