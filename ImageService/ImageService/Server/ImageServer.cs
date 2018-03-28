@@ -25,7 +25,7 @@ namespace ImageService.Server
         public ImageServer(ILoggingService mLogging, string[] pathsForHandlers, string outputDir, int thumbnails)
         {
             m_logging = mLogging;
-            ImageServiceModal imageServiceModal = new ImageServiceModal(outputDir, thumbnails);
+            ImageServiceModal imageServiceModal = new ImageServiceModal(outputDir, thumbnails, m_logging);
             m_controller = new ImageController(imageServiceModal);
             foreach (string path in pathsForHandlers)
             {
