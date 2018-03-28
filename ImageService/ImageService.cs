@@ -64,31 +64,33 @@ namespace ImageService
         //Here You will use app config
         protected override void OnStart(string[] args)
         {
-            // Update the service state to Start Pending.  
-            ServiceStatus serviceStatus = new ServiceStatus();
-            serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
-            serviceStatus.dwWaitHint = 100000;
-            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-            eventLog1.WriteEntry("In OnStart");
-            // Set up a timer to trigger every minute.  
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Interval = 60000; // 60 seconds  
-            timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
-            timer.Start();
+          
+                // Update the service state to Start Pending.  
+                ServiceStatus serviceStatus = new ServiceStatus();
+                serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
+                serviceStatus.dwWaitHint = 100000;
+                SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+                eventLog1.WriteEntry("In OnStart");
+                // Set up a timer to trigger every minute.  
+                System.Timers.Timer timer = new System.Timers.Timer();
+                timer.Interval = 60000; // 60 seconds  
+                timer.Elapsed += new System.Timers.ElapsedEventHandler(this.OnTimer);
+                timer.Start();
 
-            // Update the service state to Running.  
-            serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
-            SetServiceStatus(this.ServiceHandle, ref serviceStatus);
+                // Update the service state to Running.  
+                serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
+                SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-            //appconfig
-            string outPutDir = ConfigurationManager.AppSettings["OutputDir"];
-            int thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
-            
-            string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+                //appconfig
+                string outPutDir = ConfigurationManager.AppSettings["OutputDir"];
+                int thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
 
-            logging = new LoggingService();
-            m_imageServer = new ImageServer(logging, arrHandlers, outPutDir, thumbnailSize);
-            logging.MessageRecievedEvent += onMsg;
+                string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+
+                logging = new LoggingService();
+                m_imageServer = new ImageServer(logging, arrHandlers, outPutDir, thumbnailSize);
+                logging.MessageRecievedEvent += onMsg;
+
         }
 
         private void onMsg(object sender, MessageRecievedEventArgs e)
@@ -106,7 +108,7 @@ namespace ImageService
         {
             // TODO: Insert monitoring activities here.  
             eventLog1.WriteEntry("Monitoring the System",
-                EventLogEntryType.Information, eventId++);
+               EventLogEntryType.Information, eventId++);
         }
 
         protected override void OnContinue()
@@ -137,4 +139,4 @@ namespace ImageService
             public int dwWaitHint;
         };
     }
-}
+}//
