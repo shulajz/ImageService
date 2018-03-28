@@ -43,19 +43,19 @@ namespace ImageService
           
             string eventSourceName = ConfigurationManager.AppSettings["SourceName"];
             string logName = ConfigurationManager.AppSettings["LogName"];
-            //if (args.Count() > 0)
-            //{
-            //    eventSourceName = args[0];
-            //}
-            //if (args.Count() > 1)
-            //{
-            //    logName = args[1];
-            //}
+            if (args.Count() > 0)
+            {
+                eventSourceName = args[0];
+            }
+            if (args.Count() > 1)
+            {
+                logName = args[1];
+            }
             eventLog1 = new System.Diagnostics.EventLog();
-            //if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
-            //{
-            //    System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
-            //}
+            if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
+            {
+                System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
+            }
             eventLog1.Source = eventSourceName;
             eventLog1.Log = logName;
         }
