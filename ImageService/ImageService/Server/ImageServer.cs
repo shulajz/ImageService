@@ -29,7 +29,7 @@ namespace ImageService.Server
             m_controller = new ImageController(imageServiceModal);
             foreach (string path in pathsForHandlers)
             {
-                createHandler(path);
+                createHandler(path);//create
             }
 
         }
