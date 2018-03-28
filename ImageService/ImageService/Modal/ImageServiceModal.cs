@@ -1,7 +1,7 @@
 ﻿using ImageService.Infrastructure;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+//using System.Drawing;
 //using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ImageService.Modal
 {
@@ -29,20 +30,36 @@ namespace ImageService.Modal
         {
             try
             {
-                System.IO.Directory.CreateDirectory(m_OutputFolder); //create the directory if its not created already
+                //create the directory if its not created already
+                System.IO.Directory.CreateDirectory(m_OutputFolder); 
 
                 DateTime creation = File.GetCreationTime(path);
                 int year = creation.Year;
-                System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + year); // check if this year exist, if not creats it
+                // check if this year exist, if not - creats it
+                System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + year);
                 int month = creation.Month;
-                // check if this month exist, if not creats it
+                // check if this month exist, if not - creats it
                 System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + year + "\\" + month);
 
                 File.Copy(path, m_OutputFolder + "\\" + year + "\\" + month);
-            
 
+                //thumbnails
+                //create the folder if its not already created
+                System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + "Thumbnails");
+                // check if this year exist, if not creats it
+                System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + 
+                    "Thumbnails" + "\\" + year);
+                // check if this month exist, if not - creats it
+                System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + year + "\\" + 
+                    "Thumbnails" + "\\" + month);
 
-            string newPath = m_OutputFolder + "\\" + year + "\\" + month;
+                File.Copy(path, m_OutputFolder + "\\" + "Thumbnails" +  "\\" + year + "\\" + month);
+                //System.Drawing.Image image = System.Drawing.Image.FromFile(path);
+                //System.Drawing.Image thumb = image.GetThumbnailImage(
+                //    m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
+                //thumb.Save(Path.ChangeExtension(fileName, "thumb"));
+
+                string newPath = m_OutputFolder + "\\" + year + "\\" + month;
             result = true;
                 return newPath;
             } catch (Exception exp) {
