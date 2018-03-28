@@ -47,7 +47,7 @@ namespace ImageService
             {
                 eventSourceName = args[0];
             }
-            if (args.Count() > 1)
+            if (args.Count() > 1)//
             {
                 logName = args[1];
             }
