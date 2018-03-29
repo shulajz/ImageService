@@ -29,21 +29,21 @@
         private void InitializeComponent()
         {
             this.eventLog1 = new System.Diagnostics.EventLog();
-            this.eventLog2 = new System.Diagnostics.EventLog();
+            //this.eventLog2 = new System.Diagnostics.EventLog();
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.eventLog2)).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)(this.eventLog2)).BeginInit();
             // 
             // ImageService
             // 
             this.ServiceName = "ImageService";
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.eventLog2)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.eventLog2)).EndInit();
 
         }
             
         #endregion
 
-        private System.Diagnostics.EventLog eventLog;
-        private System.Diagnostics.EventLog eventLog2;
+        //private System.Diagnostics.EventLog eventLog;
+        //private System.Diagnostics.EventLog eventLog2;
     }
 }

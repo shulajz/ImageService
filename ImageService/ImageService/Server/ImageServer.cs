@@ -34,19 +34,21 @@ namespace ImageService.Server
 
         }
         public void createHandler(string dirPath)
-        { 
-          IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller);
+        {
+            IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller);
             CommandRecievedEvent += handler.OnCommandRecieved;
             handler.DirectoryCloseEvent += onCloseServer;
         }
 
-        public void  sendCommand() {
+        public void sendCommand()
+        {
 
-           // CommandRecievedEvent(*, CommandRecievedEvent); //– closes handlers
+            // CommandRecievedEvent(*, CommandRecievedEvent); //– closes handlers
 
 
-        } 
-        public void  onCloseServer(object sender, DirectoryCloseEventArgs e) {
+        }
+        public void onCloseServer(object sender, DirectoryCloseEventArgs e)
+        {
             if (sender is DirectoyHandler)
             {
                 DirectoyHandler handler = (DirectoyHandler)sender;
@@ -55,9 +57,9 @@ namespace ImageService.Server
                 //CommandRecievedEvent -= handler.closeHandler;
             }
 
-        } 
+        }
 
 
 
     }
-    }
+}
