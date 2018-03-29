@@ -34,7 +34,7 @@ namespace ImageService.Modal
         {
             try
             {
-                //create the directory if its not created already
+                //create the directory if its not created already.
                 System.IO.Directory.CreateDirectory(m_OutputFolder);
                 m_logging.Log("Directory was created successfully", MessageTypeEnum.INFO);
                 DateTime creation = File.GetCreationTime(path);
