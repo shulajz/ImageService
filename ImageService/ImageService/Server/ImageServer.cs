@@ -2,7 +2,6 @@
 using ImageService.Controller.Handlers;
 using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
-using ImageService.Logging.Modal;
 using ImageService.Modal;
 using System;
 using System.Collections.Generic;
@@ -25,14 +24,12 @@ namespace ImageService.Server
 
         public ImageServer(ILoggingService mLogging, string[] pathsForHandlers, string outputDir, int thumbnails)
         {
-            m_logging.Log("Server Ct'or", MessageTypeEnum.FAIL);
             m_logging = mLogging;
-            ImageServiceModal imageServiceModal = new ImageServiceModal(outputDir, thumbnails);
+            ImageServiceModal imageServiceModal = new ImageServiceModal(outputDir, thumbnails, m_logging);
             m_controller = new ImageController(imageServiceModal);
             foreach (string path in pathsForHandlers)
             {
-                createHandler(path);
-                m_logging.Log(path, MessageTypeEnum.FAIL);
+                createHandler(path);//create
             }
 
         }

@@ -22,10 +22,11 @@ namespace ImageService.Modal
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
         private ILoggingService m_logging;
 
-        public ImageServiceModal(string outPutFolder, int thumbnailSize)
+        public ImageServiceModal(string outPutFolder, int thumbnailSize, ILoggingService logging)
         {
             m_OutputFolder = outPutFolder;
             m_thumbnailSize = thumbnailSize;
+            m_logging = logging;
         }
 
 
