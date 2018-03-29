@@ -10,7 +10,7 @@ using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System.Text.RegularExpressions;
-
+using System.Diagnostics;
 
 namespace ImageService.Controller.Handlers
 {
@@ -20,16 +20,17 @@ namespace ImageService.Controller.Handlers
         private IImageController m_controller;              // The Image Processing Controller
         private ILoggingService m_logging;
         private FileSystemWatcher m_dirWatcher;             // The Watcher of the Dir
-        private string m_path;                              // The Path of directory
+        private string m_path;// The Path of directory
         #endregion
 
         public event EventHandler<DirectoryCloseEventArgs> DirectoryCloseEvent;              // The Event That Notifies that the Directory is being closed
 
         public DirectoyHandler(string dirPath, IImageController controller)
         {
-            m_dirWatcher = new FileSystemWatcher(dirPath);
-            
-            m_logging.Log("handlerCt'or", MessageTypeEnum.FAIL);
+
+            m_dirWatcher = new FileSystemWatcher();
+
+            m_dirWatcher.Path = dirPath;
             m_controller = controller;
             m_path = dirPath;
             StartHandleDirectory(dirPath);
@@ -39,6 +40,7 @@ namespace ImageService.Controller.Handlers
         public void StartHandleDirectory(string dirPath)
         {
             m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
+            m_dirWatcher.EnableRaisingEvents = true;
 
         }
         //A command from the server, for now - just "close" command
