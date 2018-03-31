@@ -72,7 +72,6 @@ namespace ImageService
                 serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
                 serviceStatus.dwWaitHint = 100000;
                 SetServiceStatus(this.ServiceHandle, ref serviceStatus);
-                //eventLog1.WriteEntry("5");
                 eventLog1.WriteEntry("In OnStart");
                 // Set up a timer to trigger every minute.  
                 System.Timers.Timer timer = new System.Timers.Timer();
@@ -89,13 +88,11 @@ namespace ImageService
                 string logName = ConfigurationManager.AppSettings["LogName"];
                 string outPutDir = ConfigurationManager.AppSettings["OutputDir"];
                 int thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
-                eventLog1.WriteEntry("1");
-                string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
-                eventLog1.WriteEntry("2");
-                logging = new LoggingService();
-                eventLog1.WriteEntry("3");
-                m_imageServer = new ImageServer(logging, arrHandlers, outPutDir, thumbnailSize);
-                eventLog1.WriteEntry("4");
+                
+                string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');      
+                logging = new LoggingService();           
+                m_imageServer = new ImageServer(logging,arrHandlers, outPutDir, thumbnailSize);
+              
                 logging.MessageRecievedEvent += onMsg;
             }
             catch (Exception ex)
