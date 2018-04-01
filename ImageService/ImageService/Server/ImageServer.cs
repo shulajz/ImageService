@@ -31,10 +31,9 @@ namespace ImageService.Server
           
             foreach (string path in pathsForHandlers)
             {
-
+                m_logging.Log("this dir add to be handler:"+path, Logging.Modal.MessageTypeEnum.INFO);
                 createHandler(path);//create
             }
-            m_logging.Log("3", Logging.Modal.MessageTypeEnum.INFO);
 
         }
         public void createHandler(string dirPath)

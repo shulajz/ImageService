@@ -21,9 +21,11 @@ namespace ImageService.Modal
         private string m_OutputFolder;            // The Output Folder
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
         private ILoggingService m_logging;
+        private string m_thumbnailDirFolderName;
 
         public ImageServiceModal(string outPutFolder, int thumbnailSize, ILoggingService logging)
         {
+            m_thumbnailDirFolderName = "Thumbnails";
             m_OutputFolder = outPutFolder;
             m_thumbnailSize = thumbnailSize;
             m_logging = logging;
@@ -34,6 +36,7 @@ namespace ImageService.Modal
         {
             try
             {
+
                 //create the directory if its not created already
                 System.IO.Directory.CreateDirectory(m_OutputFolder);
 
@@ -96,4 +99,5 @@ namespace ImageService.Modal
         #endregion
 
     }
+    
 }

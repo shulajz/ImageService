@@ -39,8 +39,9 @@ namespace ImageService
         {
             
             InitializeComponent();
-            string eventSourceName = "MySource";
-            string logName = "MyNewLog";
+            //read frop appconfig
+            string eventSourceName = "MySource1";
+            string logName = "MyLogFile1";
             if (args.Count() > 0)
             {
                 eventSourceName = args[0];
@@ -54,10 +55,8 @@ namespace ImageService
             {
                 System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
             }
-            eventLog1.Source = eventSourceName;
-            eventLog1.Log = logName;
-
-
+            eventLog1.Source = ConfigurationManager.AppSettings["SourceName"];
+            eventLog1.Log = ConfigurationManager.AppSettings["LogName"];
         }
 
 
@@ -66,7 +65,7 @@ namespace ImageService
         {
             try
             {
-                //eventLog1.WriteEntry("123");
+                
                 // Update the service state to Start Pending.  
                 ServiceStatus serviceStatus = new ServiceStatus();
                 serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
@@ -83,21 +82,21 @@ namespace ImageService
                 serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
                 SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-                //appconfig
-                string eventSourceName = ConfigurationManager.AppSettings["SourceName"];
-                string logName = ConfigurationManager.AppSettings["LogName"];
+                //read frop appconfig
                 string outPutDir = ConfigurationManager.AppSettings["OutputDir"];
                 int thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
-                
-                string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');      
-                logging = new LoggingService();           
-                m_imageServer = new ImageServer(logging,arrHandlers, outPutDir, thumbnailSize);
-              
+                string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+                //create the LoggingService
+                logging = new LoggingService();
                 logging.MessageRecievedEvent += onMsg;
+
+                //create the ImageServer         
+                m_imageServer = new ImageServer(logging,arrHandlers, outPutDir, thumbnailSize);
+               
+
             }
             catch (Exception ex)
             {
-
                 eventLog1.WriteEntry(ex.Message);
             }
 
@@ -107,7 +106,6 @@ namespace ImageService
         private void onMsg(object sender, MessageRecievedEventArgs e)
         {
             eventLog1.WriteEntry(e.m_message);  
-            //Console.WriteLine($"Player moved in direction: {eventLog1.WriteEntry(e.m_message)}");
         }
 
         protected override void OnStop()
