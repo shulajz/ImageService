@@ -39,15 +39,16 @@ namespace ImageService.Server
         public void createHandler(string dirPath)
         {
             IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller);
-
+            m_logging.Log("createHandler" , Logging.Modal.MessageTypeEnum.INFO);
             CommandRecievedEvent += handler.OnCommandRecieved;
+            handler.DirectoryCloseEvent += onCloseServer;
         }
 
         public void sendCommand()
         {
-
+            
             // CommandRecievedEvent(*, CommandRecievedEvent); //– closes handlers
-
+            //CommandRecievedEvent?.Invoke(this, new CommandRecievedEventArgs(commandID, args, path));
 
         }
         public void onCloseServer(object sender, DirectoryCloseEventArgs e)

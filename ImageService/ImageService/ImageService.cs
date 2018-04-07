@@ -88,11 +88,14 @@ namespace ImageService
                 string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
                 //create the LoggingService
                 logging = new LoggingService();
+                eventLog1.WriteEntry("1");
                 logging.MessageRecievedEvent += onMsg;
+                eventLog1.WriteEntry("2");
 
                 //create the ImageServer         
                 m_imageServer = new ImageServer(logging,arrHandlers, outPutDir, thumbnailSize);
-               
+                eventLog1.WriteEntry("3");
+
 
             }
             catch (Exception ex)
