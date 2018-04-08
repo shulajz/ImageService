@@ -85,7 +85,7 @@ namespace ImageService.Controller.Handlers
         }
 
         //close FileSystemWatcher and invoke onClose event
-        public void closeHandler()
+        public void closeHandler(object sender, CommandRecievedEventArgs e) 
         {
             //DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(e));
         }

@@ -50,7 +50,7 @@ namespace ImageService.Modal
                 System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + year + "\\" + month);
                 m_logging.Log("month folder was created successfully", MessageTypeEnum.INFO);
                 string fName = Path.GetFileName(path);
-                File.Copy(path, m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName);
+                File.Move(path, m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName);
                 m_logging.Log("picture was copied successfully", MessageTypeEnum.INFO);
                 //thumbnails
                 //create the folder if its not already created
@@ -71,7 +71,7 @@ namespace ImageService.Modal
 
 
 
-                thumb.Save(Path.ChangeExtension(m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month + "\\" + fName, ""));
+                thumb.Save(Path.ChangeExtension(m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month + "\\" + fName, "thumb"));
 
                 string newPath = m_OutputFolder + "\\" + year + "\\" + month;
                 result = true;
