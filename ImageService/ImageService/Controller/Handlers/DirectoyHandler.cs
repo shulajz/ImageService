@@ -56,7 +56,7 @@ namespace ImageService.Controller.Handlers
                     //close
                     closeHandler();
                 } else if (e.CommandID == (int)CommandEnum.NewFileCommand) {
-
+                //
                     string resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, e.Args, out result);
                     // the string will return the new path if result = true,
                     //and will return the error message if the result = false
