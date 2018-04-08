@@ -80,7 +80,6 @@ namespace ImageService.Modal
             catch (Exception exp)
             {
                 result = false;
-                Console.WriteLine(exp.Message);
                 return exp.Message;
             }
 

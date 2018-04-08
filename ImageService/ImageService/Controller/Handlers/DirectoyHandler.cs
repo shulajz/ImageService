@@ -25,21 +25,19 @@ namespace ImageService.Controller.Handlers
 
         public event EventHandler<DirectoryCloseEventArgs> DirectoryCloseEvent;              // The Event That Notifies that the Directory is being closed
 
-        public DirectoyHandler(string dirPath, IImageController controller)
+        public DirectoyHandler(string dirPath, IImageController controller, ILoggingService mLogging)
         {
-
-            m_dirWatcher = new FileSystemWatcher();
-
-            m_dirWatcher.Path = dirPath;
+            m_logging = mLogging;
             m_controller = controller;
             m_path = dirPath;
+            m_dirWatcher = new FileSystemWatcher();
             StartHandleDirectory(dirPath);
-
         }
 
         public void StartHandleDirectory(string dirPath)
         {
-          
+       
+            m_dirWatcher.Path = dirPath;
             m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
             m_dirWatcher.EnableRaisingEvents = true;
 
@@ -47,13 +45,31 @@ namespace ImageService.Controller.Handlers
         //A command from the server, for now - just "close" command
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
-            
-            if (e.RequestDirPath == m_path) {
-                closeHandler();
-              //close
-            }
+            bool result;
             //check if command is meant for its directory, 
             //if yes – handle command (for now will just be to close handler)};
+         
+
+                //check if the command is close
+                if (e.CommandID == (int)CommandEnum.CloseCommand)
+                {
+                    //close
+                    closeHandler();
+                } else if (e.CommandID == (int)CommandEnum.NewFileCommand) {
+
+                    string resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, e.Args, out result);
+                    // the string will return the new path if result = true,
+                    //and will return the error message if the result = false
+                    if (result == false) 
+                    {
+                        m_logging.Log(resultOfCommand, MessageTypeEnum.FAIL);
+                    }else
+                    {
+                        m_logging.Log("copy image from " + m_path + " to "+resultOfCommand,MessageTypeEnum.INFO);
+                    }
+                }
+            
+
         }
 
         //command within the handler, when a file is created
@@ -61,32 +77,25 @@ namespace ImageService.Controller.Handlers
         {
             // get the file's extension 
             Regex rgx = new Regex(@"(\.bmp$|\.png$|\.jpg$|\.gif$)");
-            Match m = rgx.Match(e.FullPath);
-            bool result;
-
+            Match m = rgx.Match(e.FullPath.ToLower());
+         
             if (m.Success)
-            {
-                //CommandRecievedEventArgs(int id, string[] args, string path
+            {   
                 string[] paths = { e.FullPath };
-                CommandRecievedEventArgs e1 = new CommandRecievedEventArgs(
-                    (int)CommandEnum.NewFileCommand, paths, m_path);
-                string resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, paths, out result);
-                //OnCommandRecieved(this, e1);
-                if (result == false)
-                {
-                    m_logging.Log(resultOfCommand, MessageTypeEnum.FAIL);
-                }
-                
-
+                CommandRecievedEventArgs eventArgs = new CommandRecievedEventArgs(
+                    (int)CommandEnum.NewFileCommand, paths, null);
+                m_logging.Log("relevant file created in directory " + m_path, MessageTypeEnum.INFO);
+                OnCommandRecieved(this, eventArgs);
             }
-   
         }
 
         //close FileSystemWatcher and invoke onClose event
         public void closeHandler()
         {
-           m_dirWatcher.EnableRaisingEvents = false;
-           DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(m_path,"Directory close"));
+                m_dirWatcher.EnableRaisingEvents = false;
+                m_dirWatcher.Created -= new FileSystemEventHandler(OnCreated);
+                DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(m_path, "close handler at path " + m_path));
+
         }
     }
 }

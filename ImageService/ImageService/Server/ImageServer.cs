@@ -17,57 +17,47 @@ namespace ImageService.Server
         #region Members
         private IImageController m_controller;
         private ILoggingService m_logging;
-        private List<IDirectoryHandler> handlerList;
         #endregion
 
         #region Properties
         public event EventHandler<CommandRecievedEventArgs> CommandRecievedEvent;  // The event that notifies about a new Command being recieved
         #endregion
 
-        public ImageServer(ILoggingService mLogging, string[] pathsForHandlers, string outputDir, int thumbnails)
+        public ImageServer(ILoggingService mLogging, string[] arrHandlers, string outputDir, int thumbnails)
         {
             m_logging = mLogging;
-            handlerList = new List<IDirectoryHandler>();
             ImageServiceModal imageServiceModal = new ImageServiceModal(outputDir, thumbnails, m_logging);
             m_controller = new ImageController(imageServiceModal);
-          
-            foreach (string path in pathsForHandlers)
+            foreach (string path in arrHandlers)
             {
-                m_logging.Log("this dir add to be handler:"+path, Logging.Modal.MessageTypeEnum.INFO);
-                createHandler(path);//create
+               createHandler(path);//create
             }
 
         }
         public void createHandler(string dirPath)
         {
-            IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller);
-            handlerList.Add(handler);
+            IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller,m_logging);
             CommandRecievedEvent += handler.OnCommandRecieved;
             handler.DirectoryCloseEvent += onCloseServer;
+            m_logging.Log("this dir add to be handler:" + dirPath, Logging.Modal.MessageTypeEnum.INFO);
         }
 
-        public void sendCommand()
-        {
-            foreach (IDirectoryHandler handler in handlerList)
-            {
-                CommandRecievedEvent?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CloseCommand,,)); //– closes handlers
-
-            }
+        public void sendCommand(CommandRecievedEventArgs eventArgs)
+        { 
+                CommandRecievedEvent?.Invoke(this, eventArgs); //– closes handlers  
         }
+
+        ////– handler will call this function to tell server it closed
         public void onCloseServer(object sender, DirectoryCloseEventArgs e)
         {
             if (sender is DirectoyHandler)
             {
                 DirectoyHandler handler = (DirectoyHandler)sender;
                 CommandRecievedEvent -= handler.OnCommandRecieved;
-                ////– handler will call this function to tell server it closed
-                //CommandRecievedEvent -= handler.closeHandler;
+                handler.DirectoryCloseEvent -= onCloseServer;
                 m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
             }
 
         }
-
-
-
     }
 }

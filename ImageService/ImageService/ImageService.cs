@@ -15,7 +15,7 @@ using ImageService.Controller;
 using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System.Configuration;
-
+using ImageService.Infrastructure.Enums;
 
 namespace ImageService
 {
@@ -92,8 +92,7 @@ namespace ImageService
                 logging.MessageRecievedEvent += onMsg;
 
                 //create the ImageServer         
-                m_imageServer = new ImageServer(logging,arrHandlers, outPutDir, thumbnailSize);
-               
+                m_imageServer = new ImageServer(logging ,arrHandlers,outPutDir, thumbnailSize);
 
             }
             catch (Exception ex)
@@ -112,7 +111,7 @@ namespace ImageService
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");
-            m_imageServer.sendCommand();
+            m_imageServer.sendCommand(new CommandRecievedEventArgs((int)CommandEnum.CloseCommand,null,null));
         }
 
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
