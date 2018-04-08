@@ -31,7 +31,6 @@ namespace ImageService.Server
           
             foreach (string path in pathsForHandlers)
             {
-                m_logging.Log("this dir add to be handler:"+path, Logging.Modal.MessageTypeEnum.INFO);
                 createHandler(path);//create
             }
 
@@ -39,8 +38,8 @@ namespace ImageService.Server
         public void createHandler(string dirPath)
         {
             IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller);
-
             CommandRecievedEvent += handler.OnCommandRecieved;
+            handler.DirectoryCloseEvent += onCloseServer;
         }
 
         public void sendCommand()
@@ -54,10 +53,11 @@ namespace ImageService.Server
         {
             if (sender is DirectoyHandler)
             {
-                DirectoyHandler handler = (DirectoyHandler)sender;
+                IDirectoryHandler handler = (IDirectoryHandler)sender;
                 CommandRecievedEvent -= handler.OnCommandRecieved;
                 ////– handler will call this function to tell server it closed
-                //CommandRecievedEvent -= handler.closeHandler;
+                CommandRecievedEvent -= handler.closeHandler;
+                m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
             }
 
         }

@@ -59,7 +59,7 @@ namespace ImageService
             eventLog1.Log = ConfigurationManager.AppSettings["LogName"];
         }
 
-
+        
         //Here You will use app config
         protected override void OnStart(string[] args)
         {
