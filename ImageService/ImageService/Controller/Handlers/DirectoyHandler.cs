@@ -11,6 +11,7 @@ using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using ImageService.Server;
 
 namespace ImageService.Controller.Handlers
 {
@@ -41,19 +42,20 @@ namespace ImageService.Controller.Handlers
         {
             m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
             m_dirWatcher.EnableRaisingEvents = true;
+            m_logging.Log("StartHandleDirectory", MessageTypeEnum.INFO);
 
         }
-
         //A command from the server, for now - just "close" command
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
+
+            if (e.RequestDirPath == m_path)
+            {
+                //close
+
+            }
             //check if command is meant for its directory, 
             //if yes – handle command (for now will just be to close handler)};
-            if (e.RequestDirPath == m_path) {
-                //close
-                closeHandler(this, e);     
-            }
-
         }
 
         //command within the handler, when a file is created
@@ -66,24 +68,26 @@ namespace ImageService.Controller.Handlers
 
             if (m.Success)
             {
-                
+                //CommandRecievedEventArgs(int id, string[] args, string path
                 string[] paths = { e.FullPath };
                 CommandRecievedEventArgs e1 = new CommandRecievedEventArgs(
                     (int)CommandEnum.NewFileCommand, paths, m_path);
                 string resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, paths, out result);
+                //OnCommandRecieved(this, e1);
                 if (result == false)
                 {
                     m_logging.Log(resultOfCommand, MessageTypeEnum.FAIL);
                 }
+                
+
             }
    
         }
 
         //close FileSystemWatcher and invoke onClose event
-        public void closeHandler(object sender, CommandRecievedEventArgs e)
+        public void closeHandler()
         {
-            m_dirWatcher.EnableRaisingEvents = false;
-            DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(e.RequestDirPath, "CloseCommand"));//need to change
+            //DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(e));
         }
     }
 }
