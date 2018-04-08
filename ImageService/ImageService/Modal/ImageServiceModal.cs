@@ -36,7 +36,7 @@ namespace ImageService.Modal
         {
             try
             {
-
+                m_logging.Log("23", MessageTypeEnum.INFO);
                 //create the directory if its not created already
                 System.IO.Directory.CreateDirectory(m_OutputFolder);
 
