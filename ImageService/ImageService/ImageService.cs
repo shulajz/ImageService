@@ -19,6 +19,7 @@ using System.Configuration;
 
 namespace ImageService
 {
+    //
     public partial class ImageService : ServiceBase
     {
         private ImageServer m_imageServer;          // The Image Server
