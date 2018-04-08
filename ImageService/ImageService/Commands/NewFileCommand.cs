@@ -17,7 +17,6 @@ namespace ImageService.Commands
         public NewFileCommand(IImageServiceModal modal)
         {
    
-            
             m_modal = modal;            // Storing the Modal
         }
 
