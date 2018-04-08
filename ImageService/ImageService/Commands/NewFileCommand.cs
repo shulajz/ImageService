@@ -17,6 +17,7 @@ namespace ImageService.Commands
         public NewFileCommand(IImageServiceModal modal)
         {
    
+            
             m_modal = modal;            // Storing the Modal
         }
 
@@ -24,10 +25,12 @@ namespace ImageService.Commands
         public string Execute(string[] args, out bool result)
         {
             {
-                // the string will return the new path if result = true, and will return the error message
                 return m_modal.AddFile(args[0], out result);
-           
-                
+                //  if(result == true)
+                //  {
+
+                //  }
+                // the string will return the new path if result = true, and will return the error message
                 
             }
         }
