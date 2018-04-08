@@ -35,7 +35,8 @@ namespace ImageService.Modal
         public string AddFile(string path, out bool result)
         {
             try
-            {
+            
+                //
                 m_logging.Log("23", MessageTypeEnum.INFO);
                 //create the directory if its not created already
                 System.IO.Directory.CreateDirectory(m_OutputFolder);
