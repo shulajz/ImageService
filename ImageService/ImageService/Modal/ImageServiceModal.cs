@@ -20,7 +20,7 @@ namespace ImageService.Modal
         #region Members
         private string m_OutputFolder;            // The Output Folder
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
-        private ILoggingService m_logging;
+        private ILoggingService m_logging;//
         private string m_thumbnailDirFolderName;
 
         public ImageServiceModal(string outPutFolder, int thumbnailSize, ILoggingService logging)
@@ -39,7 +39,7 @@ namespace ImageService.Modal
 
                 //create the directory if its not created already
                 System.IO.Directory.CreateDirectory(m_OutputFolder);
-
+                //
                 DateTime creation = File.GetCreationTime(path);
                 int year = creation.Year;
                 // check if this year exist, if not - creats it

@@ -22,7 +22,7 @@ namespace ImageService.Server
         #region Properties
         public event EventHandler<CommandRecievedEventArgs> CommandRecievedEvent;  // The event that notifies about a new Command being recieved
         #endregion
-
+        //
         public ImageServer(ILoggingService mLogging, string[] pathsForHandlers, string outputDir, int thumbnails)
         {
             m_logging = mLogging;
