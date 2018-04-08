@@ -3,8 +3,8 @@ using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System;
 using System.Collections.Generic;
-//using System.Drawing;
-//using System.Drawing.Imaging;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -37,41 +37,24 @@ namespace ImageService.Modal
             try
             {
 
-                //create the directory if its not created already
-                System.IO.Directory.CreateDirectory(m_OutputFolder);
-
                 DateTime creation = File.GetCreationTime(path);
                 int year = creation.Year;
-                // check if this year exist, if not - creats it
-                System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + year);
-
                 int month = creation.Month;
-                // check if this month exist, if not - creats it
-                System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + year + "\\" + month);
+                
+                createFolderHierarchy(m_OutputFolder, year, month);
 
                 string fName = Path.GetFileName(path);
                 File.Copy(path, m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName);
 
                 //thumbnails
-                //create the folder if its not already created
-                System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + "Thumbnails");
-
-                // check if this year exist, if not creats it
-                System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" +
-                    "Thumbnails" + "\\" + year);
-                // check if this month exist, if not - creats it
-                System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" +
-                      +month);
-
+                createFolderHierarchy(m_OutputFolder + "\\" + m_thumbnailDirFolderName, year, month);
 
                 System.Drawing.Image image = System.Drawing.Image.FromFile(path);
 
                 System.Drawing.Image thumb = image.GetThumbnailImage(
                     m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
 
-
-
-                thumb.Save(Path.ChangeExtension(m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month + "\\" + fName, ""));
+                thumb.Save(Path.ChangeExtension(m_OutputFolder + "\\" + m_thumbnailDirFolderName + "\\" + year + "\\" + month + "\\" + fName, "thumb"));
 
                 string newPath = m_OutputFolder + "\\" + year + "\\" + month;
                 result = true;
@@ -84,6 +67,19 @@ namespace ImageService.Modal
             }
 
         }
+
+        public void createFolderHierarchy(string path, int year, int month)
+        {
+            //create the directory if its not created already
+            System.IO.Directory.CreateDirectory(path);
+            
+            // check if this year exist, if not - creats it
+            System.IO.Directory.CreateDirectory(path + "\\" + year);
+
+            // check if this month exist, if not - creats it
+            System.IO.Directory.CreateDirectory(path + "\\" + year + "\\" + month);
+
+        } 
 
         public Stream GenerateStreamFromString(string s)
         {

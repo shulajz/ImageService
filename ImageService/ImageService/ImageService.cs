@@ -90,9 +90,10 @@ namespace ImageService
                 //create the LoggingService
                 logging = new LoggingService();
                 logging.MessageRecievedEvent += onMsg;
-
+                modal = new ImageServiceModal(outPutDir, thumbnailSize, logging);
+                controller = new ImageController(modal);
                 //create the ImageServer         
-                m_imageServer = new ImageServer(logging ,arrHandlers,outPutDir, thumbnailSize);
+                m_imageServer = new ImageServer(logging ,arrHandlers,controller);
 
             }
             catch (Exception ex)

@@ -23,11 +23,11 @@ namespace ImageService.Server
         public event EventHandler<CommandRecievedEventArgs> CommandRecievedEvent;  // The event that notifies about a new Command being recieved
         #endregion
 
-        public ImageServer(ILoggingService mLogging, string[] arrHandlers, string outputDir, int thumbnails)
+        public ImageServer(ILoggingService mLogging, string[] arrHandlers, IImageController mController)
         {
             m_logging = mLogging;
-            ImageServiceModal imageServiceModal = new ImageServiceModal(outputDir, thumbnails, m_logging);
-            m_controller = new ImageController(imageServiceModal);
+            m_controller = mController;
+
             foreach (string path in arrHandlers)
             {
                createHandler(path);//create

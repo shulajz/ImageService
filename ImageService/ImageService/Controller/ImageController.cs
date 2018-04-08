@@ -26,6 +26,7 @@ namespace ImageService.Controller
         
             };
         }
+        //to check if need new task(thread)
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
             ICommand commandObj = commands[commandID];

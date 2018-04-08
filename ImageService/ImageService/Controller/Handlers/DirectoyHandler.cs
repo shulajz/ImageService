@@ -20,10 +20,10 @@ namespace ImageService.Controller.Handlers
         private IImageController m_controller;              // The Image Processing Controller
         private ILoggingService m_logging;
         private FileSystemWatcher m_dirWatcher;             // The Watcher of the Dir
-        private string m_path;// The Path of directory
+        private string m_path;                              // The Path of directory
         #endregion
 
-        public event EventHandler<DirectoryCloseEventArgs> DirectoryCloseEvent;              // The Event That Notifies that the Directory is being closed
+        public event EventHandler<DirectoryCloseEventArgs> DirectoryCloseEvent;  // The Event That Notifies that the Directory is being closed
 
         public DirectoyHandler(string dirPath, IImageController controller, ILoggingService mLogging)
         {
@@ -48,26 +48,24 @@ namespace ImageService.Controller.Handlers
             bool result;
             //check if command is meant for its directory, 
             //if yes – handle command (for now will just be to close handler)};
-         
-
-                //check if the command is close
-                if (e.CommandID == (int)CommandEnum.CloseCommand)
+       
+            //check if the command is close
+            if (e.CommandID == (int)CommandEnum.CloseCommand)
+            {
+               //close
+               closeHandler();
+            } else if (e.CommandID == (int)CommandEnum.NewFileCommand) {
+               //
+               string resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, e.Args, out result);
+                // the string will return the new path if result = true,
+                //and will return the error message if the result = false
+                if (result == false) 
                 {
-                    //close
-                    closeHandler();
-                } else if (e.CommandID == (int)CommandEnum.NewFileCommand) {
-                //
-                    string resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, e.Args, out result);
-                    // the string will return the new path if result = true,
-                    //and will return the error message if the result = false
-                    if (result == false) 
-                    {
-                        m_logging.Log(resultOfCommand, MessageTypeEnum.FAIL);
-                    }else
-                    {
-                        m_logging.Log("copy image from " + m_path + " to "+resultOfCommand,MessageTypeEnum.INFO);
-                    }
+                    m_logging.Log(resultOfCommand, MessageTypeEnum.FAIL);
+                }else {
+                    m_logging.Log("copy image from " + m_path + " to "+resultOfCommand,MessageTypeEnum.INFO);
                 }
+            }
             
 
         }
@@ -92,9 +90,10 @@ namespace ImageService.Controller.Handlers
         //close FileSystemWatcher and invoke onClose event
         public void closeHandler()
         {
-                m_dirWatcher.EnableRaisingEvents = false;
-                m_dirWatcher.Created -= new FileSystemEventHandler(OnCreated);
-                DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(m_path, "close handler at path " + m_path));
+            m_dirWatcher.EnableRaisingEvents = false;
+            m_dirWatcher.Created -= new FileSystemEventHandler(OnCreated);
+            m_dirWatcher.Dispose();
+            DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(m_path, "close handler at path " + m_path));
 
         }
     }
