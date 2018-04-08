@@ -30,7 +30,7 @@ namespace ImageService.Controller.Handlers
         {
 
             m_dirWatcher = new FileSystemWatcher();
-            m_logging.Log("DirectoyHandler", Logging.Modal.MessageTypeEnum.INFO);
+
             m_dirWatcher.Path = dirPath;
             m_controller = controller;
             m_path = dirPath;
@@ -85,7 +85,7 @@ namespace ImageService.Controller.Handlers
         }
 
         //close FileSystemWatcher and invoke onClose event
-        public void closeHandler(object sender, CommandRecievedEventArgs e)
+        public void closeHandler(object sender, CommandRecievedEventArgs e) 
         {
             //DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(e));
         }
