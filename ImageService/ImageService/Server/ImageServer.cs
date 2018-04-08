@@ -17,6 +17,7 @@ namespace ImageService.Server
         #region Members
         private IImageController m_controller;
         private ILoggingService m_logging;
+        private List<IDirectoryHandler> handlerList;
         #endregion
 
         #region Properties
@@ -26,12 +27,13 @@ namespace ImageService.Server
         public ImageServer(ILoggingService mLogging, string[] pathsForHandlers, string outputDir, int thumbnails)
         {
             m_logging = mLogging;
+            handlerList = new List<IDirectoryHandler>();
             ImageServiceModal imageServiceModal = new ImageServiceModal(outputDir, thumbnails, m_logging);
             m_controller = new ImageController(imageServiceModal);
           
             foreach (string path in pathsForHandlers)
             {
-                m_logging.Log("this dir add to be handler:" + path, Logging.Modal.MessageTypeEnum.INFO);
+                m_logging.Log("this dir add to be handler:"+path, Logging.Modal.MessageTypeEnum.INFO);
                 createHandler(path);//create
             }
 
@@ -39,16 +41,18 @@ namespace ImageService.Server
         public void createHandler(string dirPath)
         {
             IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller);
+            handlerList.Add(handler);
             CommandRecievedEvent += handler.OnCommandRecieved;
             handler.DirectoryCloseEvent += onCloseServer;
         }
 
         public void sendCommand()
         {
+            foreach (IDirectoryHandler handler in handlerList)
+            {
+                CommandRecievedEvent?.Invoke(this, new CommandRecievedEventArgs((int)CommandEnum.CloseCommand,,)); //– closes handlers
 
-            // CommandRecievedEvent(*, CommandRecievedEvent); //– closes handlers
-
-
+            }
         }
         public void onCloseServer(object sender, DirectoryCloseEventArgs e)
         {
@@ -58,6 +62,7 @@ namespace ImageService.Server
                 CommandRecievedEvent -= handler.OnCommandRecieved;
                 ////– handler will call this function to tell server it closed
                 //CommandRecievedEvent -= handler.closeHandler;
+                m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
             }
 
         }

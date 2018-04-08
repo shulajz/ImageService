@@ -39,6 +39,7 @@ namespace ImageService.Controller.Handlers
 
         public void StartHandleDirectory(string dirPath)
         {
+          
             m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
             m_dirWatcher.EnableRaisingEvents = true;
 
@@ -48,6 +49,7 @@ namespace ImageService.Controller.Handlers
         {
             
             if (e.RequestDirPath == m_path) {
+                closeHandler();
               //close
             }
             //check if command is meant for its directory, 
@@ -83,7 +85,8 @@ namespace ImageService.Controller.Handlers
         //close FileSystemWatcher and invoke onClose event
         public void closeHandler()
         {
-            //DirectoryClose?.Invoke(this, new DirectoryCloseEventArgs(e));
+           m_dirWatcher.EnableRaisingEvents = false;
+           DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(m_path,"Directory close"));
         }
     }
 }
