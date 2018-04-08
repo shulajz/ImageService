@@ -33,21 +33,24 @@ namespace ImageService.Server
             {
                 m_logging.Log("this dir add to be handler:"+path, Logging.Modal.MessageTypeEnum.INFO);
                 createHandler(path);//create
+                //m_logging.Log("1a:", Logging.Modal.MessageTypeEnum.INFO);
+
             }
 
         }
         public void createHandler(string dirPath)
         {
             IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller);
-
+            m_logging.Log("createHandler" , Logging.Modal.MessageTypeEnum.INFO);
             CommandRecievedEvent += handler.OnCommandRecieved;
+            handler.DirectoryCloseEvent += onCloseServer;
         }
 
         public void sendCommand()
         {
-
+            
             // CommandRecievedEvent(*, CommandRecievedEvent); //– closes handlers
-
+            //CommandRecievedEvent?.Invoke(this, new CommandRecievedEventArgs(commandID, args, path));
 
         }
         public void onCloseServer(object sender, DirectoryCloseEventArgs e)

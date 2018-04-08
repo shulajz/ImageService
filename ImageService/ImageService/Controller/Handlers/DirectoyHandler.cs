@@ -11,6 +11,7 @@ using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using ImageService.Server;
 
 namespace ImageService.Controller.Handlers
 {
@@ -39,16 +40,23 @@ namespace ImageService.Controller.Handlers
 
         public void StartHandleDirectory(string dirPath)
         {
+            m_logging.Log("StartHandleDirectory1", MessageTypeEnum.INFO);
+
             m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
+            m_logging.Log("StartHandleDirectory2", MessageTypeEnum.INFO);
+
             m_dirWatcher.EnableRaisingEvents = true;
+            m_logging.Log("StartHandleDirectory3", MessageTypeEnum.INFO);
 
         }
         //A command from the server, for now - just "close" command
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
-            
-            if (e.RequestDirPath == m_path) {
-              //close
+
+            if (e.RequestDirPath == m_path)
+            {
+                //close
+
             }
             //check if command is meant for its directory, 
             //if yes – handle command (for now will just be to close handler)};
@@ -81,9 +89,9 @@ namespace ImageService.Controller.Handlers
         }
 
         //close FileSystemWatcher and invoke onClose event
-        public void closeHandler()
+        public void closeHandler(object sender, CommandRecievedEventArgs e) 
         {
-            //DirectoryClose?.Invoke(this, new DirectoryCloseEventArgs(e));
+            //DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(e));
         }
     }
 }
