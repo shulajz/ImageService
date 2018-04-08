@@ -25,6 +25,7 @@ namespace ImageService
         private IImageServiceModal modal;
         private IImageController controller;
         private ILoggingService logging;
+       
 
 
         private System.ComponentModel.IContainer components;
@@ -111,6 +112,7 @@ namespace ImageService
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");
+            m_imageServer.sendCommand();
         }
 
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
