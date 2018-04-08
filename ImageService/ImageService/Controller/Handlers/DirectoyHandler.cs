@@ -40,9 +40,13 @@ namespace ImageService.Controller.Handlers
 
         public void StartHandleDirectory(string dirPath)
         {
+            m_logging.Log("StartHandleDirectory1", MessageTypeEnum.INFO);
+
             m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
+            m_logging.Log("StartHandleDirectory2", MessageTypeEnum.INFO);
+
             m_dirWatcher.EnableRaisingEvents = true;
-            m_logging.Log("StartHandleDirectory", MessageTypeEnum.INFO);
+            m_logging.Log("StartHandleDirectory3", MessageTypeEnum.INFO);
 
         }
         //A command from the server, for now - just "close" command

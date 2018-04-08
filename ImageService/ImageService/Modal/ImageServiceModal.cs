@@ -39,6 +39,7 @@ namespace ImageService.Modal
 
                 //create the directory if its not created already
                 System.IO.Directory.CreateDirectory(m_OutputFolder);
+                m_logging.Log("the name of the direc is:" + m_OutputFolder, MessageTypeEnum.INFO);
                 m_logging.Log("Directory was created successfully", MessageTypeEnum.INFO);
                 DateTime creation = File.GetCreationTime(path);
                 int year = creation.Year;
@@ -50,7 +51,7 @@ namespace ImageService.Modal
                 System.IO.Directory.CreateDirectory(m_OutputFolder + "\\" + year + "\\" + month);
                 m_logging.Log("month folder was created successfully", MessageTypeEnum.INFO);
                 string fName = Path.GetFileName(path);
-                File.Move(path, m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName);
+                File.Copy(path, m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName);
                 m_logging.Log("picture was copied successfully", MessageTypeEnum.INFO);
                 //thumbnails
                 //create the folder if its not already created

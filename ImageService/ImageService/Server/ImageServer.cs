@@ -33,6 +33,8 @@ namespace ImageService.Server
             {
                 m_logging.Log("this dir add to be handler:"+path, Logging.Modal.MessageTypeEnum.INFO);
                 createHandler(path);//create
+                //m_logging.Log("1a:", Logging.Modal.MessageTypeEnum.INFO);
+
             }
 
         }
