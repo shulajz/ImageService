@@ -22,7 +22,6 @@ namespace ImageService.Server
         #region Properties
         public event EventHandler<CommandRecievedEventArgs> CommandRecievedEvent;  // The event that notifies about a new Command being recieved
         #endregion
-
         public ImageServer(ILoggingService mLogging, string[] arrHandlers, IImageController mController)
         {
             m_logging = mLogging;
@@ -34,6 +33,8 @@ namespace ImageService.Server
             }
 
         }
+        
+         
         public void createHandler(string dirPath)
         {
             IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller,m_logging);

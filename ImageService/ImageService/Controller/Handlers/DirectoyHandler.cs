@@ -45,29 +45,18 @@ namespace ImageService.Controller.Handlers
         //A command from the server, for now - just "close" command
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
-            bool result;
+            
             //check if command is meant for its directory, 
             //if yes – handle command (for now will just be to close handler)};
-       
-            //check if the command is close
-            if (e.CommandID == (int)CommandEnum.CloseCommand)
+            if (e.Args[0] == m_path)
             {
-               //close
-               closeHandler();
-            } else if (e.CommandID == (int)CommandEnum.NewFileCommand) {
-               //
-               string resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, e.Args, out result);
-                // the string will return the new path if result = true,
-                //and will return the error message if the result = false
-                if (result == false) 
+                //check if the command is close
+                if (e.CommandID == (int)CommandEnum.CloseCommand)
                 {
-                    m_logging.Log(resultOfCommand, MessageTypeEnum.FAIL);
-                }else {
-                    m_logging.Log("copy image from " + m_path + " to "+resultOfCommand,MessageTypeEnum.INFO);
+                    //close
+                    closeHandler();
                 }
             }
-            
-
         }
 
         //command within the handler, when a file is created
@@ -78,12 +67,20 @@ namespace ImageService.Controller.Handlers
             Match m = rgx.Match(e.FullPath.ToLower());
          
             if (m.Success)
-            {   
+            {
+                bool result;
                 string[] paths = { e.FullPath };
-                CommandRecievedEventArgs eventArgs = new CommandRecievedEventArgs(
-                    (int)CommandEnum.NewFileCommand, paths, null);
-                m_logging.Log("relevant file created in directory " + m_path, MessageTypeEnum.INFO);
-                OnCommandRecieved(this, eventArgs);
+                string resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, paths, out result);
+                // the string will return the new path if result = true,
+                //and will return the error message if the result = false
+                if (result == false)
+                {
+                    m_logging.Log(resultOfCommand, MessageTypeEnum.FAIL);
+                }
+                else
+                {
+                    m_logging.Log("copy image from " + m_path + " to " + resultOfCommand, MessageTypeEnum.INFO);
+                }
             }
         }
 
