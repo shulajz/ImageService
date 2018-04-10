@@ -20,7 +20,8 @@ namespace ImageService.Server
         #endregion
 
         #region Properties
-        public event EventHandler<CommandRecievedEventArgs> CommandRecievedEvent;  // The event that notifies about a new Command being recieved
+        // The event that notifies about a new Command being recieved
+        public event EventHandler<CommandRecievedEventArgs> CommandRecievedEvent;  
         #endregion
         public ImageServer(ILoggingService mLogging, string[] arrHandlers, IImageController mController)
         {
@@ -43,9 +44,10 @@ namespace ImageService.Server
             m_logging.Log("this dir add to be handler:" + dirPath, Logging.Modal.MessageTypeEnum.INFO);
         }
 
+        
         public void sendCommand(CommandRecievedEventArgs eventArgs)
         { 
-                CommandRecievedEvent?.Invoke(this, eventArgs); //– closes handlers  
+                CommandRecievedEvent?.Invoke(this, eventArgs);   
         }
 
         ////– handler will call this function to tell server it closed

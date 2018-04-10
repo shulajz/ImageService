@@ -83,7 +83,7 @@ namespace ImageService
                 serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
                 SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-                //read frop appconfig
+                //read from appconfig
                 string outPutDir = ConfigurationManager.AppSettings["OutputDir"];
                 int thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
                 string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');

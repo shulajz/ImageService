@@ -45,7 +45,7 @@ namespace ImageService.Modal
 
                 string fName = Path.GetFileName(path);
                 File.Copy(path, m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName);
-
+                m_logging.Log("picture was copied successfully", MessageTypeEnum.INFO);
                 //thumbnails
                 createFolderHierarchy(m_OutputFolder + "\\" + m_thumbnailDirFolderName, year, month);
 
@@ -54,7 +54,9 @@ namespace ImageService.Modal
                 System.Drawing.Image thumb = image.GetThumbnailImage(
                     m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
 
-                thumb.Save(Path.ChangeExtension(m_OutputFolder + "\\" + m_thumbnailDirFolderName + "\\" + year + "\\" + month + "\\" + fName, "thumb"));
+                thumb.Save(Path.ChangeExtension(m_OutputFolder + "\\" +
+                    m_thumbnailDirFolderName + "\\" + year + "\\" +
+                    month + "\\" + fName, "thumb"));
 
                 string newPath = m_OutputFolder + "\\" + year + "\\" + month;
                 result = true;
@@ -72,11 +74,14 @@ namespace ImageService.Modal
         {
             //create the directory if its not created already
             System.IO.Directory.CreateDirectory(path);
-            
+            m_logging.Log("Directory was created successfully", MessageTypeEnum.INFO);
+
             // check if this year exist, if not - creats it
             System.IO.Directory.CreateDirectory(path + "\\" + year);
+            m_logging.Log("year folder was created successfully", MessageTypeEnum.INFO);
 
             // check if this month exist, if not - creats it
+            m_logging.Log("month folder was created successfully", MessageTypeEnum.INFO);
             System.IO.Directory.CreateDirectory(path + "\\" + year + "\\" + month);
 
         } 

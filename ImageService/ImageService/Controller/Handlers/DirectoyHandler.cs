@@ -22,9 +22,8 @@ namespace ImageService.Controller.Handlers
         private FileSystemWatcher m_dirWatcher;             // The Watcher of the Dir
         private string m_path;                              // The Path of directory
         #endregion
-
-        public event EventHandler<DirectoryCloseEventArgs> DirectoryCloseEvent;  // The Event That Notifies that the Directory is being closed
-
+        // The Event That Notifies that the Directory is being closed
+        public event EventHandler<DirectoryCloseEventArgs> DirectoryCloseEvent;  
         public DirectoyHandler(string dirPath, IImageController controller, ILoggingService mLogging)
         {
             m_logging = mLogging;
