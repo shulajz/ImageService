@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
+
 namespace ImageService.Modal
 {
     public class ImageServiceModal : IImageServiceModal
@@ -40,15 +41,17 @@ namespace ImageService.Modal
                 DateTime creation = GetDateTakenFromImage(path);
                 int year = creation.Year;
                 int month = creation.Month;
-                
+
                 createFolderHierarchy(m_OutputFolder, year, month);
 
                 string fName = Path.GetFileName(path);
                 string newPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName;
+
                 File.Copy(path, newPath);
                 File.Delete(path);
-
+               
                 m_logging.Log("picture was copied successfully", MessageTypeEnum.INFO);
+
                 //thumbnails
                 createFolderHierarchy(m_OutputFolder + "\\" + m_thumbnailDirFolderName, year, month);
                 
@@ -56,11 +59,10 @@ namespace ImageService.Modal
                 
                 System.Drawing.Image thumb = image.GetThumbnailImage(
                     m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
-               
-                thumb.Save(Path.ChangeExtension(m_OutputFolder + "\\" +
-                    m_thumbnailDirFolderName + "\\" + year + "\\" +
-                    month + "\\" + fName, "thumb"));
-               
+
+                string thumbnailImagePath = m_OutputFolder + "\\" + m_thumbnailDirFolderName + "\\" + year + "\\" + month + "\\" + fName;
+                thumb.Save(Path.ChangeExtension(thumbnailImagePath, "thumb"));
+                image.Dispose();
 
                
                 result = true;
@@ -74,19 +76,20 @@ namespace ImageService.Modal
 
         }
 
+
         public void createFolderHierarchy(string path, int year, int month)
         {
             //create the directory if its not created already
             System.IO.Directory.CreateDirectory(path);
-            m_logging.Log("Directory was created successfully", MessageTypeEnum.INFO);
+            m_logging.Log("Directory"+ path + " was created successfully", MessageTypeEnum.INFO);
 
             // check if this year exist, if not - creats it
             System.IO.Directory.CreateDirectory(path + "\\" + year);
-            m_logging.Log("year folder was created successfully", MessageTypeEnum.INFO);
+            m_logging.Log(path + "\\" + year +" folder was created successfully", MessageTypeEnum.INFO);
 
             // check if this month exist, if not - creats it
             System.IO.Directory.CreateDirectory(path + "\\" + year + "\\" + month);
-            m_logging.Log("month folder was created successfully", MessageTypeEnum.INFO);
+            m_logging.Log(path + "\\" + year + "\\" + month +" folder was created successfully", MessageTypeEnum.INFO);
 
         } 
 

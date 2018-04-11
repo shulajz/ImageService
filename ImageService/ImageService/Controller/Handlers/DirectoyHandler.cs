@@ -35,10 +35,16 @@ namespace ImageService.Controller.Handlers
 
         public void StartHandleDirectory(string dirPath)
         {
-       
-            m_dirWatcher.Path = dirPath;
-            m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
-            m_dirWatcher.EnableRaisingEvents = true;
+
+            try
+            {
+                m_dirWatcher.Path = dirPath;
+                m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
+                m_dirWatcher.EnableRaisingEvents = true;
+                m_logging.Log("this dir add to be handler:" + dirPath, Logging.Modal.MessageTypeEnum.INFO);
+            } catch (Exception e){
+                m_logging.Log(e.Message + "there for can't be handler" , MessageTypeEnum.FAIL);
+            }
 
         }
         //A command from the server, for now - just "close" command
@@ -78,7 +84,7 @@ namespace ImageService.Controller.Handlers
                 }
                 else
                 {
-                    m_logging.Log("copy image from " + m_path + " to " + resultOfCommand + "successed", MessageTypeEnum.INFO);
+                    m_logging.Log("copy image from " + m_path + " to " + resultOfCommand + " successed", MessageTypeEnum.INFO);
                 }
             }
         }

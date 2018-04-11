@@ -42,7 +42,6 @@ namespace ImageService.Server
             IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller,m_logging);
             CommandRecievedEvent += handler.OnCommandRecieved;
             handler.DirectoryCloseEvent += onCloseServer;
-            m_logging.Log("this dir add to be handler:" + dirPath, Logging.Modal.MessageTypeEnum.INFO);
         }
 
         
