@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ImageService.Server
 {
     public class ImageServer
@@ -45,9 +46,11 @@ namespace ImageService.Server
         }
 
         
-        public void sendCommand(CommandRecievedEventArgs eventArgs)
-        { 
-                CommandRecievedEvent?.Invoke(this, eventArgs);   
+        public void sendCommand()
+        {
+            string[] args = { };
+            CommandRecievedEventArgs eventArgs= new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, args , "*");
+            CommandRecievedEvent?.Invoke(this, eventArgs);   
         }
 
         ////– handler will call this function to tell server it closed

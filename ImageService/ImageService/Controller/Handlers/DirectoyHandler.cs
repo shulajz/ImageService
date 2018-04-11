@@ -44,10 +44,10 @@ namespace ImageService.Controller.Handlers
         //A command from the server, for now - just "close" command
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
-            
+
             //check if command is meant for its directory, 
             //if yes – handle command (for now will just be to close handler)};
-            if (e.Args[0] == m_path)
+            if (e.RequestDirPath.Equals(m_path) || e.RequestDirPath.Equals("*"))
             {
                 //check if the command is close
                 if (e.CommandID == (int)CommandEnum.CloseCommand)
@@ -78,7 +78,7 @@ namespace ImageService.Controller.Handlers
                 }
                 else
                 {
-                    m_logging.Log("copy image from " + m_path + " to " + resultOfCommand, MessageTypeEnum.INFO);
+                    m_logging.Log("copy image from " + m_path + " to " + resultOfCommand + "successed", MessageTypeEnum.INFO);
                 }
             }
         }

@@ -14,7 +14,7 @@ using ImageService.Modal;
 using ImageService.Controller;
 using ImageService.Logging;
 using ImageService.Logging.Modal;
-using System.Configuration;
+//using System.Configuration;
 using ImageService.Infrastructure.Enums;
 
 namespace ImageService
@@ -112,7 +112,7 @@ namespace ImageService
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");
-            m_imageServer.sendCommand(new CommandRecievedEventArgs((int)CommandEnum.CloseCommand,null,null));
+            m_imageServer.sendCommand();
         }
 
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)

@@ -22,7 +22,7 @@ namespace ImageService.Modal
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
         private ILoggingService m_logging;
         private string m_thumbnailDirFolderName;
-
+        #endregion
         public ImageServiceModal(string outPutFolder, int thumbnailSize, ILoggingService logging)
         {
             m_thumbnailDirFolderName = "Thumbnails";
@@ -37,28 +37,32 @@ namespace ImageService.Modal
             try
             {
 
-                DateTime creation = File.GetCreationTime(path);
+                DateTime creation = GetDateTakenFromImage(path);
                 int year = creation.Year;
                 int month = creation.Month;
                 
                 createFolderHierarchy(m_OutputFolder, year, month);
 
                 string fName = Path.GetFileName(path);
-                File.Copy(path, m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName);
+                string newPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName;
+                File.Copy(path, newPath);
+                File.Delete(path);
+
                 m_logging.Log("picture was copied successfully", MessageTypeEnum.INFO);
                 //thumbnails
                 createFolderHierarchy(m_OutputFolder + "\\" + m_thumbnailDirFolderName, year, month);
-
-                System.Drawing.Image image = System.Drawing.Image.FromFile(path);
-
+                
+                System.Drawing.Image image = System.Drawing.Image.FromFile(newPath);
+                
                 System.Drawing.Image thumb = image.GetThumbnailImage(
                     m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
-
+               
                 thumb.Save(Path.ChangeExtension(m_OutputFolder + "\\" +
                     m_thumbnailDirFolderName + "\\" + year + "\\" +
                     month + "\\" + fName, "thumb"));
+               
 
-                string newPath = m_OutputFolder + "\\" + year + "\\" + month;
+               
                 result = true;
                 return newPath;
             }
@@ -81,8 +85,8 @@ namespace ImageService.Modal
             m_logging.Log("year folder was created successfully", MessageTypeEnum.INFO);
 
             // check if this month exist, if not - creats it
-            m_logging.Log("month folder was created successfully", MessageTypeEnum.INFO);
             System.IO.Directory.CreateDirectory(path + "\\" + year + "\\" + month);
+            m_logging.Log("month folder was created successfully", MessageTypeEnum.INFO);
 
         } 
 
@@ -96,7 +100,16 @@ namespace ImageService.Modal
             
             return stream;
         }
-        #endregion
+        
+
+
+        public DateTime GetDateTakenFromImage(string path)
+        {
+            DateTime now = DateTime.Now;
+            TimeSpan localOffset = now - now.ToUniversalTime();
+            DateTime date = File.GetCreationTimeUtc(path)+localOffset;
+            return date;
+        }
 
     }
     
