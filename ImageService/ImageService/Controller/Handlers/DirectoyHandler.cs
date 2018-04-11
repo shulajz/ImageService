@@ -43,7 +43,7 @@ namespace ImageService.Controller.Handlers
                 m_dirWatcher.EnableRaisingEvents = true;
                 m_logging.Log("this dir add to be handler:" + dirPath, Logging.Modal.MessageTypeEnum.INFO);
             } catch (Exception e){
-                m_logging.Log(e.Message + "there for can't be handler" , MessageTypeEnum.FAIL);
+                m_logging.Log(e.Message , MessageTypeEnum.FAIL);
             }
 
         }
