@@ -48,7 +48,8 @@ namespace ImageService.Server
         public void sendCommand()
         {
             string[] args = { };
-            CommandRecievedEventArgs eventArgs= new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, args , "*");
+            CommandRecievedEventArgs eventArgs =
+                new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, args , "*");
             CommandRecievedEvent?.Invoke(this, eventArgs);   
         }
 

@@ -50,7 +50,7 @@ namespace ImageService.Controller.Handlers
         //A command from the server, for now - just "close" command
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
-
+            bool result;
             //check if command is meant for its directory, 
             //if yes – handle command (for now will just be to close handler)};
             if (e.RequestDirPath.Equals(m_path) || e.RequestDirPath.Equals("*"))
@@ -60,6 +60,22 @@ namespace ImageService.Controller.Handlers
                 {
                     //close
                     closeHandler();
+                }
+
+                else
+                {
+                    string resultOfCommand = m_controller.ExecuteCommand(
+                        e.CommandID, e.Args, out result);
+
+                    if (result == false)
+                    {
+                        m_logging.Log(resultOfCommand, MessageTypeEnum.FAIL);
+                    }
+                    else
+                    {
+                        m_logging.Log("copy image from " + m_path + " to "
+                            + resultOfCommand + " successed", MessageTypeEnum.INFO);
+                    }
                 }
             }
         }
@@ -73,19 +89,14 @@ namespace ImageService.Controller.Handlers
          
             if (m.Success)
             {
-                bool result;
                 string[] paths = { e.FullPath };
-                string resultOfCommand = m_controller.ExecuteCommand((int)CommandEnum.NewFileCommand, paths, out result);
+               
                 // the string will return the new path if result = true,
                 //and will return the error message if the result = false
-                if (result == false)
-                {
-                    m_logging.Log(resultOfCommand, MessageTypeEnum.FAIL);
-                }
-                else
-                {
-                    m_logging.Log("copy image from " + m_path + " to " + resultOfCommand + " successed", MessageTypeEnum.INFO);
-                }
+                CommandRecievedEventArgs eventArgs = new CommandRecievedEventArgs(
+                    (int)CommandEnum.NewFileCommand, paths, m_path);
+                OnCommandRecieved(this, eventArgs);
+               
             }
         }
 

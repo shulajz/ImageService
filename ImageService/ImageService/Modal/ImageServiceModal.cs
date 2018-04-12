@@ -60,7 +60,8 @@ namespace ImageService.Modal
                 System.Drawing.Image thumb = image.GetThumbnailImage(
                     m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
 
-                string thumbnailImagePath = m_OutputFolder + "\\" + m_thumbnailDirFolderName + "\\" + year + "\\" + month + "\\" + fName;
+                string thumbnailImagePath = m_OutputFolder + "\\" 
+                    + m_thumbnailDirFolderName + "\\" + year + "\\" + month + "\\" + fName;
                 thumb.Save(Path.ChangeExtension(thumbnailImagePath, "thumb"));
                 image.Dispose();
 
