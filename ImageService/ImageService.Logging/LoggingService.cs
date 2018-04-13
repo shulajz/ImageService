@@ -15,8 +15,8 @@ namespace ImageService.Logging
         /// <summary>
         /// Logs the specified message.
         /// </summary>
-        /// <param name="message">The message.</param>
-        /// <param name="type">The type.</param>
+        /// <param name="message">The message we want to print to the log.</param>
+        /// <param name="type">The type of message.</param>
         public void Log(string message, MessageTypeEnum type)
         {
             MessageReceivedEvent?.Invoke(this, new MessageReceivedEventArgs(message, type));
