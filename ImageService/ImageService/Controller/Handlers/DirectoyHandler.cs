@@ -14,7 +14,7 @@ using System.Diagnostics;
 
 namespace ImageService.Controller.Handlers
 {
-    public class DirectoyHandler : IDirectoryHandler
+    public class DirectoryHandler : IDirectoryHandler
     {
         #region Members
         private IImageController m_controller;              // The Image Processing Controller
@@ -23,8 +23,14 @@ namespace ImageService.Controller.Handlers
         private string m_path;                              // The Path of directory
         #endregion
         // The Event That Notifies that the Directory is being closed
-        public event EventHandler<DirectoryCloseEventArgs> DirectoryCloseEvent;  
-        public DirectoyHandler(string dirPath, IImageController controller, ILoggingService mLogging)
+        public event EventHandler<DirectoryCloseEventArgs> DirectoryCloseEvent;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DirectoyHandler"/> class.
+        /// </summary>
+        /// <param name="dirPath">The dir path.</param>
+        /// <param name="controller">The controller.</param>
+        /// <param name="mLogging">The m logging.</param>
+        public DirectoryHandler(string dirPath, IImageController controller, ILoggingService mLogging)
         {
             m_logging = mLogging;
             m_controller = controller;
@@ -33,6 +39,10 @@ namespace ImageService.Controller.Handlers
             StartHandleDirectory(dirPath);
         }
 
+        /// <summary>
+        /// Starts the handle directory.
+        /// </summary>
+        /// <param name="dirPath">The dir path.</param>
         public void StartHandleDirectory(string dirPath)
         {
 
@@ -47,8 +57,13 @@ namespace ImageService.Controller.Handlers
             }
 
         }
-        //A command from the server, for now - just "close" command
-        public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
+
+        /// <summary>
+        /// Handles the <see cref="E:CommandRecieved" /> event.
+        /// A command from the server, for now - just "close" command
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>        public void OnCommandReceived(object sender, CommandReceivedEventArgs e)
         {
             bool result;
             //check if command is meant for its directory, 
@@ -63,7 +78,9 @@ namespace ImageService.Controller.Handlers
                 }
 
                 else
-                {
+                {   
+                    // the string will return the new path if result = true,
+                    //and will return the error message if the result = false
                     string resultOfCommand = m_controller.ExecuteCommand(
                         e.CommandID, e.Args, out result);
 
@@ -74,13 +91,18 @@ namespace ImageService.Controller.Handlers
                     else
                     {
                         m_logging.Log("copy image from " + m_path + " to "
-                            + resultOfCommand + " successed", MessageTypeEnum.INFO);
+                            + resultOfCommand + " successes", MessageTypeEnum.INFO);
                     }
                 }
             }
         }
 
         //command within the handler, when a file is created
+        /// <summary>
+        /// Handles the <see cref="E:Created" /> event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>
         public void OnCreated(object source, FileSystemEventArgs e)
         {
             // get the file's extension 
@@ -90,17 +112,19 @@ namespace ImageService.Controller.Handlers
             if (m.Success)
             {
                 string[] paths = { e.FullPath };
-               
-                // the string will return the new path if result = true,
-                //and will return the error message if the result = false
-                CommandRecievedEventArgs eventArgs = new CommandRecievedEventArgs(
+
+                CommandReceivedEventArgs eventArgs = new CommandReceivedEventArgs(
                     (int)CommandEnum.NewFileCommand, paths, m_path);
-                OnCommandRecieved(this, eventArgs);
+                OnCommandReceived(this, eventArgs);
                
             }
         }
 
         //close FileSystemWatcher and invoke onClose event
+
+        /// <summary>
+        /// Closes the handler.
+        /// </summary>
         public void closeHandler()
         {
             m_dirWatcher.EnableRaisingEvents = false;

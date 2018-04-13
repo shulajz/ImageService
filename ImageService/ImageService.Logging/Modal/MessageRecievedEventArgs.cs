@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace ImageService.Logging.Modal
 {
-    public class MessageRecievedEventArgs : EventArgs
+    public class MessageReceivedEventArgs : EventArgs
     {
         public MessageTypeEnum m_status { get; set; }
         public string m_message { get; set; }
 
-        public MessageRecievedEventArgs(string message, MessageTypeEnum status)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageReceivedEventArgs"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="status">The status.</param>
+        public MessageReceivedEventArgs(string message, MessageTypeEnum status)
         {
             m_status = status;
             m_message = message;

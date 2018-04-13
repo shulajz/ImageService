@@ -28,7 +28,7 @@ namespace ImageService
        
 
 
-        private System.ComponentModel.IContainer components;
+        //private System.ComponentModel.IContainer components;
         private System.Diagnostics.EventLog eventLog1;
         private int eventId = 1;
 
@@ -36,11 +36,15 @@ namespace ImageService
         private static extern bool SetServiceStatus(IntPtr handle,
            ref ServiceStatus serviceStatus);
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageService"/> class.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
         public ImageService(string[] args)
         {
             
             InitializeComponent();
-            //read frop appconfig
+            //read from app config
             string eventSourceName = "MySource1";
             string logName = "MyLogFile1";
             if (args.Count() > 0)
@@ -62,6 +66,10 @@ namespace ImageService
 
 
         //Here You will use app config
+        /// <summary>
+        /// When implemented in a derived class, executes when a Start command is sent to the service by the Service Control Manager (SCM) or when the operating system starts (for a service that starts automatically). Specifies actions to take when the service starts.
+        /// </summary>
+        /// <param name="args">Data passed by the start command.</param>
         protected override void OnStart(string[] args)
         {
             try
@@ -83,13 +91,13 @@ namespace ImageService
                 serviceStatus.dwCurrentState = ServiceState.SERVICE_RUNNING;
                 SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
-                //read from appconfig
+                //read from app config
                 string outPutDir = ConfigurationManager.AppSettings["OutputDir"];
                 int thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
                 string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
                 //create the LoggingService
                 logging = new LoggingService();
-                logging.MessageRecievedEvent += onMsg;
+                logging.MessageReceivedEvent += onMsg;
                 modal = new ImageServiceModal(outPutDir, thumbnailSize, logging);
                 controller = new ImageController(modal);
                 //create the ImageServer         
@@ -104,17 +112,32 @@ namespace ImageService
 
         }
 
-        private void onMsg(object sender, MessageRecievedEventArgs e)
+        /// <summary>
+        /// Ons the MSG.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        private void onMsg(object sender, MessageReceivedEventArgs e)
         {
             eventLog1.WriteEntry(e.m_message);  
         }
 
+        /// <summary>
+        /// When implemented in a derived class, executes when a Stop command
+        /// is sent to the service by the Service Control Manager (SCM). 
+        /// Specifies actions to take when a service stops running.
+        /// </summary>
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");
             m_imageServer.sendCommand();
         }
 
+        /// <summary>
+        /// Handles the <see cref="E:Timer" /> event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>
         public void OnTimer(object sender, System.Timers.ElapsedEventArgs args)
         {
             //TODO: Insert monitoring activities here.  
@@ -122,6 +145,12 @@ namespace ImageService
             EventLogEntryType.Information, eventId++);
         }
 
+        /// <summary>
+        /// When implemented in a derived class, 
+        /// <see cref="M:System.ServiceProcess.ServiceBase.OnContinue" />
+        /// runs when a Continue command is sent to the service by the Service Control Manager (SCM). 
+        /// Specifies actions to take when a service resumes normal functioning after being paused.
+        /// </summary>
         protected override void OnContinue()
         {
             eventLog1.WriteEntry("In OnContinue.");

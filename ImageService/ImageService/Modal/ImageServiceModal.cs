@@ -1,4 +1,17 @@
-﻿using ImageService.Infrastructure;
+﻿// ***********************************************************************
+// Assembly         : ImageService
+// Author           : user
+// Created          : 04-08-2018
+//
+// Last Modified By : user
+// Last Modified On : 04-13-2018
+// ***********************************************************************
+// <copyright file="ImageServiceModal.cs" company="">
+//     Copyright ©  2018
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using ImageService.Infrastructure;
 using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System;
@@ -16,6 +29,10 @@ using System.Threading.Tasks;
 
 namespace ImageService.Modal
 {
+    /// <summary>
+    /// Class ImageServiceModal.
+    /// </summary>
+    /// <seealso cref="ImageService.Modal.IImageServiceModal" />
     public class ImageServiceModal : IImageServiceModal
     {
         #region Members
@@ -23,10 +40,17 @@ namespace ImageService.Modal
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
         private ILoggingService m_logging;
         private string m_thumbnailDirFolderName;
-        //we init this once so that if the function is repeatedly called
+        //we initialize this once so that if the function is repeatedly called
         //it isn't stressing the garbage man
         private static Regex r;
         #endregion
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageServiceModal"/> class.
+        /// </summary>
+        /// <param name="outPutFolder">The out put folder.</param>
+        /// <param name="thumbnailSize">Size of the thumbnail.</param>
+        /// <param name="logging">The logging.</param>
         public ImageServiceModal(string outPutFolder, int thumbnailSize, ILoggingService logging)
         {
             m_thumbnailDirFolderName = "Thumbnails";
@@ -37,6 +61,12 @@ namespace ImageService.Modal
     }
 
 
+        /// <summary>
+        /// The Function Addes A file to the system
+        /// </summary>
+        /// <param name="path">The Path of the Image from the file</param>
+        /// <param name="result">if set to <c>true</c> [result].</param>
+        /// <returns>Indication if the Addition Was Successful</returns>
         public string AddFile(string path, out bool result)
         {
             try
@@ -82,6 +112,12 @@ namespace ImageService.Modal
         }
 
 
+        /// <summary>
+        /// Creates the folder hierarchy.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="year">The year.</param>
+        /// <param name="month">The month.</param>
         public void createFolderHierarchy(string path, int year, int month)
         {
             //create the directory if its not created already
@@ -97,7 +133,12 @@ namespace ImageService.Modal
             m_logging.Log(path + "\\" + year + "\\" + month +" folder was created successfully", MessageTypeEnum.INFO);
 
         }
-        public  DateTime GetDateTakenFromImage(string path)
+        /// <summary>
+        /// Gets the date taken from image.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>DateTime.</returns>
+        public DateTime GetDateTakenFromImage(string path)
         {
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
             using (Image myImage = Image.FromStream(fs, false, false))
@@ -118,6 +159,11 @@ namespace ImageService.Modal
             }
         }
 
+        /// <summary>
+        /// Generates the stream from string.
+        /// </summary>
+        /// <param name="s">The s.</param>
+        /// <returns>Stream.</returns>
         public Stream GenerateStreamFromString(string s)
         {
             MemoryStream stream = new MemoryStream();
@@ -128,17 +174,6 @@ namespace ImageService.Modal
             
             return stream;
         }
-        
-
-
-        //public DateTime GetDateTakenFromImage(string path)
-        //{
-        //    DateTime now = DateTime.Now;
-        //    TimeSpan localOffset = now - now.ToUniversalTime();
-        //    DateTime date = File.GetCreationTimeUtc(path)+localOffset;
-        //    return date;
-        //}
-
     }
     
 }

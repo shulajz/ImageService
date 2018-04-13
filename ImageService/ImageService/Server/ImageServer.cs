@@ -22,8 +22,15 @@ namespace ImageService.Server
 
         #region Properties
         // The event that notifies about a new Command being recieved
-        public event EventHandler<CommandRecievedEventArgs> CommandRecievedEvent;  
+        public event EventHandler<CommandReceivedEventArgs> CommandRecievedEvent;
         #endregion
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageServer"/> class.
+        /// </summary>
+        /// <param name="mLogging">The m logging.</param>
+        /// <param name="arrHandlers">The arr handlers.</param>
+        /// <param name="mController">The m controller.</param>
         public ImageServer(ILoggingService mLogging, string[] arrHandlers, IImageController mController)
         {
             m_logging = mLogging;
@@ -35,31 +42,43 @@ namespace ImageService.Server
             }
 
         }
-        
-         
+
+
+        /// <summary>
+        /// Creates the handler.
+        /// </summary>
+        /// <param name="dirPath">The dir path.</param>
         public void createHandler(string dirPath)
         {
-            IDirectoryHandler handler = new DirectoyHandler(dirPath, m_controller,m_logging);
-            CommandRecievedEvent += handler.OnCommandRecieved;
+            IDirectoryHandler handler = new DirectoryHandler(dirPath, m_controller,m_logging);
+            CommandRecievedEvent += handler.OnCommandReceived;
             handler.DirectoryCloseEvent += onCloseServer;
         }
 
-        
+
+        /// <summary>
+        /// Sends the command.
+        /// </summary>
         public void sendCommand()
         {
             string[] args = { };
-            CommandRecievedEventArgs eventArgs =
-                new CommandRecievedEventArgs((int)CommandEnum.CloseCommand, args , "*");
+            CommandReceivedEventArgs eventArgs =
+                new CommandReceivedEventArgs((int)CommandEnum.CloseCommand, args , "*");
             CommandRecievedEvent?.Invoke(this, eventArgs);   
         }
 
         ////– handler will call this function to tell server it closed
+        /// <summary>
+        /// Ons the close server.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An EventArgs that contains the event data.</param>
         public void onCloseServer(object sender, DirectoryCloseEventArgs e)
         {
-            if (sender is DirectoyHandler)
+            if (sender is DirectoryHandler)
             {
-                DirectoyHandler handler = (DirectoyHandler)sender;
-                CommandRecievedEvent -= handler.OnCommandRecieved;
+                DirectoryHandler handler = (DirectoryHandler)sender;
+                CommandRecievedEvent -= handler.OnCommandReceived;
                 handler.DirectoryCloseEvent -= onCloseServer;
                 m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
             }
