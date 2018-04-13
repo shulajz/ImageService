@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+
 
 
 namespace ImageService.Modal
@@ -23,6 +23,9 @@ namespace ImageService.Modal
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
         private ILoggingService m_logging;
         private string m_thumbnailDirFolderName;
+        //we init this once so that if the function is repeatedly called
+        //it isn't stressing the garbage man
+        private static Regex r;
         #endregion
         public ImageServiceModal(string outPutFolder, int thumbnailSize, ILoggingService logging)
         {
@@ -30,7 +33,8 @@ namespace ImageService.Modal
             m_OutputFolder = outPutFolder;
             m_thumbnailSize = thumbnailSize;
             m_logging = logging;
-        }
+            r = new Regex(":");
+    }
 
 
         public string AddFile(string path, out bool result)
@@ -92,7 +96,27 @@ namespace ImageService.Modal
             System.IO.Directory.CreateDirectory(path + "\\" + year + "\\" + month);
             m_logging.Log(path + "\\" + year + "\\" + month +" folder was created successfully", MessageTypeEnum.INFO);
 
-        } 
+        }
+        public  DateTime GetDateTakenFromImage(string path)
+        {
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (Image myImage = Image.FromStream(fs, false, false))
+            {
+                PropertyItem propItem = null;
+                try
+                {
+                    propItem = myImage.GetPropertyItem(36867);
+                }
+                catch { }
+                if (propItem != null)
+                {
+                    string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
+                    return DateTime.Parse(dateTaken);
+                }
+                else
+                    return new FileInfo(path).LastWriteTime;
+            }
+        }
 
         public Stream GenerateStreamFromString(string s)
         {
@@ -107,13 +131,13 @@ namespace ImageService.Modal
         
 
 
-        public DateTime GetDateTakenFromImage(string path)
-        {
-            DateTime now = DateTime.Now;
-            TimeSpan localOffset = now - now.ToUniversalTime();
-            DateTime date = File.GetCreationTimeUtc(path)+localOffset;
-            return date;
-        }
+        //public DateTime GetDateTakenFromImage(string path)
+        //{
+        //    DateTime now = DateTime.Now;
+        //    TimeSpan localOffset = now - now.ToUniversalTime();
+        //    DateTime date = File.GetCreationTimeUtc(path)+localOffset;
+        //    return date;
+        //}
 
     }
     
