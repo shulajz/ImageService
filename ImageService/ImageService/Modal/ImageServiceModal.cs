@@ -68,7 +68,7 @@ namespace ImageService.Modal
                 int count = 1;
                 string fName = Path.GetFileName(path);
                 string newPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName;
-                if(File.Exists(newPath))
+                while(File.Exists(newPath))
                 {
                     int idx = newPath.LastIndexOf('.');
                     newPath = newPath.Substring(0, idx) + "(" + count + ")" + newPath.Substring(idx);
