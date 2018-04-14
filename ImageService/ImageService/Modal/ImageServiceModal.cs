@@ -1,17 +1,4 @@
-﻿// ***********************************************************************
-// Assembly         : ImageService
-// Author           : user
-// Created          : 04-08-2018
-//
-// Last Modified By : user
-// Last Modified On : 04-13-2018
-// ***********************************************************************
-// <copyright file="ImageServiceModal.cs" company="">
-//     Copyright ©  2018
-// </copyright>
-// <summary></summary>
-// ***********************************************************************
-using ImageService.Infrastructure;
+﻿using ImageService.Infrastructure;
 using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System;
@@ -121,14 +108,18 @@ namespace ImageService.Modal
         public void createFolderHierarchy(string path, int year, int month)
         {
             //create the directory if its not created already
-            System.IO.Directory.CreateDirectory(path);
+            DirectoryInfo dir= System.IO.Directory.CreateDirectory(path);
+            //if outPutDir then hide directory
+            if (path.Equals(m_OutputFolder)){
+                dir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+            }
             m_logging.Log("Directory"+ path + " was created successfully", MessageTypeEnum.INFO);
 
-            // check if this year exist, if not - creats it
+            // check if this year exist, if not - creates it
             System.IO.Directory.CreateDirectory(path + "\\" + year);
             m_logging.Log(path + "\\" + year +" folder was created successfully", MessageTypeEnum.INFO);
 
-            // check if this month exist, if not - creats it
+            // check if this month exist, if not - creates it
             System.IO.Directory.CreateDirectory(path + "\\" + year + "\\" + month);
             m_logging.Log(path + "\\" + year + "\\" + month +" folder was created successfully", MessageTypeEnum.INFO);
 

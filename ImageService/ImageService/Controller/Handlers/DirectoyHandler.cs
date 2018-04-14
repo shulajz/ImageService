@@ -112,7 +112,7 @@ namespace ImageService.Controller.Handlers
             if (m.Success)
             {
                 string[] paths = { e.FullPath };
-
+        
                 CommandReceivedEventArgs eventArgs = new CommandReceivedEventArgs(
                     (int)CommandEnum.NewFileCommand, paths, m_path);
                 OnCommandReceived(this, eventArgs);
