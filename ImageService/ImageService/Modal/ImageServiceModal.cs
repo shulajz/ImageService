@@ -56,6 +56,7 @@ namespace ImageService.Modal
         /// <returns>Indication if the Addition Was Successful</returns>
         public string AddFile(string path, out bool result)
         {
+            
             try
             {
 
@@ -64,10 +65,16 @@ namespace ImageService.Modal
                 int month = creation.Month;
 
                 createFolderHierarchy(m_OutputFolder, year, month);
-
+                int count = 1;
                 string fName = Path.GetFileName(path);
                 string newPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName;
-
+                if(File.Exists(newPath))
+                {
+                    int idx = newPath.LastIndexOf('.');
+                    newPath = newPath.Substring(0, idx) + "(" + count + ")" + newPath.Substring(idx);
+                    
+                    count++;
+                }
                 File.Copy(path, newPath);
                 File.Delete(path);
                
