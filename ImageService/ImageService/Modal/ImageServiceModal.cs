@@ -70,8 +70,9 @@ namespace ImageService.Modal
                 string newPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName;
                 while(File.Exists(newPath))
                 {
-                    int idx = newPath.LastIndexOf('.');
-                    newPath = newPath.Substring(0, idx) + "(" + count + ")" + newPath.Substring(idx);
+                    int idx = fName.LastIndexOf('.');
+                    fName = fName.Substring(0, idx) + "(" + count + ")" + fName.Substring(idx);
+                    newPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName;
                     
                     count++;
                 }
@@ -91,13 +92,6 @@ namespace ImageService.Modal
                 string thumbnailImagePath = m_OutputFolder + "\\" 
                     + m_thumbnailDirFolderName + "\\" + year + "\\" + month + "\\" + fName;
                 
-                while (File.Exists(thumbnailImagePath))
-                {
-                    int idx = thumbnailImagePath.LastIndexOf('.');
-                    newPath = thumbnailImagePath.Substring(0, idx) + "(" + count + ")" + thumbnailImagePath.Substring(idx);
-                    m_logging.Log("we have the same thumbnail name", MessageTypeEnum.INFO);
-                    count++;
-                }
                 thumb.Save(Path.ChangeExtension(thumbnailImagePath, "thumb"));
                 image.Dispose();
 
