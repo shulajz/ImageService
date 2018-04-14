@@ -90,6 +90,14 @@ namespace ImageService.Modal
 
                 string thumbnailImagePath = m_OutputFolder + "\\" 
                     + m_thumbnailDirFolderName + "\\" + year + "\\" + month + "\\" + fName;
+                
+                while (File.Exists(thumbnailImagePath))
+                {
+                    int idx = thumbnailImagePath.LastIndexOf('.');
+                    newPath = thumbnailImagePath.Substring(0, idx) + "(" + count + ")" + thumbnailImagePath.Substring(idx);
+                    m_logging.Log("we have the same thumbnail name", MessageTypeEnum.INFO);
+                    count++;
+                }
                 thumb.Save(Path.ChangeExtension(thumbnailImagePath, "thumb"));
                 image.Dispose();
 
