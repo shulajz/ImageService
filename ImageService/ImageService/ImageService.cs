@@ -39,7 +39,7 @@ namespace ImageService
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageService"/> class.
         /// </summary>
-        /// <param name="args">The arguments.</param>
+        /// <param name="args">The arguments sent.</param>
         public ImageService(string[] args)
         {
             
@@ -67,7 +67,12 @@ namespace ImageService
 
         //Here You will use app config
         /// <summary>
-        /// When implemented in a derived class, executes when a Start command is sent to the service by the Service Control Manager (SCM) or when the operating system starts (for a service that starts automatically). Specifies actions to take when the service starts.
+        /// When implemented in a derived class,
+        /// executes when a Start command is sent
+        /// to the service by the Service Control Manager (SCM)
+        /// or when the operating system starts
+        /// (for a service that starts automatically).
+        /// Specifies actions to take when the service starts.
         /// </summary>
         /// <param name="args">Data passed by the start command.</param>
         protected override void OnStart(string[] args)
@@ -113,7 +118,8 @@ namespace ImageService
         }
 
         /// <summary>
-        /// Ons the MSG.
+        /// This function is added to the eventlog, and is callen when
+        /// the event is invoked.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An EventArgs that contains the event data.</param>
@@ -148,8 +154,10 @@ namespace ImageService
         /// <summary>
         /// When implemented in a derived class, 
         /// <see cref="M:System.ServiceProcess.ServiceBase.OnContinue" />
-        /// runs when a Continue command is sent to the service by the Service Control Manager (SCM). 
-        /// Specifies actions to take when a service resumes normal functioning after being paused.
+        /// runs when a Continue command is sent to the
+        /// service by the Service Control Manager (SCM). 
+        /// Specifies actions to take when a service
+        /// resumes normal functioning after being paused.
         /// </summary>
         protected override void OnContinue()
         {

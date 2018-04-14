@@ -28,17 +28,18 @@ namespace ImageService.Server
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageServer"/> class.
         /// </summary>
-        /// <param name="mLogging">The m logging.</param>
-        /// <param name="arrHandlers">The arr handlers.</param>
-        /// <param name="mController">The m controller.</param>
-        public ImageServer(ILoggingService mLogging, string[] arrHandlers, IImageController mController)
+        /// <param name="mLogging">The logger.</param>
+        /// <param name="arrHandlers">The array handlers.</param>
+        /// <param name="mController">The controller.</param>
+        public ImageServer(ILoggingService mLogging,
+            string[] arrHandlers, IImageController mController)
         {
             m_logging = mLogging;
             m_controller = mController;
 
             foreach (string path in arrHandlers)
             {
-               createHandler(path);//create
+               createHandler(path);//create a handler
             }
 
         }
@@ -47,7 +48,7 @@ namespace ImageService.Server
         /// <summary>
         /// Creates the handler.
         /// </summary>
-        /// <param name="dirPath">The dir path.</param>
+        /// <param name="dirPath">The directory path.</param>
         public void createHandler(string dirPath)
         {
             IDirectoryHandler handler = new DirectoryHandler(dirPath, m_controller,m_logging);
@@ -69,7 +70,8 @@ namespace ImageService.Server
 
         ////– handler will call this function to tell server it closed
         /// <summary>
-        /// Ons the close server.
+        /// On the close server. This function is closed when DirectoryClosed event
+        /// is invoked.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An EventArgs that contains the event data.</param>

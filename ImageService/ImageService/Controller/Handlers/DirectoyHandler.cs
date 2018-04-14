@@ -27,9 +27,9 @@ namespace ImageService.Controller.Handlers
         /// <summary>
         /// Initializes a new instance of the <see cref="DirectoyHandler"/> class.
         /// </summary>
-        /// <param name="dirPath">The dir path.</param>
+        /// <param name="dirPath">The directory path.</param>
         /// <param name="controller">The controller.</param>
-        /// <param name="mLogging">The m logging.</param>
+        /// <param name="mLogging">The logger.</param>
         public DirectoryHandler(string dirPath, IImageController controller, ILoggingService mLogging)
         {
             m_logging = mLogging;
@@ -63,7 +63,8 @@ namespace ImageService.Controller.Handlers
         /// A command from the server, for now - just "close" command
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">An EventArgs that contains the event data.</param>        public void OnCommandReceived(object sender, CommandReceivedEventArgs e)
+        /// <param name="e">An EventArgs that contains the event data.</param>
+        public void OnCommandReceived(object sender, CommandReceivedEventArgs e)
         {
             bool result;
             //check if command is meant for its directory, 

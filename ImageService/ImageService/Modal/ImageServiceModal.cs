@@ -102,9 +102,9 @@ namespace ImageService.Modal
         /// <summary>
         /// Creates the folder hierarchy.
         /// </summary>
-        /// <param name="path">The path.</param>
-        /// <param name="year">The year.</param>
-        /// <param name="month">The month.</param>
+        /// <param name="path">The path of the image.</param>
+        /// <param name="year">The year of the image.</param>
+        /// <param name="month">The month of the image.</param>
         public void createFolderHierarchy(string path, int year, int month)
         {
             //create the directory if its not created already
@@ -127,8 +127,8 @@ namespace ImageService.Modal
         /// <summary>
         /// Gets the date taken from image.
         /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns>DateTime.</returns>
+        /// <param name="path">The path of the image.</param>
+        /// <returns>DateTime of when the image was created.</returns>
         public DateTime GetDateTakenFromImage(string path)
         {
             using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
@@ -153,7 +153,7 @@ namespace ImageService.Modal
         /// <summary>
         /// Generates the stream from string.
         /// </summary>
-        /// <param name="s">The s.</param>
+        /// <param name="s">The string.</param>
         /// <returns>Stream.</returns>
         public Stream GenerateStreamFromString(string s)
         {
