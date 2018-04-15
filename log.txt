@@ -1,0 +1,574 @@
+commit 734c2d5abac69a8ee61e7a31cf179b39ed64108e
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 15 12:28:17 2018 +0300
+
+    ch
+
+commit 9d19359b0e018f4a442008eca78997a2dc5b5797
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 15 01:57:24 2018 +0300
+
+    fixing
+
+commit d032a9126edadcde5acb42861ac071f8baa23b8f
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 15 01:45:36 2018 +0300
+
+    j
+
+commit d58df504bcdc0e0fa4e8e45da04746f35e5a89c7
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 15 01:34:09 2018 +0300
+
+    hj
+
+commit f279a2063c605fba1c8f5a50a9cde36ba46a1971
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 15 01:08:59 2018 +0300
+
+    same name problem
+
+commit 653dea4f314f1dddb41553accbc0f21599a0dc99
+Merge: f741765 685478b
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sat Apr 14 23:05:02 2018 +0300
+
+    Merge branch 'master' of https://github.com/shulajz/ImageService
+
+commit f7417654682f379688dbedcb312ac510b922e86f
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sat Apr 14 23:04:44 2018 +0300
+
+    hidden outPutDir
+
+commit 685478bd93d58aad3906d7228f02e1520b82bb41
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Fri Apr 13 16:44:27 2018 +0300
+
+    adding comments
+
+commit 139a4550059f585890a3fc564c4c88e3d818b97a
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Fri Apr 13 16:19:59 2018 +0300
+
+    comments
+
+commit b93e93be590ab14d5cd6ff8b7655531b52b68fbc
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Fri Apr 13 14:09:03 2018 +0300
+
+    GetDateTakenFromImage
+
+commit ab81ac042e13b2754e7fef978f4fa64300b6c7a0
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu Apr 12 11:26:37 2018 +0300
+
+    changing commandRecived
+
+commit dd327be95b8a269b51ee58739227a1c342e2e591
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Thu Apr 12 01:14:45 2018 +0300
+
+    change
+
+commit e8dd299c7753ec9e6425f1a989fc0bfdaab23b33
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Thu Apr 12 01:00:58 2018 +0300
+
+    close image
+
+commit 888b7de301e1a40f7de3d0d29a0c5500df8f7d93
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Wed Apr 11 23:21:51 2018 +0300
+
+    change in addFile and in DirectoryHandler
+
+commit 46f7364899f000abd8fa205bc9156cb3a21c04a5
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Tue Apr 10 14:05:22 2018 +0300
+
+    adding logging and comments
+
+commit 7a8da5c48e0f60d5dcad323e3fd82b1cf276cfa3
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Apr 9 22:26:59 2018 +0300
+
+    return the ExecuteCommand to func onCreated
+    and check if command is meant for its directory in OnCommandRecieved function
+
+commit 3c5fbf7aeec6ea22e5cbd65c55320bc4f9d870f3
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Apr 9 01:22:27 2018 +0300
+
+    change Code duplication in ImageServiceModel
+    and add m_dirWatcher.Dispose() to Releases all resources used by the Component.
+
+commit 04b1514f84ade9d4f4c62f77eafde8d43a0a9678
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Apr 9 00:24:16 2018 +0300
+
+    close
+
+commit e40fc0bb6eb8cc399d1e4499ae530c648587c407
+Merge: 1386787 2e38d9e
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Apr 9 00:23:12 2018 +0300
+
+    Merge branch 'master' of https://github.com/shulajz/ImageService
+
+commit 13867872b399b82f6dfca5e442c5d234cbc6bad6
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Apr 9 00:14:31 2018 +0300
+
+    add close
+
+commit dab8f16a439e7943d396b02822ff1afebe232e82
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 8 20:28:41 2018 +0300
+
+    change
+
+commit 2e38d9efe7f2cc84bc800709007e1f428572eb47
+Merge: c764633 dab8f16
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 8 10:41:28 2018 +0300
+
+    g
+
+commit c764633c1f7764b37fd2382c8ae08820d300f1df
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 8 10:36:28 2018 +0300
+
+    ,
+
+commit 1aa6bd64ea05e3f12be3e5b1e9d63acfc2a1d9c1
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 8 06:15:33 2018 +0300
+
+    change:)
+
+commit 27d1e163a4a5e1da9c579070ce06306f31780435
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 8 05:44:04 2018 +0300
+
+    k
+
+commit fa4c2bb9aa8df70bc8af66852484d74a768ef640
+Merge: 3eea92d 95e0578
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 8 17:41:17 2018 +0300
+
+    change!
+
+commit 3eea92da24a59690840308200ef4011768eaf8c3
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 8 17:40:29 2018 +0300
+
+    change!!!!
+
+commit 95e0578cb5a35fdd819b9bb6f363a9ddce490d98
+Merge: b90fd6e 237daac
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 8 05:19:40 2018 +0300
+
+    Merge branch 'master' of https://github.com/shulajz/ImageService
+
+commit 237daac399942c3a13517c1fb70f156cfb87d707
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 8 17:16:07 2018 +0300
+
+    change
+
+commit 99700645feb33173b37d936754016a58c2f74599
+Merge: 28f3872 40508fe
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 8 17:15:10 2018 +0300
+
+    Merge branch 'master' of https://github.com/shulajz/ImageService
+
+commit 28f3872b33a5bd77234811a3500a274202089a28
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 8 17:14:43 2018 +0300
+
+    return back
+
+commit b90fd6e3937e4a5d47b8e2216a53e67c1b12ad3b
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 8 05:19:25 2018 +0300
+
+    k
+
+commit 40508fead206fab59dd22d1342a93f6c9b238ff4
+Merge: 0c1c402 8f1c4ef
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 8 03:47:35 2018 +0300
+
+    f
+
+commit 8f1c4ef31d60c04c39ecd84de5331ef7cf8ba740
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 8 15:44:12 2018 +0300
+
+    change
+
+commit da4c55042801c161d94a997cd4547bcff9814a39
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 8 14:38:22 2018 +0300
+
+    change
+
+commit 662b79fdd0dc8035c7e37a6a4e7b40c5065eddc7
+Merge: d8a7673 10146af
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 8 14:37:15 2018 +0300
+
+    Merge branch 'master' of https://github.com/shulajz/ImageService
+
+commit d8a76733f907f63182a655264bcdef6b7623af5a
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 8 14:35:50 2018 +0300
+
+    change
+
+commit e6d0db28d8b76c2227508f20254ab1faf70801c8
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 8 13:33:57 2018 +0300
+
+    p
+
+commit 0c1c402786a8ce6c4bd7b7f668ab1232f1099a20
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 8 03:45:44 2018 +0300
+
+    edit
+
+commit 10146af54fd4708d1299df02b06dd66a110cf8a2
+Merge: 10ab3ff e6d0db2
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 8 02:34:29 2018 +0300
+
+    k
+
+commit 10ab3ff91fcdc95f3e7c48ebb5e20795b58818cd
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 8 02:31:37 2018 +0300
+
+    editing
+
+commit fa6889641aaae56ed88b3cc2986a84b78455a22f
+Merge: b7c9593 e4aef8a
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 1 10:39:44 2018 +0300
+
+    c
+
+commit b7c9593432f45ada0cc9515f5fffcb83d981a989
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 1 10:37:59 2018 +0300
+
+    change
+
+commit e4aef8abb285552352bb1fc10914c9161e1da345
+Merge: 67bf461 cb6bfc2
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sat Mar 31 23:33:28 2018 +0300
+
+    Merge branch 'master' of https://github.com/shulajz/ImageService
+
+commit 67bf4618aa69ffd695d98209ccc5df5e88c0a63c
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sat Mar 31 23:33:06 2018 +0300
+
+    f
+
+commit 635091f3fd0a78cc3931a6199c7d962c4f8adef6
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu Mar 29 18:24:55 2018 +0300
+
+    ע
+
+commit efbbafb93c2bbd4acf54b7b03fc9240a634c4b3a
+Merge: d348409 1d37842
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu Mar 29 18:13:50 2018 +0300
+
+    ch
+
+commit cb6bfc2c31813bba471ba9102e00a32a4f1b81be
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Thu Mar 29 14:40:14 2018 +0300
+
+    changes in  add file function  and hander
+
+commit 1d37842654c42cff9662c0af3ce2e0de354c2c74
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Thu Mar 29 12:34:42 2018 +0300
+
+    change
+
+commit 4b7709b4a242473af789cb33f45f2a1c0fb4bc7a
+Merge: d6841af 91e3d22
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Thu Mar 29 12:23:02 2018 +0300
+
+     :)
+
+commit d348409e3e574744616e276a923f299d5af21998
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu Mar 29 00:36:17 2018 +0300
+
+    k
+
+commit 49dd59b308934350099c61681fe9b88d0b91d43f
+Merge: e672702 4b7709b
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu Mar 29 00:35:46 2018 +0300
+
+    m
+
+commit e672702a149cc2dd824dd4eb1b42e833dad3810f
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu Mar 29 00:26:44 2018 +0300
+
+    5
+
+commit 0380f8d35d2033327f612d72280ab3ef2eeb4e33
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu Mar 29 00:25:27 2018 +0300
+
+    ;
+
+commit ff7e713d449d7754a19249976aba309cacf41aef
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu Mar 29 00:25:05 2018 +0300
+
+    l
+
+commit 91e3d2241893133aad0fca18bc5be6ec2ff93dd0
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Wed Mar 28 17:37:06 2018 +0300
+
+    k
+
+commit d6841af538ae29f89eb323a49157ef9d29f433e2
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Wed Mar 28 17:33:29 2018 +0300
+
+    gfg
+
+commit 6b5337a4be3b843f768083dffcb5713673000362
+Merge: e212f25 a1a4c8b
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Wed Mar 28 17:33:11 2018 +0300
+
+    changes
+
+commit 0925b3adb0a6c4ac06ebb7c327056bd0d26471fe
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Wed Mar 28 17:26:21 2018 +0300
+
+    k
+
+commit 9e2ae120a97071b53a95cb2385b2adcb6fa777fa
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Wed Mar 28 17:00:11 2018 +0300
+
+    changes
+
+commit e212f2520f7e64c97ba19dfb520e7442c6d5d9f6
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Wed Mar 28 16:02:41 2018 +0300
+
+    change
+
+commit a1a4c8bbf32d5e8b05533513bf68e53f95d044e7
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Wed Mar 28 16:01:05 2018 +0300
+
+    changes
+
+commit 0ac2ef5891898f7a5544cb9543f8dbafbbe2700f
+Merge: 2b16734 297f70f
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Wed Mar 28 11:42:31 2018 +0300
+
+    add file change
+
+commit 297f70f952df7bb52374ebef95ea4413be104f81
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Wed Mar 28 10:52:19 2018 +0300
+
+    change
+
+commit c9b5d946f3b3bc10e981810376bddedc91ed61bb
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Wed Mar 28 10:37:48 2018 +0300
+
+    thumbnails
+
+commit 2b16734f0429381f5a422d99cd76abf4bf547e9c
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue Mar 27 18:19:08 2018 +0300
+
+    g
+
+commit c3e1959412f2393391ebfdaf1aff5cf479b18ddb
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Tue Mar 27 18:17:26 2018 +0300
+
+    changing a lot of methods
+
+commit 25b1767fb797d8ee4b803b3ad7400fa0a016103d
+Merge: 8eb8127 111b43d
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue Mar 27 12:04:57 2018 +0300
+
+    Merge branch 'master' of https://github.com/shulajz/ImageService
+
+commit 8eb81275606d48068defcc1d1c173f4ffada0d1e
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue Mar 27 12:04:18 2018 +0300
+
+    change
+
+commit 111b43d6fdc847e1f36f71653332c9327aa240b0
+Merge: 42de9c8 007f67b
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Tue Mar 27 12:03:36 2018 +0300
+
+    j
+
+commit 42de9c886fd03cfcba8822a977d971e9e06ab5d7
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Tue Mar 27 12:01:52 2018 +0300
+
+    f
+
+commit 007f67b47e500fe5fd8b3dd60633cb83c04bd64d
+Merge: 31228cb 05b8d80
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue Mar 27 11:58:08 2018 +0300
+
+    change
+
+commit 31228cb78cba686b6a0efd6ab62e9e27f2e0810e
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue Mar 27 11:53:02 2018 +0300
+
+    change
+
+commit ad7d5774baed64fe68c377ef177757d881347e1d
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue Mar 27 11:51:43 2018 +0300
+
+    change
+
+commit 5486b90a4472165c0a20268c73921d3f565d2b46
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue Mar 27 11:50:41 2018 +0300
+
+    change
+
+commit 05b8d8030a1fc6892ee3bafe1395b1417647cb9b
+Merge: 33d31a3 0c6ff7b
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Mon Mar 26 14:21:00 2018 +0300
+
+    e
+
+commit 33d31a317f43c8c1959ec37ef276ba4d9aac034b
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Mon Mar 26 14:19:45 2018 +0300
+
+    s
+
+commit 0c6ff7b6a355dbdf777a0c0c601920b45f21f95a
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Mar 26 14:18:55 2018 +0300
+
+    change
+
+commit 14112fee94eb3ac74cf594dac8acebe925409e30
+Merge: 63b8bf7 fcf4207
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Mar 26 14:18:07 2018 +0300
+
+    vhange
+
+commit 63b8bf78f350476f2358131d85d078438d6efba8
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Mar 26 13:45:34 2018 +0300
+
+    H
+
+commit fcf420783765f856600bb2fb7c7a2dc82712203b
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Mon Mar 26 13:44:17 2018 +0300
+
+    t
+
+commit 321b1c040129fe4a42d0755d2f8c89aa3da72bad
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Mon Mar 26 13:41:59 2018 +0300
+
+    controller
+
+commit b961b5b8475b0c175d58e515ed0c2fe873947be3
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Mon Mar 26 12:06:49 2018 +0300
+
+    commit
+
+commit 648374b288379a717ef81059e94aa48815f4e531
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Mar 26 11:38:18 2018 +0300
+
+    hi
+
+commit caefb3f33ea0bb174fee9c3073ee044613984e02
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Mar 26 11:35:38 2018 +0300
+
+    hi
+
+commit d894b386311e51ebeacd68eb57fe9271c95d7cc3
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Mar 26 01:21:17 2018 +0300
+
+    hi
+
+commit 7420a762f042ecb98fc759af393ee2e5f25e9ec2
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Mar 26 01:12:57 2018 +0300
+
+    kkk
+
+commit 5712a3871a1d824a6ae3cf9d74123d9bfec36737
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Mon Mar 26 01:11:36 2018 +0300
+
+    hi
+
+commit 92bc33fbbc9b8049186a2c09307587d9233a1bf9
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Mar 25 14:20:36 2018 +0300
+
+    d
+
+commit 7f8ca20e5c413b1488130439be1213d84bb2dffb
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Mar 25 13:46:39 2018 +0300
+
+    adding a service
+
+commit 6d59e4a7e46925942aa00f53de975b5ecea4dc44
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Mar 25 12:02:15 2018 +0300
+
+    Add project files.
+
+commit 0c054943cb0926391681323d487878d395029d98
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Mar 25 12:02:10 2018 +0300
+
+    Add .gitignore and .gitattributes.
