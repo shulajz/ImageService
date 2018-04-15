@@ -118,14 +118,14 @@ namespace ImageService
         }
 
         /// <summary>
-        /// This function is added to the eventlog, and is callen when
+        /// This function is added to the eventlog, and is callen whens
         /// the event is invoked.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An EventArgs that contains the event data.</param>
         private void onMsg(object sender, MessageReceivedEventArgs e)
         {
-            eventLog1.WriteEntry(e.m_message);  
+            eventLog1.WriteEntry(e.m_status +": " + e.m_message);  
         }
 
         /// <summary>
