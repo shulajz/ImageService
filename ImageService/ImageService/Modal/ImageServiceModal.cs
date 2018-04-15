@@ -49,7 +49,7 @@ namespace ImageService.Modal
 
 
         /// <summary>
-        /// The Function Addes A file to the system
+        /// The Function Addes A file to the system.
         /// </summary>
         /// <param name="path">The Path of the Image from the file</param>
         /// <param name="result">if set to <c>true</c> [result].</param>
@@ -70,7 +70,7 @@ namespace ImageService.Modal
                 string newPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName;
 
                 //move file and if name file already exist change is name.
-                moveFile(newPath, path, year, month);
+                newPath= moveFile(newPath, path, year, month);
                
 
                 //thumbnails
@@ -81,10 +81,12 @@ namespace ImageService.Modal
                 System.Drawing.Image thumb = image.GetThumbnailImage(
                     m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
 
+                fName = Path.GetFileName(newPath);
+
                 string thumbnailImagePath = m_OutputFolder + "\\" 
                     + m_thumbnailDirFolderName + "\\" + year + "\\" + month + "\\" + fName;
                 
-                thumb.Save(Path.ChangeExtension(thumbnailImagePath, "thumb"));
+                thumb.Save(Path.ChangeExtension(thumbnailImagePath, Path.GetExtension(newPath)));
                 image.Dispose();
 
                
@@ -176,7 +178,16 @@ namespace ImageService.Modal
         /// <param name="oldPath">The old path.</param>
         /// <param name="year">The year.</param>
         /// <param name="month">The month.</param>
-        public void moveFile(string newPath, string oldPath, int year, int month)
+        public string moveFile(string newPath, string oldPath, int year, int month)
+        {
+            newPath = checkIfFileNameExist(newPath, oldPath, year, month);
+            File.Copy(oldPath, newPath);
+            File.Delete(oldPath);
+            m_logging.Log("picture was copied successfully", MessageTypeEnum.INFO);
+            return newPath;
+        }
+
+        public string checkIfFileNameExist(string newPath, string oldPath, int year, int month)
         {
             int count = 1;
             bool onlyOneTime = true;
@@ -186,17 +197,15 @@ namespace ImageService.Modal
             {
                 if (onlyOneTime)
                 {
-                    m_logging.Log("name of file already exist", MessageTypeEnum.INFO);
+                    m_logging.Log("name of file "+ newPath + " already exist", MessageTypeEnum.INFO);
                     onlyOneTime = false;
                 }
                 string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
                 newPath = Path.Combine(m_OutputFolder + "\\" + year + "\\" + month + "\\", tempFileName + extension);
             }
             m_logging.Log("change the name file to " + Path.GetFileName(newPath), MessageTypeEnum.INFO);
-            File.Copy(oldPath, newPath);
-            File.Delete(oldPath);
-            m_logging.Log("picture was copied successfully", MessageTypeEnum.INFO);
+            return newPath;//
         }
-    }//
+    }
     
 }
