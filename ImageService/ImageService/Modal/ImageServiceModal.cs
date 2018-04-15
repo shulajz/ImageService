@@ -197,6 +197,6 @@ namespace ImageService.Modal
             File.Delete(oldPath);
             m_logging.Log("picture was copied successfully", MessageTypeEnum.INFO);
         }
-    }
+    }//
     
 }
