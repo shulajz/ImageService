@@ -70,11 +70,13 @@ namespace ImageService.Modal
                 string newPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName;
 
                 //move file and if name file already exist change is name.
-                newPath= moveFile(newPath, path, year, month);
+                newPath = moveFile(newPath, path, year, month);
                
 
                 //thumbnails
-                createFolderHierarchy(m_OutputFolder + "\\" + m_thumbnailDirFolderName, year, month);
+                createFolderHierarchy(m_OutputFolder + "\\" 
+                    + m_thumbnailDirFolderName,
+                    year, month);
                 
                 System.Drawing.Image image = System.Drawing.Image.FromFile(newPath);
                 
@@ -197,13 +199,16 @@ namespace ImageService.Modal
             {
                 if (onlyOneTime)
                 {
-                    m_logging.Log("name of file "+ newPath + " already exist", MessageTypeEnum.INFO);
+                    m_logging.Log("name of file "+ newPath + " already exist",
+                        MessageTypeEnum.INFO);
                     onlyOneTime = false;
                 }
                 string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
-                newPath = Path.Combine(m_OutputFolder + "\\" + year + "\\" + month + "\\", tempFileName + extension);
+                newPath = Path.Combine(m_OutputFolder + "\\" +
+                    year + "\\" + month + "\\", tempFileName + extension);
             }
-            m_logging.Log("change the name file to " + Path.GetFileName(newPath), MessageTypeEnum.INFO);
+            m_logging.Log("change the name file to " + Path.GetFileName(newPath),
+                MessageTypeEnum.INFO);
             return newPath;//
         }
     }
