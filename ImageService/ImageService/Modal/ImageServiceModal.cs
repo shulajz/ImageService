@@ -65,21 +65,13 @@ namespace ImageService.Modal
                 int month = creation.Month;
 
                 createFolderHierarchy(m_OutputFolder, year, month);
-                int count = 1;
+
                 string fName = Path.GetFileName(path);
                 string newPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName;
-                while(File.Exists(newPath))
-                {
-                    int idx = fName.LastIndexOf('.');
-                    fName = fName.Substring(0, idx) + "(" + count + ")" + fName.Substring(idx);
-                    newPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" + fName;
-                    
-                    count++;
-                }
-                File.Copy(path, newPath);
-                File.Delete(path);
+
+                //move file and if name file already exist change is name.
+                moveFile(newPath, path, year, month);
                
-                m_logging.Log("picture was copied successfully", MessageTypeEnum.INFO);
 
                 //thumbnails
                 createFolderHierarchy(m_OutputFolder + "\\" + m_thumbnailDirFolderName, year, month);
@@ -173,6 +165,37 @@ namespace ImageService.Modal
             stream.Position = 0;
             
             return stream;
+        }
+
+
+
+        /// <summary>
+        /// Moves the file.
+        /// </summary>
+        /// <param name="newPath">The new path.</param>
+        /// <param name="oldPath">The old path.</param>
+        /// <param name="year">The year.</param>
+        /// <param name="month">The month.</param>
+        public void moveFile(string newPath, string oldPath, int year, int month)
+        {
+            int count = 1;
+            bool onlyOneTime = true;
+            string fileNameOnly = Path.GetFileNameWithoutExtension(newPath);
+            string extension = Path.GetExtension(newPath);
+            while (File.Exists(newPath))
+            {
+                if (onlyOneTime)
+                {
+                    m_logging.Log("name of file already exist", MessageTypeEnum.INFO);
+                    onlyOneTime = false;
+                }
+                string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
+                newPath = Path.Combine(m_OutputFolder + "\\" + year + "\\" + month + "\\", tempFileName + extension);
+            }
+            m_logging.Log("change the name file to " + Path.GetFileName(newPath), MessageTypeEnum.INFO);
+            File.Copy(oldPath, newPath);
+            File.Delete(oldPath);
+            m_logging.Log("picture was copied successfully", MessageTypeEnum.INFO);
         }
     }
     
