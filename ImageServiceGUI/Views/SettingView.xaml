@@ -14,30 +14,38 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Padding="3" Margin="3">Output Directory:</TextBlock>
-                <TextBlock x:Name="txtOutputDirectory" Grid.Column="2" Padding="3" Margin="3" Text="{Binding OutputDirectory}"></TextBlock>
-                <TextBlock Grid.Row="1" Padding="3" Margin="3">Source Name:</TextBlock>
-                <TextBlock x:Name="txtSourceName" Grid.Row="1" Grid.Column="2" Padding="3" Margin="3" Text="{Binding SourceName}"></TextBlock>
-                <TextBlock Grid.Row="2" Padding="3" Margin="3">Log Name:</TextBlock>
-                <TextBlock x:Name="txtLogName" Grid.Row="2" Grid.Column="2" Padding="3" Margin="3" Text="{Binding LogName}"></TextBlock>
-                <TextBlock Grid.Row="3" Padding="3" Margin="3">Thumblnail Size:</TextBlock>
-                <TextBlock x:Name="txtThumblnailSize" Grid.Row="3" Grid.Column="2" Padding="3" Margin="3" Text="{Binding ThumblnailSize}"></TextBlock>
+                <TextBlock Padding="3" Margin="3" FontSize="35" FontWeight="Bold"
+                           HorizontalAlignment="Center" Foreground="Blue" 
+                           >Settings</TextBlock>
+                <TextBlock Padding="3" Grid.Row="1" Margin="3">Output Directory:</TextBlock>
+                <TextBlock x:Name="txtOutputDirectory"  Grid.Row="1" Grid.Column="2" Padding="3" Margin="3"
+                           Text="{Binding OutPutDir}"></TextBlock>
+                <TextBlock Grid.Row="2" Padding="3" Margin="3">Source Name:</TextBlock>
+                <TextBlock x:Name="txtSourceName" Grid.Row="2" Grid.Column="2" Padding="3" Margin="3"
+                           Text="{Binding SourceName}"></TextBlock>
+                <TextBlock Grid.Row="3" Padding="3" Margin="3">Log Name:</TextBlock>
+                <TextBlock x:Name="txtLogName" Grid.Row="3" Grid.Column="2" Padding="3" Margin="3"
+                           Text="{Binding LogName}"></TextBlock>
+                <TextBlock Grid.Row="4" Padding="3" Margin="3">Thumblnail Size:</TextBlock>
+                <TextBlock x:Name="txtThumblnailSize" Grid.Row="4" Grid.Column="2" Padding="3" Margin="3"
+                           Text="{Binding ThumblnailSize}"></TextBlock>
             </Grid>
             <Button x:Name="btnRemove" Height="25" Content="Remove" Command ="{Binding RemoveCommand}"></Button>
-            <ListBox Margin="5" SelectionMode="Single" Name="lst">
-                <StackPanel Orientation="Horizontal">
-                <Label  VerticalContentAlignment="Center">hi there</Label>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label  VerticalContentAlignment="Center">hi gui</Label>
-        </StackPanel>
-        </ListBox>
-
+            <ScrollViewer Name ="scrollView" CanContentScroll="True">
+                <StackPanel>
+            <ListBox Margin="5" SelectionMode="Single" Name="lst"
+               ItemsSource="{Binding HandlersList}"
+               SelectedItem="{Binding SelectedHandler, Mode=TwoWay}"
+                     IsTabStop="False">
+            </ListBox>
+                </StackPanel>
+            </ScrollViewer>
 
         </StackPanel>
     </Grid>

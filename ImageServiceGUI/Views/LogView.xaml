@@ -6,7 +6,44 @@
              xmlns:local="clr-namespace:ImageServiceGUI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+   
+        <Table Name="ItemsTable" CellSpacing="10" BorderBrush="Black" BorderThickness="2" TextAlignment="Justify">
+            <Table.Columns>
+                <TableColumn Width="120"/>
+                <TableColumn Width="180"/>
+                <TableColumn Width="120"/>
+                <TableColumn Width="140"/>
+                <TableColumn Width="140"/>
+            </Table.Columns>
+            <TableRowGroup Background="White">
+                <TableRow>
+                    <TableCell>
+                        <Paragraph>
+                            <TextBlock TextWrapping="Wrap"/>
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph>
+                            <TextBlock TextWrapping="Wrap" Text="s"/>
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph>
+                            <TextBlock TextWrapping="Wrap" Text="d"/>
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph>
+                            <TextBlock TextWrapping="Wrap" Text="s"/>
+                        </Paragraph>
+                    </TableCell>
+                    <TableCell>
+                        <Paragraph>
+                            <TextBlock TextWrapping="Wrap" Text="a"/>
+                        </Paragraph>
+                    </TableCell>
+                </TableRow>
+            </TableRowGroup>
+        </Table> 
+   
 </UserControl>

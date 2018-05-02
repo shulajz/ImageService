@@ -6,14 +6,15 @@
         xmlns:local="clr-namespace:ImageServiceGUI"
         xmlns:controlers="clr-namespace:ImageServiceGUI.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="525">
+        Title="MainWindow" Height="350" Width="525">
     <TabControl Margin="5" SelectionChanged="TabControl_SelectionChanged">
                 
             <TabItem Header="Setting">
             <controlers:SettingView></controlers:SettingView>
         </TabItem>
-        <TabItem Header="Log"></TabItem>
+        <TabItem Header="Log">
         <controlers:LogView></controlers:LogView>
+        </TabItem>
+    </TabControl>
 
-        </TabControl>
 </Window>
