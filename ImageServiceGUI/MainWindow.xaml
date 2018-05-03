@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ImageServiceGUI"
         xmlns:controlers="clr-namespace:ImageServiceGUI.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="450" Width="800">
     <TabControl Margin="5" SelectionChanged="TabControl_SelectionChanged">
                 
             <TabItem Header="Setting">
