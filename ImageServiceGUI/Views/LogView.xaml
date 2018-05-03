@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <DataGrid Name="logTable"  AlternatingRowBackground = "LightBlue"
-              AutoGenerateColumns = "False">
+              AutoGenerateColumns = "False" ItemsSource="{Binding Data}">
         <DataGrid.Columns>
             <DataGridTextColumn Header = "Type" Binding = "{Binding Type}" />
             <DataGridTextColumn Header = "Message" Binding = "{Binding Message}" />

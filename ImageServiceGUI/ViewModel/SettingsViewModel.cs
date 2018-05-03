@@ -56,15 +56,6 @@ namespace ImageServiceGUI.ViewModel
             return true;
         }
 
-        //public string HandlersList
-        //{
-        //    get { return m_settingModel.SelectedHandler; }
-        //    set
-        //    {
-        //        m_settingModel.SelectedHandler = value;
-        //        NotifyPropertyChanged("SelectedHandler");
-        //    }
-        //}
         public string SelectedHandler
         {
             get { return m_settingModel.SelectedHandler; }
@@ -75,13 +66,15 @@ namespace ImageServiceGUI.ViewModel
             }
         }
 
+
+  
         public string OutPutDir
         {
             get { return m_settingModel.OutPutDir; }
             set
             {
                 m_settingModel.OutPutDir = value;
-                
+
             }
         }
 
@@ -114,7 +107,9 @@ namespace ImageServiceGUI.ViewModel
                 NotifyPropertyChanged("ThumbnailSize");
             }
         }
-
     }
-    
+
+
+
 }
+    
