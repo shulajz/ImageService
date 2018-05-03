@@ -16,7 +16,7 @@ namespace ImageServiceGUI.ViewModel
     {
         private ISettingModel m_settingModel;
         public event PropertyChangedEventHandler PropertyChanged;
-        public IEnumerable<string> HandlersList { get; private set; }
+        public IEnumerable<string> HandlersList { get; private set; }//
 
         protected void NotifyPropertyChanged(string name)
         {
