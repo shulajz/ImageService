@@ -22,12 +22,12 @@ namespace ImageServiceGUI.Views
     /// </summary>
     public partial class SettingView : UserControl
     {
-        private SettingsViewModel Svm;
+        private SettingsViewModel vm;
         public SettingView()
         {
             InitializeComponent();
-            Svm = new SettingsViewModel();
-            this.DataContext = Svm;
+            vm = new SettingsViewModel();
+            this.DataContext = vm;
         }
     }
 }
