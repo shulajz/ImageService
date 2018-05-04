@@ -13,34 +13,11 @@ namespace ImageServiceGUI.ViewModel
     {
         
         private ILogModel m_logModel;
-      
+        public ObservableCollection<Log> VM_model_log { get { return m_logModel.model_log; } } 
         public event PropertyChangedEventHandler PropertyChanged;
-        public IEnumerable<string> Data { get; private set; }
-        public LogViewModel()
+        public LogViewModel(ILogModel logModel)
         {
-            
-            this.m_logModel = new LogModel();
-            this.Data = new[] { "info", "jkcd" };
-        }
-
-        public string Type
-        {
-            get { return m_logModel.Type; }
-            set
-            {
-                m_logModel.Type = value;
-                NotifyPropertyChanged("type");
-            }
-        }
-
-        public string Message
-        {
-            get { return m_logModel.Message; }
-            set
-            {
-                m_logModel.Message = value;
-                NotifyPropertyChanged("message");
-            }
+            this.m_logModel = logModel; 
         }
 
         protected void NotifyPropertyChanged(string name)

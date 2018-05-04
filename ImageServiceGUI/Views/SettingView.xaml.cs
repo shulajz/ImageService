@@ -1,4 +1,5 @@
-﻿using ImageServiceGUI.ViewModel;
+﻿using ImageServiceGUI.Model;
+using ImageServiceGUI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace ImageServiceGUI.Views
         public SettingView()
         {
             InitializeComponent();
-            vm = new SettingsViewModel();
+            vm = new SettingsViewModel(new SettingModel());
             this.DataContext = vm;
         }
     }

@@ -8,7 +8,7 @@ using System.Windows.Input;
 using System.Diagnostics;
 using Microsoft.Practices.Prism.Commands;
 using System.ComponentModel;
-
+using System.Collections.ObjectModel;
 
 namespace ImageServiceGUI.ViewModel
 {
@@ -16,7 +16,8 @@ namespace ImageServiceGUI.ViewModel
     {
         private ISettingModel m_settingModel;
         public event PropertyChangedEventHandler PropertyChanged;
-        public IEnumerable<string> HandlersList { get; private set; }//
+        public IEnumerable<string> HandlersList { get; private set; }
+        
 
         protected void NotifyPropertyChanged(string name)
         {
@@ -25,14 +26,16 @@ namespace ImageServiceGUI.ViewModel
 
         public ICommand RemoveCommand { get; private set; }
 
-        public SettingsViewModel()
+        public SettingsViewModel(ISettingModel settingModel)
         {
+            
+
             this.RemoveCommand = new DelegateCommand<object>(this.OnRemove,this.CanRemove);
-            this.m_settingModel = new SettingModel();
+            this.m_settingModel = settingModel;
             m_settingModel.OutPutDir = "shula";
             m_settingModel.PropertyChanged += propChangedMethod;
 
-            string[] handlersListTemp = new[] { "hey", "there", "shula", "how", "are", "you", "today", "great", "thanks" };
+            string[] handlersListTemp = new[] { "hi", "there", "shula", "how", "are", "you", "today", "great", "thanks" };
             this.HandlersList = handlersListTemp;
         }
 

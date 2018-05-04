@@ -4,26 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
+
 namespace ImageServiceGUI.Model
 {
     class SettingModel : INotifyPropertyChanged, ISettingModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+       // public ObservableCollection<KeyValuePair<string>j { get; set; }
         protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
-        //private string[] m_handlersList;
-        //public string HandlersList
-        //{
-        //    get { return m_handlersList; }
-        //    set
-        //    {
-        //        m_settingModel.SelectedHandler = value;
-        //        NotifyPropertyChanged("SelectedHandler");
-        //    }
-        //}
 
         private string m_selectedHandler;
         public string SelectedHandler

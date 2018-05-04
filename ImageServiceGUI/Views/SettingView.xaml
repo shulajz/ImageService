@@ -6,47 +6,69 @@
              xmlns:local="clr-namespace:ImageServiceGUI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <StackPanel Margin="3">
-            <Grid TextBlock.FontSize="14">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Padding="3" Margin="3" FontSize="35" FontWeight="Bold"
-                           HorizontalAlignment="Center" Foreground="Blue" 
-                           >Settings</TextBlock>
-                <TextBlock Padding="3" Grid.Row="1" Margin="3">Output Directory:</TextBlock>
-                <TextBlock x:Name="txtOutputDirectory"  Grid.Row="1" Grid.Column="2" Padding="3" Margin="3"
+
+    <StackPanel Margin="3">
+        <TextBlock  FontStyle="Oblique" Grid.Row="0" Padding="3" Margin="3" FontSize="35" FontWeight="Bold"
+                           HorizontalAlignment="Center" Text="Settings" VerticalAlignment="Top" >
+            <TextBlock.Effect>
+                <DropShadowEffect
+                    ShadowDepth="6"
+                    Direction="330"
+                    Color="Black"
+                    Opacity="0.5"
+                    BlurRadius="4"
+                ></DropShadowEffect>
+            </TextBlock.Effect>
+            <TextBlock.Foreground>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Red" Offset="0.0" />
+                    <GradientStop Color="Orange" Offset="0.2" />
+                    <GradientStop Color="Yellow" Offset="0.4" />
+                    <GradientStop Color="Green" Offset="0.6" />
+                    <GradientStop Color="Blue" Offset="0.8" />
+                    <GradientStop Color="Violet" Offset="1.0" />
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontWeight="Bold" Padding="3" Grid.Row="1" Margin="3">Output Directory:</TextBlock>
+            <TextBlock x:Name="txtOutputDirectory"  Grid.Row="1" Grid.Column="2" Padding="3" Margin="3"
                            Text="{Binding OutPutDir}"></TextBlock>
-                <TextBlock Grid.Row="2" Padding="3" Margin="3">Source Name:</TextBlock>
-                <TextBlock x:Name="txtSourceName" Grid.Row="2" Grid.Column="2" Padding="3" Margin="3"
+            <TextBlock FontWeight="Bold" Grid.Row="2" Padding="3" Margin="3">Source Name:</TextBlock>
+            <TextBlock x:Name="txtSourceName" Grid.Row="2" Grid.Column="2" Padding="3" Margin="3"
                            Text="{Binding SourceName}"></TextBlock>
-                <TextBlock Grid.Row="3" Padding="3" Margin="3">Log Name:</TextBlock>
-                <TextBlock x:Name="txtLogName" Grid.Row="3" Grid.Column="2" Padding="3" Margin="3"
+            <TextBlock FontWeight="Bold" Grid.Row="3" Padding="3" Margin="3">Log Name:</TextBlock>
+            <TextBlock x:Name="txtLogName" Grid.Row="3" Grid.Column="2" Padding="3" Margin="3"
                            Text="{Binding LogName}"></TextBlock>
-                <TextBlock Grid.Row="4" Padding="3" Margin="3">Thumblnail Size:</TextBlock>
-                <TextBlock x:Name="txtThumblnailSize" Grid.Row="4" Grid.Column="2" Padding="3" Margin="3"
+            <TextBlock FontWeight="Bold" Grid.Row="4" Padding="3" Margin="3">Thumblnail Size:</TextBlock>
+            <TextBlock x:Name="txtThumblnailSize" Grid.Row="4" Grid.Column="2" Padding="3" Margin="3"
                            Text="{Binding ThumblnailSize}"></TextBlock>
-            </Grid>
-            <Button x:Name="btnRemove" Height="25" Content="Remove" Command ="{Binding RemoveCommand}"></Button>
-            <ScrollViewer Name ="scrollView" CanContentScroll="True">
-                <StackPanel>
-            <ListBox Margin="5" SelectionMode="Single" Name="lst"
+
+        </Grid>
+        
+        <Button x:Name="btnRemove" Height="30" Content="Remove" FontWeight="Bold" Command ="{Binding RemoveCommand}" >
+      
+        </Button>
+
+        <StackPanel>
+            <ListBox SelectionMode="Single" Name="lst" Height="170"
                ItemsSource="{Binding HandlersList}"
                SelectedItem="{Binding SelectedHandler, Mode=TwoWay}"
                      IsTabStop="False">
             </ListBox>
-                </StackPanel>
-            </ScrollViewer>
-
         </StackPanel>
-    </Grid>
+
+    </StackPanel>
+
 </UserControl>

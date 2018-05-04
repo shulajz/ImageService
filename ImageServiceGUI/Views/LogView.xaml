@@ -3,16 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ImageServiceGUI.Views"
+             xmlns:local="clr-namespace:ImageServiceGUI.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <DataGrid Name="logTable"  AlternatingRowBackground = "LightBlue"
-              AutoGenerateColumns = "False" ItemsSource="{Binding Data}">
-        <DataGrid.Columns>
-            <DataGridTextColumn Header = "Type" Binding = "{Binding Type}" />
-            <DataGridTextColumn Header = "Message" Binding = "{Binding Message}" />
-        </DataGrid.Columns>
-    </DataGrid>
-   
+    <StackPanel >
+        <TextBlock  FontStyle="Oblique" Grid.Row="0" Padding="3" Margin="3" FontSize="35" FontWeight="Bold"
+                          FontFamily="Verdana"  HorizontalAlignment="Center" Foreground="Red" Text="Log" VerticalAlignment="Top" >
+            <TextBlock.Effect>
+                <DropShadowEffect
+                    ShadowDepth="6"
+                    Direction="330"
+                    Color="Black"
+                    Opacity="0.5"
+                    BlurRadius="4"
+                ></DropShadowEffect>
+            </TextBlock.Effect>
+        </TextBlock>
+
+        <DataGrid Name="logTable"  AlternatingRowBackground = "White"   Height="300"   
+               AutoGenerateColumns = "False" CanUserAddRows="False" CanUserSortColumns="False" ItemsSource = "{Binding VM_model_log}" >
+            <DataGrid.Columns >
+                <DataGridTextColumn  IsReadOnly="True" Header = "Type"  FontWeight="Bold" Width="80"  Binding = "{Binding Type}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock" >
+                            <Setter Property="Background" Value="{Binding Color}"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header = "Message" Binding = "{Binding Message}" Width="*" />
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </StackPanel>
+
 </UserControl>

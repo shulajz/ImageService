@@ -1,4 +1,5 @@
-﻿using ImageServiceGUI.ViewModel;
+﻿using ImageServiceGUI.Model;
+using ImageServiceGUI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace ImageServiceGUI.Views
         public LogView()
         {
             InitializeComponent();
-            vm = new LogViewModel();
+            vm = new LogViewModel(new LogModel());
             this.DataContext = vm;
             
         }

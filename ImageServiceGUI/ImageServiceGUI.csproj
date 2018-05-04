@@ -60,6 +60,7 @@
     <Compile Include="CommandsDelegate\WeakEventHandlerManager.cs" />
     <Compile Include="Model\ILogModel.cs" />
     <Compile Include="Model\ISettingModel.cs" />
+    <Compile Include="Model\Log.cs" />
     <Compile Include="Model\LogModel.cs" />
     <Compile Include="Model\SettingModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
