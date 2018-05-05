@@ -23,7 +23,7 @@ namespace ImageServiceGUI.Model
                 m_type = value;
 
                 setColorDependType();
-                OnPropertyChanged("type");
+                OnPropertyChanged("Type");
             }
         }
 
@@ -34,7 +34,7 @@ namespace ImageServiceGUI.Model
             set
             {
                 m_message = value;
-                OnPropertyChanged("message");
+                OnPropertyChanged("Message");
             }
         }
 

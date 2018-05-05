@@ -131,7 +131,8 @@ namespace ImageService.Controller.Handlers
             m_dirWatcher.EnableRaisingEvents = false;
             m_dirWatcher.Created -= new FileSystemEventHandler(OnCreated);
             m_dirWatcher.Dispose();
-            DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(m_path, "close handler at path " + m_path));
+            DirectoryCloseEvent?.Invoke(this, new DirectoryCloseEventArgs(m_path,
+                "close handler at path " + m_path));
 
         }
     }

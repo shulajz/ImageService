@@ -20,15 +20,19 @@ namespace ImageServiceGUI.Model
             model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
             model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
             model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            model_log.Add(new Log() { Type = "INFO", Message = "hgvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvdvvdvddvdsvdvsvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvdccccccccccccci" });
+            model_log.Add(new Log() { Type = "INFO", Message = "hgvvvvvvvvvvvvvcci" });
             model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            model_log.Add(new Log() { Type = "WARNNING", Message = "hi" }); model_log.Add(new Log() { Type = "INFO", Message = "hi" });
+            model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
+            model_log.Add(new Log() {Type = "INFO", Message = "hi" });
             model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            model_log.Add(new Log() { Type = "WARNNING", Message = "hi" }); model_log.Add(new Log() { Type = "INFO", Message = "hi" });
+            model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
+            model_log.Add(new Log() {Type = "INFO", Message = "hi" });
             model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            model_log.Add(new Log() { Type = "WARNNING", Message = "hi" }); model_log.Add(new Log() { Type = "INFO", Message = "hi" });
+            model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
+            model_log.Add(new Log() {Type = "INFO", Message = "hi" });
             model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            model_log.Add(new Log() { Type = "WARNNING", Message = "hi" }); model_log.Add(new Log() { Type = "INFO", Message = "hi" });
+            model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
+            model_log.Add(new Log() {Type = "INFO", Message = "hi" });
             model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
             model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
 
