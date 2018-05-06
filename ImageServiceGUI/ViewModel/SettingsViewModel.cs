@@ -65,7 +65,7 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.SelectedHandler = value;
-                NotifyPropertyChanged("SelectedHandler");
+                //NotifyPropertyChanged("SelectedHandler");
             }
         }
 
@@ -87,7 +87,7 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.SourceName = value;
-                NotifyPropertyChanged("SourceName");
+                //NotifyPropertyChanged("SourceName");
             }
         }
 
@@ -97,7 +97,7 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.LogName = value;
-                NotifyPropertyChanged("LogName");
+                //NotifyPropertyChanged("LogName");
             }
         }
 
@@ -107,7 +107,7 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.ThumbnailSize = value;
-                NotifyPropertyChanged("ThumbnailSize");
+                //NotifyPropertyChanged("ThumbnailSize");
             }
         }
     }

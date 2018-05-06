@@ -1,4 +1,5 @@
 ﻿using ImageService.Commands;
+using ImageService.ImageService.Commands;
 using ImageService.Infrastructure;
 using ImageService.Infrastructure.Enums;
 using ImageService.Modal;
@@ -25,7 +26,8 @@ namespace ImageService.Controller
             commands = new Dictionary<int, ICommand>()
             {
                 // For Now will contain NEW_FILE_COMMAND
-                {(int) CommandEnum.NewFileCommand, new NewFileCommand(m_modal) }
+                {(int) CommandEnum.NewFileCommand, new NewFileCommand(m_modal) },
+                {(int) CommandEnum.GetConfigCommand, new ImageService.ImageService.Commands.GetConfigCommand(m_modal) }
         
             };
         }
