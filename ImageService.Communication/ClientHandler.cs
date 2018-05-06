@@ -19,6 +19,7 @@ namespace ImageService.Communication
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
                     string commandLine = reader.ReadLine();
+                    writer.WriteLine("d");
                     //Console.WriteLine("Got command: {0}", commandLine);
                     //string result = ExecuteCommand(commandLine, client);
                    // writer.Write(result);

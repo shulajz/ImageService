@@ -21,7 +21,7 @@ namespace ImageService
 {
     public partial class ImageService : ServiceBase
     {
-        private ImageServer m_imageServer;          // The Image Server
+        private ImageServer m_imageServer;          // The Image Server.
         private IImageServiceModal modal;
         private IImageController controller;
         private ILoggingService logging;
