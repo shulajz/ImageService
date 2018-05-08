@@ -16,6 +16,8 @@ using ImageService.Logging;
 using ImageService.Logging.Modal;
 //using System.Configuration;
 using ImageService.Infrastructure.Enums;
+using ImageService.Communication;
+using ImageService.Commands;
 
 namespace ImageService
 {
@@ -97,16 +99,19 @@ namespace ImageService
                 SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
                 //read from app config
-                string outPutDir = ConfigurationManager.AppSettings["OutputDir"];
-                int thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
-                string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+                AppConfig appConfig = new AppConfig(); 
                 //create the LoggingService
                 logging = new LoggingService();
                 logging.MessageReceivedEvent += onMsg;
-                modal = new ImageServiceModal(outPutDir, thumbnailSize, logging);
-                controller = new ImageController(modal);
+                //logging.MessageReceivedEvent += LogCommand.onReceiveCommandLog;
+
+                modal = new ImageServiceModal(appConfig.OutPutDir, appConfig.ThumbnailSize, logging);
+                controller = new ImageController(modal, appConfig);
+                ClientHandler clientHandler = new ClientHandler(controller);
+                TCPServerChannel server = new TCPServerChannel(8000, clientHandler);
+                server.Start();
                 //create the ImageServer         
-                m_imageServer = new ImageServer(logging ,arrHandlers,controller);
+                m_imageServer = new ImageServer(logging , appConfig.ArrHandlers, controller);
 
             }
             catch (Exception ex)
@@ -125,7 +130,7 @@ namespace ImageService
         /// <param name="e">An EventArgs that contains the event data.</param>
         private void onMsg(object sender, MessageReceivedEventArgs e)
         {
-            eventLog1.WriteEntry(e.m_status +": " + e.m_message);  
+            eventLog1.WriteEntry(e.m_status +": " + e.m_message); 
         }
 
         /// <summary>

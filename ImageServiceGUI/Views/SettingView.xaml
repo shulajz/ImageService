@@ -53,7 +53,7 @@
                            Text="{Binding LogName}"></TextBlock>
             <TextBlock FontWeight="Bold" Grid.Row="4" Padding="3" Margin="3">Thumblnail Size:</TextBlock>
             <TextBlock x:Name="txtThumblnailSize" Grid.Row="4" Grid.Column="2" Padding="3" Margin="3"
-                           Text="{Binding ThumblnailSize}"></TextBlock>
+                           Text="{Binding ThumbnailSize}"></TextBlock>
 
         </Grid>
         

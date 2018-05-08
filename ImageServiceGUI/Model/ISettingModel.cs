@@ -18,7 +18,7 @@ namespace ImageServiceGUI.Model
         string OutPutDir { get; set; }
         string SourceName { get; set; }
         string LogName { get; set; }
-        string ThumbnailSize { get; set; }
+        int ThumbnailSize { get; set; }
 
     }
 }

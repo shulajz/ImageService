@@ -33,6 +33,7 @@ namespace ImageServiceGUI.ViewModel
             this.RemoveCommand = new DelegateCommand<object>(this.OnRemove,this.CanRemove);
             this.m_settingModel = settingModel;
             m_settingModel.OutPutDir = "shula";
+            m_settingModel.ThumbnailSize = 150;
             m_settingModel.PropertyChanged += propChangedMethod;
 
             string[] handlersListTemp = new[] { "hi", "there", "shula", "how", "are", "you", "today", "great", "thanks" };
@@ -101,7 +102,7 @@ namespace ImageServiceGUI.ViewModel
             }
         }
 
-        public string ThumbnailSize
+        public int ThumbnailSize
         {
             get { return m_settingModel.ThumbnailSize; }
             set

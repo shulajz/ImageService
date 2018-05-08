@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageService.Logging.Modal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -55,11 +56,11 @@ namespace ImageServiceGUI.Model
             {
                 m_color = "YellowGreen";
             }
-            else if (Type == "ERROR")
+            else if (Type == "FAIL")
             {
                 m_color = "Red";
             }
-            else if (Type == "WARNNING")
+            else if (Type == "WARNING")
             {
                 m_color = "Yellow";
             }

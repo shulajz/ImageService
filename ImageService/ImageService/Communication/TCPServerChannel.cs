@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ImageService.Communication
 {
-    class TCPServerChannel : TCPChannel
+    class TCPServerChannel
     {
         private int m_port;
         private TcpListener listener;
@@ -17,7 +17,7 @@ namespace ImageService.Communication
         public TCPServerChannel(int port, IClientHandler ch)
         {
             this.m_port = port;
-            this.ch = ch;
+            this.ch = ch;
         }
         public void Start()
         {
@@ -45,6 +45,7 @@ namespace ImageService.Communication
             });
             task.Start();
         }
+
         public void Stop()
         {
             listener.Stop();

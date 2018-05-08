@@ -1,29 +1,23 @@
 ﻿using ImageService.Commands;
 using ImageService.Modal;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageService.ImageService.Commands
+namespace ImageService.Commands
 {
     class GetConfigCommand : ICommand
 
     {
-        private IImageServiceModal m_modal;
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NewFileCommand"/> class.
-        /// </summary>
-        /// <param name="modal">The modal.</param>
-        public GetConfigCommand(IImageServiceModal modal)
+        private AppConfig m_appConfig;
+        public GetConfigCommand(AppConfig appConfig)
         {
-            m_modal = modal;            // Storing the Modal
+            m_appConfig = appConfig;
         }
-
-
         /// <summary>
         /// Executes the specified arguments.
         /// </summary>
@@ -32,12 +26,24 @@ namespace ImageService.ImageService.Commands
         /// <returns>System.String.</returns>
         public string Execute(string[] args, out bool result)
         {
+            JObject configObj = new JObject();
+            try
             {
-                // the string will return the new path if result = true,
-                //and will return the error message if the result = false
-                return m_modal.AddFile(args[0], out result);
+                configObj["OutPutDir"] = m_appConfig.OutPutDir;
+                configObj["SourceName"] = m_appConfig.SourceName;
+                configObj["LogName"] = m_appConfig.LogName;
+                configObj["ThumbnailSize"] = m_appConfig.ThumbnailSize;
+                configObj["ArrHandlers"] = JsonConvert.SerializeObject(m_appConfig.ArrHandlers);
+                result = true;
+            } catch(Exception e) {
+                result = false;
+                return e.Message;
 
             }
+            return configObj.ToString();
+
+
+
         }
     }
 }

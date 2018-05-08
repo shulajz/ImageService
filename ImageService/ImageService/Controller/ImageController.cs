@@ -1,5 +1,5 @@
 ﻿using ImageService.Commands;
-using ImageService.ImageService.Commands;
+//using ImageService.ImageService.Commands;
 using ImageService.Infrastructure;
 using ImageService.Infrastructure.Enums;
 using ImageService.Modal;
@@ -14,21 +14,23 @@ namespace ImageService.Controller
     public class ImageController : IImageController
     {
         private IImageServiceModal m_modal;   //The Modal Object
+        private AppConfig m_appConfig;
         private Dictionary<int, ICommand> commands;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageController"/> class.
         /// </summary>
         /// <param name="modal">The modal.</param>
-        public ImageController(IImageServiceModal modal)
+        public ImageController(IImageServiceModal modal, AppConfig appConfig)
         {
+            m_appConfig = appConfig;
             m_modal = modal;                    // Storing the Modal Of The System
             commands = new Dictionary<int, ICommand>()
             {
                 // For Now will contain NEW_FILE_COMMAND
-                {(int) CommandEnum.NewFileCommand, new NewFileCommand(m_modal) },
-                {(int) CommandEnum.GetConfigCommand, new ImageService.ImageService.Commands.GetConfigCommand(m_modal) }
-        
+                {(int) CommandEnum.NewFileCommand, new NewFileCommand(m_modal)},
+                {(int) CommandEnum.GetConfigCommand, new GetConfigCommand(m_appConfig)},
+                { (int) CommandEnum.LogCommand, new LogCommand()}
             };
         }
 

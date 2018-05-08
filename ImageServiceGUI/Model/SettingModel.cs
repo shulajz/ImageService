@@ -5,13 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
+using ImageService.Infrastructure.Enums;
+using ImageServiceGUI.Communication;
+
 
 namespace ImageServiceGUI.Model
 {
     class SettingModel : INotifyPropertyChanged, ISettingModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
-       // public ObservableCollection<KeyValuePair<string>j { get; set; }
+        public SettingModel()
+        {
+            string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.GetConfigCommand);
+            ClientSingleton client = ClientSingleton.getInstance;
+            client.CommandReceivedEvent += settingsOnCommand;
+
+            client.write(outputCommand);
+
+        }
         protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -61,8 +73,8 @@ namespace ImageServiceGUI.Model
             }
         }
 
-        private string m_ThumbnailSize;
-        public string ThumbnailSize
+        private int m_ThumbnailSize;
+        public int ThumbnailSize
         {
             get { return m_ThumbnailSize; }
             set
@@ -70,6 +82,11 @@ namespace ImageServiceGUI.Model
                 m_ThumbnailSize = value;
                 OnPropertyChanged("ThumbnailSize");
             }
+        }
+
+        private void settingsOnCommand(object sender, ClientArgs e)
+        {
+
         }
 
     }
