@@ -14,11 +14,11 @@ namespace ImageServiceGUI.Communication
     class ClientSingleton
     {
         public event EventHandler<ClientArgs> CommandReceivedEvent;
-        private int m_port;
-        private string m_ip;
-        private TcpClient m_client;
-        private BinaryReader reader;
-        private BinaryWriter writer;
+        //private int m_port;
+        //private string m_ip;
+        //private TcpClient m_client;
+        private StreamReader reader;
+        private StreamWriter writer;
         private bool listening;
         private static ClientSingleton instance;
         //private TCPClientChannel client;
@@ -41,7 +41,12 @@ namespace ImageServiceGUI.Communication
 
         public void write(string command)
         {
-            writer.Write(command);
+
+            Console.WriteLine("BEFORE WRITE: "+command);
+            writer.WriteLine(command);
+            writer.Flush();
+            Console.WriteLine("AFTER WRITE: " + command);
+
         }
 
         public void readCommands()
@@ -51,12 +56,20 @@ namespace ImageServiceGUI.Communication
                 {
                     try
                     {
-                        string info = reader.ReadString();
+                        Console.WriteLine("Wait for read command");
+                        string info = reader.ReadLine();//if null the service close
+                        while (reader.Peek() > 0)
+                        {
+                            info += reader.ReadLine(); 
+                        }
+                        Console.WriteLine("after read");
                         JObject infoObj = JObject.Parse(info);
                         CommandReceivedEvent?.Invoke(this, new ClientArgs((int)infoObj["commandID"], (string)infoObj["args"]));
+                        Console.WriteLine("after json");
                     }
-                    catch (SocketException)
+                    catch (SocketException e)
                     {
+                        Console.WriteLine("Error in read: " + e.Message);
                         break;
                     }
                 }
@@ -73,8 +86,8 @@ namespace ImageServiceGUI.Communication
             listening = true;
             Console.WriteLine("You are connected");
             NetworkStream stream = client.GetStream();
-            reader = new BinaryReader(stream);
-            writer = new BinaryWriter(stream);
+            reader = new StreamReader(stream);
+            writer = new StreamWriter(stream);
             readCommands();
         }
 

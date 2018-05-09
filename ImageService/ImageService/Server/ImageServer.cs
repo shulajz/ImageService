@@ -5,6 +5,7 @@ using ImageService.Logging;
 using ImageService.Modal;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -32,7 +33,7 @@ namespace ImageService.Server
         /// <param name="arrHandlers">The array handlers.</param>
         /// <param name="mController">The controller.</param>
         public ImageServer(ILoggingService mLogging,
-            string[] arrHandlers, IImageController mController)
+            ObservableCollection<string> arrHandlers, IImageController mController)
         {
             m_logging = mLogging;
             m_controller = mController;

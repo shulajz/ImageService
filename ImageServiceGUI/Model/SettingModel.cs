@@ -8,21 +8,25 @@ using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using ImageService.Infrastructure.Enums;
 using ImageServiceGUI.Communication;
-
+using Newtonsoft.Json.Linq;
 
 namespace ImageServiceGUI.Model
 {
     class SettingModel : INotifyPropertyChanged, ISettingModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public ObservableCollection<string> modelSettingsHandlers { get; set; }
+
         public SettingModel()
         {
             string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.GetConfigCommand);
             ClientSingleton client = ClientSingleton.getInstance;
             client.CommandReceivedEvent += settingsOnCommand;
+            modelSettingsHandlers = new ObservableCollection<string>();
 
             client.write(outputCommand);
-
+            
+          
         }
         protected void OnPropertyChanged(string name)
         {
@@ -83,10 +87,29 @@ namespace ImageServiceGUI.Model
                 OnPropertyChanged("ThumbnailSize");
             }
         }
+        //private ObservableCollection<string> m_arrHandlers;
+        //public ObservableCollection<string> ArrHandlers
+        //{
+        //    get { return m_arrHandlers; }
+        //    set
+        //    {
+        //        m_arrHandlers = value;
+
+        //    }
+        //}
 
         private void settingsOnCommand(object sender, ClientArgs e)
         {
+            if (e.CommandID == (int)CommandEnum.GetConfigCommand)
+            {
+                JObject info = JObject.Parse(e.Args);
+                OutPutDir = (string)info["OutPutDir"];
+                SourceName = (string)info["SourceName"];
+                LogName = (string)info["LogName"];
+                ThumbnailSize = (int)info["ThumbnailSize"];
+                modelSettingsHandlers = JsonConvert.DeserializeObject<ObservableCollection<string>>((string)info["ArrHandlers"]);
 
+            }
         }
 
     }

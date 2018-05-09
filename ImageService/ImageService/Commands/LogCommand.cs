@@ -11,7 +11,7 @@ namespace ImageService.Commands
 {
     public class LogCommand : ICommand
     {
-        private List<MessageReceivedEventArgs> logList;
+        private static List<MessageReceivedEventArgs> logList;
 
         public LogCommand()
         {
@@ -38,7 +38,7 @@ namespace ImageService.Commands
 
         }
 
-        public void onReceiveCommandLog(object sender, MessageReceivedEventArgs e)
+        public static void onReceiveCommandLog(object sender, MessageReceivedEventArgs e)
         {
 
             //eventLog1.WriteEntry(e.m_status + ": " + e.m_message);

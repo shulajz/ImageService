@@ -13,19 +13,21 @@ namespace ImageService.Communication
         private int m_port;
         private TcpListener listener;
         private IClientHandler ch;
+        private System.Diagnostics.EventLog m_eventLog1;
 
-        public TCPServerChannel(int port, IClientHandler ch)
+        public TCPServerChannel(int port, IClientHandler ch, System.Diagnostics.EventLog eventLog1)
         {
             this.m_port = port;
-            this.ch = ch;
+            this.ch = ch;            this.m_eventLog1 = eventLog1;
         }
         public void Start()
         {
-           IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), m_port);
+           IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"),m_port);
             listener = new TcpListener(ep);
 
             listener.Start();
-            Console.WriteLine("Waiting for connections...");
+        
+            m_eventLog1.WriteEntry("Waiting for connections...");
 
             Task task = new Task(() => {
                 while (true)
@@ -33,7 +35,7 @@ namespace ImageService.Communication
                     try
                     {
                         TcpClient client = listener.AcceptTcpClient();
-                        Console.WriteLine("Got new connection");
+                        m_eventLog1.WriteEntry("Got new connection");
                         ch.HandleClient(client);
                     }
                     catch (SocketException)
@@ -41,7 +43,7 @@ namespace ImageService.Communication
                         break;
                     }
                 }
-                Console.WriteLine("Server stopped");
+                m_eventLog1.WriteEntry("Server stopped");
             });
             task.Start();
         }

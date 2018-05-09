@@ -17,7 +17,9 @@ namespace ImageServiceGUI.ViewModel
         private ISettingModel m_settingModel;
         public event PropertyChangedEventHandler PropertyChanged;
         public IEnumerable<string> HandlersList { get; private set; }
-        
+        public ObservableCollection<string> VM_model_setting { get { return m_settingModel.modelSettingsHandlers; } }
+
+
 
         protected void NotifyPropertyChanged(string name)
         {
@@ -32,12 +34,12 @@ namespace ImageServiceGUI.ViewModel
 
             this.RemoveCommand = new DelegateCommand<object>(this.OnRemove,this.CanRemove);
             this.m_settingModel = settingModel;
-            m_settingModel.OutPutDir = "shula";
-            m_settingModel.ThumbnailSize = 150;
+            //m_settingModel.OutPutDir = "shula";
+            //m_settingModel.ThumbnailSize = 150;
             m_settingModel.PropertyChanged += propChangedMethod;
 
-            string[] handlersListTemp = new[] { "hi", "there", "shula", "how", "are", "you", "today", "great", "thanks" };
-            this.HandlersList = handlersListTemp;
+            //string[] handlersListTemp = new[] { "hi", "there", "shula", "how", "are", "you", "today", "great", "thanks" };
+            this.HandlersList = VM_model_setting;
         }
 
         public void propChangedMethod(object sender, PropertyChangedEventArgs e)
@@ -111,7 +113,17 @@ namespace ImageServiceGUI.ViewModel
                 //NotifyPropertyChanged("ThumbnailSize");
             }
         }
+        //public string[] ArrHandlers
+        //{
+        //    get { return m_settingModel.ArrHandlers; }
+        //    set
+        //    {
+        //        m_settingModel.ArrHandlers = value;
+
+        //    }
+        //}
     }
+
 
 
 

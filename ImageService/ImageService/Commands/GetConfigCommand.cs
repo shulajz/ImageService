@@ -34,6 +34,7 @@ namespace ImageService.Commands
                 configObj["LogName"] = m_appConfig.LogName;
                 configObj["ThumbnailSize"] = m_appConfig.ThumbnailSize;
                 configObj["ArrHandlers"] = JsonConvert.SerializeObject(m_appConfig.ArrHandlers);
+                Console.WriteLine("getConfigCommand is = " + configObj.ToString());
                 result = true;
             } catch(Exception e) {
                 result = false;

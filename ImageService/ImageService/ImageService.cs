@@ -81,6 +81,7 @@ namespace ImageService
         {
             try
             {
+                Console.WriteLine("OnStart");
                 
                 // Update the service state to Start Pending.  
                 ServiceStatus serviceStatus = new ServiceStatus();
@@ -103,12 +104,12 @@ namespace ImageService
                 //create the LoggingService
                 logging = new LoggingService();
                 logging.MessageReceivedEvent += onMsg;
-                //logging.MessageReceivedEvent += LogCommand.onReceiveCommandLog;
+                logging.MessageReceivedEvent += LogCommand.onReceiveCommandLog;
 
                 modal = new ImageServiceModal(appConfig.OutPutDir, appConfig.ThumbnailSize, logging);
                 controller = new ImageController(modal, appConfig);
-                ClientHandler clientHandler = new ClientHandler(controller);
-                TCPServerChannel server = new TCPServerChannel(8000, clientHandler);
+                ClientHandler clientHandler = new ClientHandler(controller, eventLog1);
+                TCPServerChannel server = new TCPServerChannel(8000, clientHandler,eventLog1);
                 server.Start();
                 //create the ImageServer         
                 m_imageServer = new ImageServer(logging , appConfig.ArrHandlers, controller);

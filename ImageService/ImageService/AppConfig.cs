@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,13 @@ namespace ImageService
        
         public AppConfig()
         {
-            m_arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+            
+            string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+            foreach (string handler in arrHandlers)
+            {
+                m_arrHandlers.Add(handler);
+
+            }
             m_OutPutDir = ConfigurationManager.AppSettings["OutputDir"];
             m_SourceName = ConfigurationManager.AppSettings["SourceName"];
             m_ThumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
@@ -22,8 +29,8 @@ namespace ImageService
         }
        
 
-        private string[] m_arrHandlers;
-        public string[] ArrHandlers
+        private ObservableCollection<string> m_arrHandlers;
+        public ObservableCollection<string> ArrHandlers
         {
             get { return m_arrHandlers; }
             set
