@@ -40,6 +40,7 @@ namespace ImageService.Server
 
             foreach (string path in arrHandlers)
             {
+                //shu
                createHandler(path);//create a handler
             }
 
