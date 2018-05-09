@@ -12,25 +12,30 @@ namespace ImageService
     { 
 
        
-        public AppConfig()
+        public AppConfig(System.Diagnostics.EventLog eventlog1 )
         {
             
-            string[] arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
-            foreach (string handler in arrHandlers)
-            {
-                m_arrHandlers.Add(handler);
+            m_arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
+            eventlog1.WriteEntry(m_arrHandlers[0]);
+            //foreach (string handler in arrHandlers)
+            //{
+            //    m_arrHandlers.Add(handler);
 
-            }
+            //}
             m_OutPutDir = ConfigurationManager.AppSettings["OutputDir"];
+            eventlog1.WriteEntry(m_OutPutDir);
             m_SourceName = ConfigurationManager.AppSettings["SourceName"];
+            eventlog1.WriteEntry(m_SourceName);
             m_ThumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
+           // eventlog1.WriteEntry(m_ThumbnailSize);
             m_LogName = ConfigurationManager.AppSettings["LogName"];
+            eventlog1.WriteEntry(m_LogName);
 
         }
        
 
-        private ObservableCollection<string> m_arrHandlers;
-        public ObservableCollection<string> ArrHandlers
+        private string [] m_arrHandlers;
+        public string [] ArrHandlers
         {
             get { return m_arrHandlers; }
             set

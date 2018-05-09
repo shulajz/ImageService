@@ -60,7 +60,7 @@ namespace ImageServiceGUI.Communication
                         string info = reader.ReadLine();//if null the service close
                         while (reader.Peek() > 0)
                         {
-                            info += reader.ReadLine(); 
+                            info += reader.ReadLine();
                         }
                         Console.WriteLine("after read");
                         JObject infoObj = JObject.Parse(info);

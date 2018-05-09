@@ -15,19 +15,20 @@ namespace ImageServiceGUI.Model
     class SettingModel : INotifyPropertyChanged, ISettingModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public ObservableCollection<string> modelSettingsHandlers { get; set; }
+        //public ObservableCollection<string> modelSettingsHandlers { get; set; }
 
         public SettingModel()
         {
             string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.GetConfigCommand);
             ClientSingleton client = ClientSingleton.getInstance;
             client.CommandReceivedEvent += settingsOnCommand;
-            modelSettingsHandlers = new ObservableCollection<string>();
+           // modelSettingsHandlers = new ObservableCollection<string>();
 
             client.write(outputCommand);
             
           
         }
+
         protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -87,16 +88,16 @@ namespace ImageServiceGUI.Model
                 OnPropertyChanged("ThumbnailSize");
             }
         }
-        //private ObservableCollection<string> m_arrHandlers;
-        //public ObservableCollection<string> ArrHandlers
-        //{
-        //    get { return m_arrHandlers; }
-        //    set
-        //    {
-        //        m_arrHandlers = value;
+        private string[] m_arrHandlers;
+        public string[] ArrHandlers
+        {
+            get { return m_arrHandlers; }
+            set
+            {
+                m_arrHandlers = value;
 
-        //    }
-        //}
+            }
+        }
 
         private void settingsOnCommand(object sender, ClientArgs e)
         {
@@ -107,7 +108,8 @@ namespace ImageServiceGUI.Model
                 SourceName = (string)info["SourceName"];
                 LogName = (string)info["LogName"];
                 ThumbnailSize = (int)info["ThumbnailSize"];
-                modelSettingsHandlers = JsonConvert.DeserializeObject<ObservableCollection<string>>((string)info["ArrHandlers"]);
+                ArrHandlers = JsonConvert.DeserializeObject<string[]>((string)info["ArrHandlers"]);
+               //modelSettingsHandlers = JsonConvert.DeserializeObject<s>((string)info["ArrHandlers"]);
 
             }
         }

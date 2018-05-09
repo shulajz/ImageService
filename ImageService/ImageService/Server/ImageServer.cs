@@ -33,15 +33,15 @@ namespace ImageService.Server
         /// <param name="arrHandlers">The array handlers.</param>
         /// <param name="mController">The controller.</param>
         public ImageServer(ILoggingService mLogging,
-            ObservableCollection<string> arrHandlers, IImageController mController)
+            string[] arrHandlers, IImageController mController)
         {
             m_logging = mLogging;
             m_controller = mController;
 
             foreach (string path in arrHandlers)
             {
-                //shu
-               createHandler(path);//create a handler
+                m_logging.Log(path,Logging.Modal.MessageTypeEnum.INFO);
+                createHandler(path);//create a handler
             }
 
         }
@@ -67,7 +67,9 @@ namespace ImageService.Server
             string[] args = { };
             CommandReceivedEventArgs eventArgs =
                 new CommandReceivedEventArgs((int)CommandEnum.CloseCommand, args , "*");
-            CommandRecievedEvent?.Invoke(this, eventArgs);   
+            m_logging.Log("sendCommand1", Logging.Modal.MessageTypeEnum.FAIL);
+            CommandRecievedEvent?.Invoke(this, eventArgs);
+            m_logging.Log("sendCommand2", Logging.Modal.MessageTypeEnum.FAIL);
         }
 
         ////– handler will call this function to tell server it closed

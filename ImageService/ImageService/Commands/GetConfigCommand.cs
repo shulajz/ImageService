@@ -13,9 +13,11 @@ namespace ImageService.Commands
     class GetConfigCommand : ICommand
 
     {
+        private System.Diagnostics.EventLog eventlog1_m;
         private AppConfig m_appConfig;
-        public GetConfigCommand(AppConfig appConfig)
+        public GetConfigCommand(AppConfig appConfig, System.Diagnostics.EventLog eventlog1)
         {
+            eventlog1_m = eventlog1;
             m_appConfig = appConfig;
         }
         /// <summary>
@@ -34,7 +36,7 @@ namespace ImageService.Commands
                 configObj["LogName"] = m_appConfig.LogName;
                 configObj["ThumbnailSize"] = m_appConfig.ThumbnailSize;
                 configObj["ArrHandlers"] = JsonConvert.SerializeObject(m_appConfig.ArrHandlers);
-                Console.WriteLine("getConfigCommand is = " + configObj.ToString());
+                eventlog1_m.WriteEntry("getConfigCommand is = " + configObj.ToString());
                 result = true;
             } catch(Exception e) {
                 result = false;

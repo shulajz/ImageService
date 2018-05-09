@@ -100,15 +100,17 @@ namespace ImageService
                 SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
                 //read from app config
-                AppConfig appConfig = new AppConfig(); 
+                AppConfig appConfig = new AppConfig(eventLog1); 
                 //create the LoggingService
                 logging = new LoggingService();
                 logging.MessageReceivedEvent += onMsg;
                 logging.MessageReceivedEvent += LogCommand.onReceiveCommandLog;
 
                 modal = new ImageServiceModal(appConfig.OutPutDir, appConfig.ThumbnailSize, logging);
-                controller = new ImageController(modal, appConfig);
+                
+                controller = new ImageController(modal, appConfig, eventLog1);
                 ClientHandler clientHandler = new ClientHandler(controller, eventLog1);
+                
                 TCPServerChannel server = new TCPServerChannel(8000, clientHandler,eventLog1);
                 server.Start();
                 //create the ImageServer         

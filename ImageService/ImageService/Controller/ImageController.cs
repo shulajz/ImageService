@@ -21,7 +21,7 @@ namespace ImageService.Controller
         /// Initializes a new instance of the <see cref="ImageController"/> class.
         /// </summary>
         /// <param name="modal">The modal.</param>
-        public ImageController(IImageServiceModal modal, AppConfig appConfig)
+        public ImageController(IImageServiceModal modal, AppConfig appConfig, System.Diagnostics.EventLog eventlog1)
         {
             m_appConfig = appConfig;
             m_modal = modal;                    // Storing the Modal Of The System
@@ -29,7 +29,7 @@ namespace ImageService.Controller
             {
                 // For Now will contain NEW_FILE_COMMAND
                 {(int) CommandEnum.NewFileCommand, new NewFileCommand(m_modal)},
-                {(int) CommandEnum.GetConfigCommand, new GetConfigCommand(m_appConfig)},
+                {(int) CommandEnum.GetConfigCommand, new GetConfigCommand(m_appConfig,eventlog1)},
                 { (int) CommandEnum.LogCommand, new LogCommand()}
             };
         }

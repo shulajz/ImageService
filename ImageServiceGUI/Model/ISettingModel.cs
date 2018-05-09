@@ -18,8 +18,8 @@ namespace ImageServiceGUI.Model
         string OutPutDir { get; set; }
         string SourceName { get; set; }
         string LogName { get; set; }
-        //string[] ArrHandlers { get; set; }
-        ObservableCollection<string> modelSettingsHandlers { get; set; }
+        string[] ArrHandlers { get; set; }
+        //ObservableCollection<string> modelSettingsHandlers { get; set; }
 
         int ThumbnailSize { get; set; }
 

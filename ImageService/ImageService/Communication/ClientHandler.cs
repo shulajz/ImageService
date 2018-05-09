@@ -26,12 +26,14 @@ namespace ImageService.Communication
         {
             new Task(() =>
             {
+                
                 NetworkStream stream = client.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream);
                 
-                    bool result;
-                   
+                bool result;
+                while (true)
+                {
                     m_eventLog1.WriteEntry("wait for read ");
                     try
                     {
@@ -44,16 +46,21 @@ namespace ImageService.Communication
                         int commandID = JsonConvert.DeserializeObject<int>(commandLine);
                         m_eventLog1.WriteEntry("command id in the client handler: " + commandID);
                         string args = m_controller.ExecuteCommand(commandID, null, out result);
+                        m_eventLog1.WriteEntry("1:" + args);
                         JObject configObj = new JObject();
+
                         configObj["commandID"] = commandID;
                         configObj["args"] = args;
                         writer.Write(configObj.ToString());
+                        writer.Flush();
+                        m_eventLog1.WriteEntry("in cluent handler:" + configObj.ToString());
+
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         m_eventLog1.WriteEntry("error hande client is = " + e.Message);
                     }
-                  
+                }
                    
                    
 
