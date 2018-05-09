@@ -15,6 +15,7 @@ namespace ImageServiceGUI.Model
     class SettingModel : INotifyPropertyChanged, ISettingModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        //public IEnumerable<string> HandlersList { get; private set; }
         //public ObservableCollection<string> modelSettingsHandlers { get; set; }
 
         public SettingModel()
@@ -22,8 +23,7 @@ namespace ImageServiceGUI.Model
             string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.GetConfigCommand);
             ClientSingleton client = ClientSingleton.getInstance;
             client.CommandReceivedEvent += settingsOnCommand;
-           // modelSettingsHandlers = new ObservableCollection<string>();
-
+            //modelSettingsHandlers = new ObservableCollection<string>();
             client.write(outputCommand);
             
           
@@ -109,7 +109,12 @@ namespace ImageServiceGUI.Model
                 LogName = (string)info["LogName"];
                 ThumbnailSize = (int)info["ThumbnailSize"];
                 ArrHandlers = JsonConvert.DeserializeObject<string[]>((string)info["ArrHandlers"]);
-               //modelSettingsHandlers = JsonConvert.DeserializeObject<s>((string)info["ArrHandlers"]);
+
+                // modelSettingsHandlers = JsonConvert.DeserializeObject<s>((string)info["ArrHandlers"]);
+                //foreach (string handler in ArrHandlers)
+                //{
+                //    modelSettingsHandlers.Add(handler);
+                //}
 
             }
         }

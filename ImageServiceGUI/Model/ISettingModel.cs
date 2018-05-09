@@ -19,7 +19,7 @@ namespace ImageServiceGUI.Model
         string SourceName { get; set; }
         string LogName { get; set; }
         string[] ArrHandlers { get; set; }
-        //ObservableCollection<string> modelSettingsHandlers { get; set; }
+       // ObservableCollection<string> modelSettingsHandlers { get; set; }
 
         int ThumbnailSize { get; set; }
 
