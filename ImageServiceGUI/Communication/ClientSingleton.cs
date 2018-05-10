@@ -61,25 +61,26 @@ namespace ImageServiceGUI.Communication
                 {
                     try
                     {
-                        Console.WriteLine("Wait for read command");
+                       
 
                         string info = reader.ReadLine();
                         while (reader.Peek() > 0)
                         {
                             info += reader.ReadLine();
                         }
-                        Console.WriteLine("after read");
+                        
                         JObject infoObj = JObject.Parse(info);
                         CommandReceivedEvent?.Invoke(this, new ClientArgs((int)infoObj["commandID"], (string)infoObj["args"]));
                         needToWait = false;
-                        Console.WriteLine("after json");
+                      
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine("Error in read: " + e.Message);
+                        break;
                     }
 
-                    Console.WriteLine("Server stopped");
+                    
                 }
             });
             task.Start();
