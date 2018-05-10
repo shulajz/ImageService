@@ -1,4 +1,5 @@
 ﻿using ImageService.Commands;
+using ImageService.Communication.Modal;
 using ImageService.Modal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -28,25 +29,19 @@ namespace ImageService.Commands
         /// <returns>System.String.</returns>
         public string Execute(string[] args, out bool result)
         {
-            JObject configObj = new JObject();
+            //JObject configObj = new JObject();
             try
             {
-                configObj["OutPutDir"] = m_appConfig.OutPutDir;
-                configObj["SourceName"] = m_appConfig.SourceName;
-                configObj["LogName"] = m_appConfig.LogName;
-                configObj["ThumbnailSize"] = m_appConfig.ThumbnailSize;
-                configObj["ArrHandlers"] = JsonConvert.SerializeObject(m_appConfig.ArrHandlers);
-                eventlog1_m.WriteEntry("getConfigCommand is = " + configObj.ToString());
+                Setting setting = new Setting() { OutPutDir = m_appConfig.OutPutDir, SourceName = m_appConfig.SourceName,
+                    LogName = m_appConfig.LogName, ThumbnailSize = m_appConfig.ThumbnailSize, ArrHandlers = m_appConfig.ArrHandlers};
+                string settingJson = JsonConvert.SerializeObject(setting);
                 result = true;
+                return settingJson;
             } catch(Exception e) {
                 result = false;
                 return e.Message;
 
             }
-            return configObj.ToString();
-
-
-
         }
     }
 }

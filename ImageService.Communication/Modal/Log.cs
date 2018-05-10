@@ -1,22 +1,21 @@
-﻿using ImageService.Logging.Modal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageServiceGUI.Model
+namespace ImageService.Communication.Modal
 {
-    class Log: INotifyPropertyChanged
+    public class Log: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        private string m_type;
-        public string Type
+        private MessageTypeEnum m_type;
+        public MessageTypeEnum Type
         {
             get { return m_type; }
             set
@@ -43,7 +42,7 @@ namespace ImageServiceGUI.Model
         public string Color
         {
            get { return m_color; }
-           set {
+           private set {
                 m_color = value;
 
             }
@@ -52,15 +51,15 @@ namespace ImageServiceGUI.Model
 
         private void setColorDependType()
         {
-            if (Type == "INFO")
+            if (Type == MessageTypeEnum.INFO)
             {
                 m_color = "YellowGreen";
             }
-            else if (Type == "FAIL")
+            else if (Type == MessageTypeEnum .FAIL)
             {
                 m_color = "Red";
             }
-            else if (Type == "WARNING")
+            else if (Type == MessageTypeEnum.WARNING)
             {
                 m_color = "Yellow";
             }

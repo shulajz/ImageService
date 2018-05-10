@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ImageService.Infrastructure;
-using ImageService.Infrastructure.Enums;
+
 using ImageService.Logging;
-using ImageService.Logging.Modal;
+
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using ImageService.Communication.Modal;
+using ImageService.Communication.Enums;
 
 namespace ImageService.Controller.Handlers
 {
@@ -51,7 +52,7 @@ namespace ImageService.Controller.Handlers
                 m_dirWatcher.Path = dirPath;
                 m_dirWatcher.Created += new FileSystemEventHandler(OnCreated);
                 m_dirWatcher.EnableRaisingEvents = true;
-                m_logging.Log("this dir add to be handler:" + dirPath, Logging.Modal.MessageTypeEnum.INFO);
+                m_logging.Log("this dir add to be handler:" + dirPath, MessageTypeEnum.INFO);
             } catch (Exception e){
                 m_logging.Log(e.Message , MessageTypeEnum.FAIL);
             }

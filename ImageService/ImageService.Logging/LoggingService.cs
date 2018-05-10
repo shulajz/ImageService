@@ -1,5 +1,6 @@
 ﻿
-using ImageService.Logging.Modal;
+using ImageService.Communication.Modal;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

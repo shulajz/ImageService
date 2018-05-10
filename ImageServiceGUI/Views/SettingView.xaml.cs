@@ -27,7 +27,8 @@ namespace ImageServiceGUI.Views
         public SettingView()
         {
             InitializeComponent();
-            vm = new SettingsViewModel(new SettingModel());
+            SettingModel model = new SettingModel();
+            vm = new SettingsViewModel(model);
             this.DataContext = vm;
         }
     }

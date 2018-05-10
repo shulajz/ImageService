@@ -1,7 +1,6 @@
 ﻿using ImageService.Commands;
 //using ImageService.ImageService.Commands;
-using ImageService.Infrastructure;
-using ImageService.Infrastructure.Enums;
+using ImageService.Communication.Enums;
 using ImageService.Modal;
 using System;
 using System.Collections.Generic;

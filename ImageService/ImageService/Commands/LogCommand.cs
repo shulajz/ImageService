@@ -1,5 +1,6 @@
 ﻿using ImageService.Commands;
-using ImageService.Logging.Modal;
+using ImageService.Communication.Modal;
+
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ namespace ImageService.Commands
 {
     public class LogCommand : ICommand
     {
-        private static List<MessageReceivedEventArgs> logList;
+        private static List<Log> logList;
 
         public LogCommand()
         {
-            logList = new List<MessageReceivedEventArgs>();
+            logList = new List<Log>();
         }
         /// <summary>
         /// Executes the specified arguments.
@@ -29,20 +30,18 @@ namespace ImageService.Commands
             try
             {
                 logs = JsonConvert.SerializeObject(logList);
-            }catch(Exception e){
+                result = true;
+                return logs;
+            }
+            catch(Exception e){
                 result = false;
                 return e.Message;
             }
-            result = true;
-            return logs;
-
         }
 
         public static void onReceiveCommandLog(object sender, MessageReceivedEventArgs e)
         {
-
-            //eventLog1.WriteEntry(e.m_status + ": " + e.m_message);
-            logList.Add(new MessageReceivedEventArgs(e.m_message, e.m_status));
+            logList.Add(new Log() { Message = e.m_message, Type = e.m_status });
         }
 
     }

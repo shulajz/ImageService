@@ -26,50 +26,43 @@ namespace ImageService.Communication
         {
             new Task(() =>
             {
-                
                 NetworkStream stream = client.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream);
-                
                 bool result;
-                while (true)
-                {
+            while (true)
+            {
+                m_eventLog1.WriteEntry("in loop1");
+          
                     m_eventLog1.WriteEntry("wait for read ");
                     try
                     {
                         string commandLine = reader.ReadLine();
-                        while (reader.Peek() > 0)
-                        {
-                            commandLine += reader.ReadLine();
-                        }
-                        m_eventLog1.WriteEntry("after read ");
+                        m_eventLog1.WriteEntry(commandLine);
                         int commandID = JsonConvert.DeserializeObject<int>(commandLine);
                         m_eventLog1.WriteEntry("command id in the client handler: " + commandID);
                         string args = m_controller.ExecuteCommand(commandID, null, out result);
-                        m_eventLog1.WriteEntry("1:" + args);
-                        JObject configObj = new JObject();
-
-                        configObj["commandID"] = commandID;
-                        configObj["args"] = args;
-                        writer.Write(configObj.ToString());
-                        writer.Flush();
-                        m_eventLog1.WriteEntry("in cluent handler:" + configObj.ToString());
+                        if (result == true)
+                        {
+                            m_eventLog1.WriteEntry("1:" + args);
+                            JObject configObj = new JObject();
+                            configObj["commandID"] = commandID;
+                            configObj["args"] = args;
+                            writer.WriteLine(configObj.ToString());
+                            
+                        
+                            m_eventLog1.WriteEntry("in cluent handler:" + configObj.ToString());
+                        }
 
                     }
                     catch (Exception e)
                     {
                         m_eventLog1.WriteEntry("error hande client is = " + e.Message);
                     }
+                    m_eventLog1.WriteEntry("in loop2");
+                    writer.Flush();
                 }
-                   
-                   
 
-                    //string  = m_controller.ExecuteCommand(commandID, null , out result);
-                    //writer.WriteLine("d");
-                    //Console.WriteLine("Got command: {0}", commandLine);
-               
-                
-                client.Close();
             }).Start();
         }
     }

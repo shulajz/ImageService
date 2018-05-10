@@ -5,10 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using ImageService.Infrastructure.Enums;
+
 using Newtonsoft.Json;
 using ImageServiceGUI.Communication;
-using ImageService.Logging.Modal;
+using ImageService.Communication.Modal;
+using ImageService.Communication.Enums;
+
+
+
 //using ImageService.Logging.Modal;
 
 namespace ImageServiceGUI.Model
@@ -25,6 +29,7 @@ namespace ImageServiceGUI.Model
             ClientSingleton client = ClientSingleton.getInstance;
             client.CommandReceivedEvent += logOnCommand;
             client.write(outputCommand);
+            client.wait();
             model_log = new ObservableCollection<Log>();
 
             //model_log.Add(new Log() { Type = "INFO", Message = "hi" });
@@ -58,14 +63,11 @@ namespace ImageServiceGUI.Model
         {
            if( e.CommandID == (int)CommandEnum.LogCommand)
             {
-                List <MessageReceivedEventArgs> list = JsonConvert.DeserializeObject<List<MessageReceivedEventArgs>>(e.Args);
-                foreach (MessageReceivedEventArgs log in list)
+                List<Log> logsList = JsonConvert.DeserializeObject<List<Log>>(e.Args);
+                foreach (Log log in logsList)
                 {
-                    string temp = log.m_message.ToString();
-                    model_log.Add(new Log() { Type = log.m_status.ToString(), Message = log.m_message });
+                    model_log.Add(log);
                 } 
-               
-
             }
             
         }

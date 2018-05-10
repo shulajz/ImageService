@@ -13,11 +13,12 @@ using ImageService.Server;
 using ImageService.Modal;
 using ImageService.Controller;
 using ImageService.Logging;
-using ImageService.Logging.Modal;
+
 //using System.Configuration;
-using ImageService.Infrastructure.Enums;
+
 using ImageService.Communication;
 using ImageService.Commands;
+using ImageService.Communication.Modal;
 
 namespace ImageService
 {

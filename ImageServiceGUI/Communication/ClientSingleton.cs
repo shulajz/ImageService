@@ -17,14 +17,17 @@ namespace ImageServiceGUI.Communication
         //private int m_port;
         //private string m_ip;
         //private TcpClient m_client;
+        NetworkStream stream;
         private StreamReader reader;
         private StreamWriter writer;
         private bool listening;
         private static ClientSingleton instance;
+        private bool needToWait;
         //private TCPClientChannel client;
 
-        private ClientSingleton() {
-           
+        private ClientSingleton()
+        {
+
             start();
         }
 
@@ -42,7 +45,7 @@ namespace ImageServiceGUI.Communication
         public void write(string command)
         {
 
-            Console.WriteLine("BEFORE WRITE: "+command);
+            Console.WriteLine("BEFORE WRITE: " + command);
             writer.WriteLine(command);
             writer.Flush();
             Console.WriteLine("AFTER WRITE: " + command);
@@ -51,13 +54,16 @@ namespace ImageServiceGUI.Communication
 
         public void readCommands()
         {
-            Task task = new Task(() => {
+            needToWait = true;
+            Task task = new Task(() =>
+            {
                 while (listening)
                 {
                     try
                     {
                         Console.WriteLine("Wait for read command");
-                        string info = reader.ReadLine();//if null the service close
+
+                        string info = reader.ReadLine();
                         while (reader.Peek() > 0)
                         {
                             info += reader.ReadLine();
@@ -65,32 +71,38 @@ namespace ImageServiceGUI.Communication
                         Console.WriteLine("after read");
                         JObject infoObj = JObject.Parse(info);
                         CommandReceivedEvent?.Invoke(this, new ClientArgs((int)infoObj["commandID"], (string)infoObj["args"]));
+                        needToWait = false;
                         Console.WriteLine("after json");
                     }
-                    catch (SocketException e)
+                    catch (Exception e)
                     {
                         Console.WriteLine("Error in read: " + e.Message);
-                        break;
                     }
+
+                    Console.WriteLine("Server stopped");
                 }
-                Console.WriteLine("Server stopped");
             });
             task.Start();
         }
-    
-    public void start()
+
+        public void start()
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             TcpClient client = new TcpClient();
-            client.Connect(ep);
+            client.Connect(ep);///if exception the service close
             listening = true;
             Console.WriteLine("You are connected");
-            NetworkStream stream = client.GetStream();
+            stream = client.GetStream();
             reader = new StreamReader(stream);
             writer = new StreamWriter(stream);
             readCommands();
         }
 
+
+        public void wait()
+        {
+            while (needToWait) { }
+        }
     }
 }
 

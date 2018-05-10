@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
-using ImageService.Infrastructure.Enums;
 using ImageServiceGUI.Communication;
 using Newtonsoft.Json.Linq;
+using ImageService.Communication.Enums;
+using ImageService.Communication.Modal;
 
 namespace ImageServiceGUI.Model
 {
     class SettingModel : INotifyPropertyChanged, ISettingModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private Setting setting; 
         //public IEnumerable<string> HandlersList { get; private set; }
         //public ObservableCollection<string> modelSettingsHandlers { get; set; }
 
@@ -25,6 +27,7 @@ namespace ImageServiceGUI.Model
             client.CommandReceivedEvent += settingsOnCommand;
             //modelSettingsHandlers = new ObservableCollection<string>();
             client.write(outputCommand);
+            client.wait();
             
           
         }
@@ -45,79 +48,63 @@ namespace ImageServiceGUI.Model
             }
         }
 
-        private string m_OutPutDir;
-        public string OutPutDir
-        {
-            get { return m_OutPutDir; }
-            set
-            {
-                m_OutPutDir = value;
-                OnPropertyChanged("OutPutDir");
-            }
-        }
-
-        private string m_SourceName;
-        public string SourceName
-        {
-            get { return m_SourceName; }
-            set
-            {
-                m_SourceName = value;
-                OnPropertyChanged("SourceName");
-            }
-        }
-
-        private string m_LogName;
-        public string LogName
-        {
-            get { return m_LogName; }
-            set
-            {
-                m_LogName = value;
-                OnPropertyChanged("LogName");
-            }
-        }
-
-        private int m_ThumbnailSize;
-        public int ThumbnailSize
-        {
-            get { return m_ThumbnailSize; }
-            set
-            {
-                m_ThumbnailSize = value;
-                OnPropertyChanged("ThumbnailSize");
-            }
-        }
-        private string[] m_arrHandlers;
-        public string[] ArrHandlers
-        {
-            get { return m_arrHandlers; }
-            set
-            {
-                m_arrHandlers = value;
-
-            }
-        }
 
         private void settingsOnCommand(object sender, ClientArgs e)
         {
             if (e.CommandID == (int)CommandEnum.GetConfigCommand)
             {
-                JObject info = JObject.Parse(e.Args);
-                OutPutDir = (string)info["OutPutDir"];
-                SourceName = (string)info["SourceName"];
-                LogName = (string)info["LogName"];
-                ThumbnailSize = (int)info["ThumbnailSize"];
-                ArrHandlers = JsonConvert.DeserializeObject<string[]>((string)info["ArrHandlers"]);
-
-                // modelSettingsHandlers = JsonConvert.DeserializeObject<s>((string)info["ArrHandlers"]);
-                //foreach (string handler in ArrHandlers)
-                //{
-                //    modelSettingsHandlers.Add(handler);
-                //}
-
+                setting = JsonConvert.DeserializeObject<Setting>(e.Args);
+            
+            }
+        }
+        public string OutPutDir
+        {
+            get { return setting.OutPutDir; }
+            set
+            {
+                setting.OutPutDir = value;
+                OnPropertyChanged("OutPutDir");
             }
         }
 
+        public string SourceName
+        {
+            get { return setting.SourceName; }
+            set
+            {
+                setting.SourceName = value;
+                OnPropertyChanged("SourceName");
+            }
+        }
+
+        public string LogName
+        {
+            get { return setting.LogName; }
+            set
+            {
+                setting.LogName = value;
+                OnPropertyChanged("LogName");
+            }
+        }
+
+        public int ThumbnailSize
+        {
+            get { return setting.ThumbnailSize; }
+            set
+            {
+                setting.ThumbnailSize = value;
+                OnPropertyChanged("ThumbnailSize");
+            }
+        }
+
+        public string[] ArrHandlers
+        {
+            get { return setting.ArrHandlers; }
+            set
+            {
+                setting.ArrHandlers = value;
+
+            }
+        }
     }
 }

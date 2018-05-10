@@ -1,6 +1,8 @@
-﻿using ImageService.Controller;
+﻿using ImageService.Communication.Enums;
+using ImageService.Communication.Modal;
+using ImageService.Controller;
 using ImageService.Controller.Handlers;
-using ImageService.Infrastructure.Enums;
+
 using ImageService.Logging;
 using ImageService.Modal;
 using System;
@@ -40,7 +42,7 @@ namespace ImageService.Server
 
             foreach (string path in arrHandlers)
             {
-                m_logging.Log(path,Logging.Modal.MessageTypeEnum.INFO);
+                m_logging.Log(path,MessageTypeEnum.INFO);
                 createHandler(path);//create a handler
             }
 
@@ -67,9 +69,9 @@ namespace ImageService.Server
             string[] args = { };
             CommandReceivedEventArgs eventArgs =
                 new CommandReceivedEventArgs((int)CommandEnum.CloseCommand, args , "*");
-            m_logging.Log("sendCommand1", Logging.Modal.MessageTypeEnum.FAIL);
+            m_logging.Log("sendCommand1", MessageTypeEnum.FAIL);
             CommandRecievedEvent?.Invoke(this, eventArgs);
-            m_logging.Log("sendCommand2", Logging.Modal.MessageTypeEnum.FAIL);
+            m_logging.Log("sendCommand2", MessageTypeEnum.FAIL);
         }
 
         ////– handler will call this function to tell server it closed
@@ -86,7 +88,7 @@ namespace ImageService.Server
                 DirectoryHandler handler = (DirectoryHandler)sender;
                 CommandRecievedEvent -= handler.OnCommandReceived;
                 handler.DirectoryCloseEvent -= onCloseServer;
-                m_logging.Log(e.Message, Logging.Modal.MessageTypeEnum.INFO);
+                m_logging.Log(e.Message,MessageTypeEnum.INFO);
             }
 
         }

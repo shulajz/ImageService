@@ -1,4 +1,5 @@
-﻿using ImageServiceGUI.Model;
+﻿using ImageService.Communication.Modal;
+using ImageServiceGUI.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace ImageServiceGUI.ViewModel
 {
