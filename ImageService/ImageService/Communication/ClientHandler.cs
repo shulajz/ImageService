@@ -1,4 +1,6 @@
-﻿using ImageService.Controller;
+﻿using ImageService.Communication.Enums;
+using ImageService.Controller;
+using ImageService.Modal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -22,11 +24,11 @@ namespace ImageService.Communication
             m_controller = controller;
             m_eventLog1 = eventLog1;
        }
-       public void HandleClient(TcpClient client)
+       public void HandleClient(TcpClient TcpClient, List<TcpClient> listOfClients)
         {
             new Task(() =>
             {
-                NetworkStream stream = client.GetStream();
+                NetworkStream stream = TcpClient.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream);
                 bool result;
@@ -35,21 +37,49 @@ namespace ImageService.Communication
                     try
                     {
                         string commandLine = reader.ReadLine();
-                        int commandID = JsonConvert.DeserializeObject<int>(commandLine);
-                
-                        string args = m_controller.ExecuteCommand(commandID, null, out result);
+                        m_eventLog1.WriteEntry("after commandline:" + commandLine);
+
+                        CommandReceivedEventArgs e = JsonConvert.DeserializeObject<CommandReceivedEventArgs>(commandLine);
+                        m_eventLog1.WriteEntry("after CommandReceivedEventArgs:" + e.CommandID.ToString());
+                        string[] path = new string[2];
+                        m_eventLog1.WriteEntry("the dirPath is =" + e.RequestDirPath);
+                       
+
+                        if (e.RequestDirPath != null)
+                        {
+                           
+                            path[0] = e.RequestDirPath; //if its not RemoveCommand this will be NULL!
+                            m_eventLog1.WriteEntry("after args. the path[0] is=" + path[0]);
+                        }
+
+                        string args = m_controller.ExecuteCommand(e.CommandID, path, out result);
+                        
+
                         if (result == true)
                         {
-                            JObject configObj = new JObject();
-                            configObj["commandID"] = commandID;
-                            configObj["args"] = args;
-                            writer.WriteLine(configObj.ToString());
+                            if (e.CommandID == (int)CommandEnum.RemoveHandler)
+                            {
+                                foreach (TcpClient client in listOfClients)
+                                {
+                                    JObject Obj = new JObject();
+                                    Obj["commandID"] = e.CommandID;
+                                    Obj["args"] = e.RequestDirPath;
+                                    writer.WriteLine(Obj.ToString());
+                                }
+                            }
+                            else
+                            {
+                                JObject Obj = new JObject();
+                                Obj["commandID"] = e.CommandID;
+                                Obj["args"] = args;
+                                writer.WriteLine(Obj.ToString());
+                            }
                         }
 
                     }
                     catch (Exception e)
                     {
-                        m_eventLog1.WriteEntry("Error:" + e.Message);
+                        m_eventLog1.WriteEntry("Error in clientHandler:" + e.Message);
                         break;
                     }
                     writer.Flush();

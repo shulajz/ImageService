@@ -52,6 +52,8 @@ namespace ImageServiceGUI.Communication
 
         }
 
+      
+
         public void readCommands()
         {
             needToWait = true;

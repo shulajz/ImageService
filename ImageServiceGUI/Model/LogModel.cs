@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using ImageServiceGUI.Communication;
 using ImageService.Communication.Modal;
 using ImageService.Communication.Enums;
+using ImageService.Modal;
 
 
 
@@ -20,15 +21,21 @@ namespace ImageServiceGUI.Model
     class LogModel : ILogModel, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private ClientSingleton client;
         public ObservableCollection<Log> model_log { get; set;}
 
 
         public LogModel()
         {
-            string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.LogCommand);
-            ClientSingleton client = ClientSingleton.getInstance;
+            //string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.LogCommand);
+            CommandReceivedEventArgs e =
+                new CommandReceivedEventArgs(
+                (int)CommandEnum.LogCommand,
+                null,
+                null);
+            client = ClientSingleton.getInstance;
             client.CommandReceivedEvent += logOnCommand;
-            client.write(outputCommand);
+            WriteToClient(e);
             client.wait();
             model_log = new ObservableCollection<Log>();
 
@@ -53,6 +60,11 @@ namespace ImageServiceGUI.Model
             //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
             //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
 
+        }
+        public void WriteToClient(CommandReceivedEventArgs e)
+        {
+            string outputCommand = JsonConvert.SerializeObject(e);
+            client.write(outputCommand);
         }
         protected void OnPropertyChanged(string name)
         {

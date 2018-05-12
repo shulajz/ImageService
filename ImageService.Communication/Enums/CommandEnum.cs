@@ -11,6 +11,7 @@ namespace ImageService.Communication.Enums
         NewFileCommand,
         GetConfigCommand,
         LogCommand,
+        RemoveHandler,
         CloseCommand
 
     }

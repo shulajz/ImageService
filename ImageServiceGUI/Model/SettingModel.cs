@@ -10,6 +10,7 @@ using ImageServiceGUI.Communication;
 using Newtonsoft.Json.Linq;
 using ImageService.Communication.Enums;
 using ImageService.Communication.Modal;
+using ImageService.Modal;
 
 namespace ImageServiceGUI.Model
 {
@@ -17,19 +18,32 @@ namespace ImageServiceGUI.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Setting setting; 
+        private ClientSingleton client;
         //public IEnumerable<string> HandlersList { get; private set; }
-        //public ObservableCollection<string> modelSettingsHandlers { get; set; }
+        public ObservableCollection<string> modelSettingsHandlers { get; set; }
 
         public SettingModel()
         {
-            string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.GetConfigCommand);
-            ClientSingleton client = ClientSingleton.getInstance;
+            //string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.GetConfigCommand);
+            CommandReceivedEventArgs e = 
+                new CommandReceivedEventArgs(
+                (int)CommandEnum.GetConfigCommand,
+                null,
+                null);
+
+            client = ClientSingleton.getInstance;
             client.CommandReceivedEvent += settingsOnCommand;
-            //modelSettingsHandlers = new ObservableCollection<string>();
-            client.write(outputCommand);
+            modelSettingsHandlers = new ObservableCollection<string>();
+            //client.write(outputCommand);
+            WriteToClient(e);
             client.wait();
+        }
+
+        public void WriteToClient(CommandReceivedEventArgs e)
+        {
             
-          
+            string outputCommand = JsonConvert.SerializeObject(e);
+            client.write(outputCommand);
         }
 
         protected void OnPropertyChanged(string name)
@@ -37,6 +51,21 @@ namespace ImageServiceGUI.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        private void settingsOnCommand(object sender, ClientArgs e)
+        {
+            if (e.CommandID == (int)CommandEnum.GetConfigCommand)
+            {
+                setting = JsonConvert.DeserializeObject<Setting>(e.Args);
+                foreach (string handler in setting.ArrHandlers)
+                    modelSettingsHandlers.Add(handler);
+            }
+            else if (e.CommandID == (int)CommandEnum.RemoveHandler)
+            {
+                string path = JsonConvert.DeserializeObject<string>(e.Args);
+                modelSettingsHandlers.Remove(path);
+            }
+        }
+       
         private string m_selectedHandler;
         public string SelectedHandler
         {
@@ -49,14 +78,7 @@ namespace ImageServiceGUI.Model
         }
 
 
-        private void settingsOnCommand(object sender, ClientArgs e)
-        {
-            if (e.CommandID == (int)CommandEnum.GetConfigCommand)
-            {
-                setting = JsonConvert.DeserializeObject<Setting>(e.Args);
-            
-            }
-        }
+       
         public string OutPutDir
         {
             get { return setting.OutPutDir; }
@@ -97,14 +119,14 @@ namespace ImageServiceGUI.Model
             }
         }
 
-        public string[] ArrHandlers
-        {
-            get { return setting.ArrHandlers; }
-            set
-            {
-                setting.ArrHandlers = value;
+        //public string[] ArrHandlers
+        //{
+        //    get { return setting.ArrHandlers; }
+        //    set
+        //    {
+        //        setting.ArrHandlers = value;
 
-            }
-        }
+        //    }
+        //}
     }
 }

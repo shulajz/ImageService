@@ -9,6 +9,8 @@ using System.Diagnostics;
 using Microsoft.Practices.Prism.Commands;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using ImageService.Modal;
+using ImageService.Communication.Enums;
 
 namespace ImageServiceGUI.ViewModel
 {
@@ -17,7 +19,7 @@ namespace ImageServiceGUI.ViewModel
         private ISettingModel m_settingModel;
         public event PropertyChangedEventHandler PropertyChanged;
         public IEnumerable<string> HandlersList { get; private set; }
-        //public ObservableCollection<string> VM_model_setting { get { return m_settingModel.modelSettingsHandlers; } }
+        public ObservableCollection<string> VM_model_setting { get { return m_settingModel.modelSettingsHandlers; } }
 
 
 
@@ -37,7 +39,7 @@ namespace ImageServiceGUI.ViewModel
             //m_settingModel.OutPutDir = "shula";
             //m_settingModel.ThumbnailSize = 150;
             m_settingModel.PropertyChanged += propChangedMethod;
-            this.HandlersList = ArrHandlers;
+            this.HandlersList = VM_model_setting;
 
             //string[] handlersListTemp = new[] { "hi", "there", "shula", "how", "are", "you", "today", "great", "thanks" };
 
@@ -53,6 +55,11 @@ namespace ImageServiceGUI.ViewModel
         private void OnRemove(object obj)
         {
             m_settingModel.OutPutDir = "or";
+            CommandReceivedEventArgs e = new CommandReceivedEventArgs((int)CommandEnum.RemoveHandler, null,
+                m_settingModel.SelectedHandler);
+            m_settingModel.WriteToClient(e);
+            //m_settingModel.RemoveHandlerFromCollection(m_settingModel.SelectedHandler);
+            
         }
         private bool CanRemove(object obj)
         {
@@ -114,16 +121,16 @@ namespace ImageServiceGUI.ViewModel
                 //NotifyPropertyChanged("ThumbnailSize");
             }
         }
-        public string[] ArrHandlers
-        {
-            get { return m_settingModel.ArrHandlers; }
-            set
-            {
-                m_settingModel.ArrHandlers = value;
+        //public string[] ArrHandlers
+        //{
+        //    get { return m_settingModel.ArrHandlers; }
+        //    set
+        //    {
+        //        m_settingModel.ArrHandlers = value;
                 
 
-            }
-        }
+        //    }
+        //}
     }
 
 

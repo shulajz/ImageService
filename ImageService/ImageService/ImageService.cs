@@ -108,14 +108,24 @@ namespace ImageService
                 logging.MessageReceivedEvent += LogCommand.onReceiveCommandLog;
 
                 modal = new ImageServiceModal(appConfig.OutPutDir, appConfig.ThumbnailSize, logging);
-                
                 controller = new ImageController(modal, appConfig, eventLog1);
+
+                eventLog1.WriteEntry("after ClientHandler");
+
+                eventLog1.WriteEntry("after TCPServerChannel");
+
+                eventLog1.WriteEntry("after ImageServer");
+
+                eventLog1.WriteEntry("after imageController");
+                m_imageServer = new ImageServer(logging, appConfig.ArrHandlers, controller);
                 ClientHandler clientHandler = new ClientHandler(controller, eventLog1);
-                
-                TCPServerChannel server = new TCPServerChannel(8000, clientHandler,eventLog1);
+
+                TCPServerChannel server = new TCPServerChannel(8000, clientHandler, eventLog1);
+
+
+
                 server.Start();
                 //create the ImageServer         
-                m_imageServer = new ImageServer(logging , appConfig.ArrHandlers, controller);
 
             }
             catch (Exception ex)

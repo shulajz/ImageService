@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageService.Modal;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -18,8 +19,10 @@ namespace ImageServiceGUI.Model
         string OutPutDir { get; set; }
         string SourceName { get; set; }
         string LogName { get; set; }
-        string[] ArrHandlers { get; set; }
-        //// ObservableCollection<string> modelSettingsHandlers { get; set; }
+        // string[] ArrHandlers { get; set; }
+        //void RemoveHandlerFromCollection(string handler);
+        void WriteToClient(CommandReceivedEventArgs msg);
+        ObservableCollection<string> modelSettingsHandlers { get; set; }
 
          int ThumbnailSize { get; set; }
 
