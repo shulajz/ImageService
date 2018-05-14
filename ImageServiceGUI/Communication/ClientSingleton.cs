@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ImageServiceGUI.Communication
@@ -17,6 +18,7 @@ namespace ImageServiceGUI.Communication
         //private int m_port;
         //private string m_ip;
         //private TcpClient m_client;
+        private Mutex mutex;
         NetworkStream stream;
         private StreamReader reader;
         private StreamWriter writer;
@@ -71,6 +73,7 @@ namespace ImageServiceGUI.Communication
                         CommandReceivedEvent?.Invoke(this, new ClientArgs((int)infoObj["commandID"],
                             (string)infoObj["args"]));
                         needToWait = false;
+                       
                       
                     }
                     catch (Exception e)

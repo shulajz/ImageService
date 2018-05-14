@@ -64,7 +64,6 @@ namespace ImageService.Communication
                                 foreach (TcpClient client in listOfClients)
                                 {
                                     m_eventLog1.WriteEntry("after foreach. the RequestDirPath is=" + e.RequestDirPath);
-
                                     JObject Obj = new JObject();
                                     Obj["commandID"] = e.CommandID;
                                     Obj["args"] = e.RequestDirPath;

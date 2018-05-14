@@ -1,4 +1,6 @@
 ﻿using ImageService.Commands;
+using ImageService.Communication;
+using ImageService.Communication.Enums;
 using ImageService.Communication.Modal;
 
 using Newtonsoft.Json;
@@ -30,6 +32,7 @@ namespace ImageService.Commands
             try
             {
                 logs = JsonConvert.SerializeObject(logList);
+                //logList.Clear();
                 result = true;
                 return logs;
             }
@@ -42,6 +45,7 @@ namespace ImageService.Commands
         public static void onReceiveCommandLog(object sender, MessageReceivedEventArgs e)
         {
             logList.Add(new Log() { Message = e.m_message, Type = e.m_status });
+            //ClientHandler.sendCommand((int)CommandEnum.LogCommand);
         }
 
     }

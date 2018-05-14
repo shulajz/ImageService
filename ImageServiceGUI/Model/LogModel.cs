@@ -39,27 +39,6 @@ namespace ImageServiceGUI.Model
             client.wait();
             model_log = new ObservableCollection<Log>();
 
-            //model_log.Add(new Log() { Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() { Type = "INFO", Message = "hgvvvvvvvvvvvvvcci" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() {Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() {Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() {Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() {Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-
         }
         public void WriteToClient(CommandReceivedEventArgs e)
         {

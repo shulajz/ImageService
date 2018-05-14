@@ -38,7 +38,7 @@ namespace ImageService.Commands
                 //    ArrHandlers = m_appConfig.ArrHandlers
                 //};
                 //string settingJson = JsonConvert.SerializeObject(setting);
-                string pathJson = JsonConvert.SerializeObject(args[0]);
+                 string pathJson = JsonConvert.SerializeObject(args[0]);
                 result = true;
                 return pathJson;
                
