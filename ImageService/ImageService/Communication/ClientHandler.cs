@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ImageService.Communication
@@ -18,6 +19,7 @@ namespace ImageService.Communication
        private IImageController m_controller;
         private StreamReader reader;
         private StreamWriter writer;
+        private static Mutex writerMutex = new Mutex();
         private System.Diagnostics.EventLog m_eventLog1;
         public ClientHandler(IImageController controller, System.Diagnostics.EventLog eventLog1)
        {
@@ -66,7 +68,9 @@ namespace ImageService.Communication
                                     JObject Obj = new JObject();
                                     Obj["commandID"] = e.CommandID;
                                     Obj["args"] = e.RequestDirPath;
+                                    writerMutex.WaitOne();
                                     writer.WriteLine(Obj.ToString());
+                                    writerMutex.ReleaseMutex();
                                 }
                             }
                             else
