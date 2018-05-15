@@ -19,7 +19,10 @@ namespace ImageService.Communication
         {
             listOfClients = new List<TcpClient>();
             this.m_port = port;
-            this.ch = ch;            this.m_eventLog1 = eventLog1;
+            this.ch = ch;
+            this.m_eventLog1 = eventLog1;
+
+
         }
         public void Start()
         {

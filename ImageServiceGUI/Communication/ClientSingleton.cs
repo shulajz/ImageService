@@ -44,12 +44,10 @@ namespace ImageServiceGUI.Communication
 
         public void write(string command)
         {
-
             Console.WriteLine("BEFORE WRITE: " + command);
             writer.WriteLine(command);
             writer.Flush();
             Console.WriteLine("AFTER WRITE: " + command);
-
         }
 
       
@@ -63,8 +61,6 @@ namespace ImageServiceGUI.Communication
                 {
                     try
                     {
-                       
-
                         string info = reader.ReadLine();
                         while (reader.Peek() > 0)
                         {
@@ -72,7 +68,8 @@ namespace ImageServiceGUI.Communication
                         }
                         
                         JObject infoObj = JObject.Parse(info);
-                        CommandReceivedEvent?.Invoke(this, new ClientArgs((int)infoObj["commandID"], (string)infoObj["args"]));
+                        CommandReceivedEvent?.Invoke(this, new ClientArgs((int)infoObj["commandID"],
+                            (string)infoObj["args"]));
                         needToWait = false;
                       
                     }
