@@ -30,6 +30,7 @@ namespace ImageService.Controller
                 {(int) CommandEnum.NewFileCommand, new NewFileCommand(m_modal)},
                 {(int) CommandEnum.GetConfigCommand, new GetConfigCommand(m_appConfig,eventlog1)},
                 { (int) CommandEnum.LogCommand, new LogCommand()}
+                //{ (int) CommandEnum.RemoveHandler, new RemoveHandlerCommand()}
             };
         }
 

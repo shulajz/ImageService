@@ -135,6 +135,7 @@ namespace ImageService
         private void onMsg(object sender, MessageReceivedEventArgs e)
         {
             eventLog1.WriteEntry(e.m_status +": " + e.m_message); 
+
         }
 
         /// <summary>

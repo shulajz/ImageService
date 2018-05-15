@@ -34,13 +34,8 @@ namespace ImageServiceGUI.ViewModel
 
             this.RemoveCommand = new DelegateCommand<object>(this.OnRemove,this.CanRemove);
             this.m_settingModel = settingModel;
-            //m_settingModel.OutPutDir = "shula";
-            //m_settingModel.ThumbnailSize = 150;
             m_settingModel.PropertyChanged += propChangedMethod;
             this.HandlersList = ArrHandlers;
-
-            //string[] handlersListTemp = new[] { "hi", "there", "shula", "how", "are", "you", "today", "great", "thanks" };
-
         }
 
         public void propChangedMethod(object sender, PropertyChangedEventArgs e)
@@ -52,8 +47,9 @@ namespace ImageServiceGUI.ViewModel
 
         private void OnRemove(object obj)
         {
-            m_settingModel.OutPutDir = "or";
+            m_settingModel.sendRemoveRequest();
         }
+
         private bool CanRemove(object obj)
         {
             if (string.IsNullOrEmpty(m_settingModel.SelectedHandler))
@@ -69,7 +65,7 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.SelectedHandler = value;
-                //NotifyPropertyChanged("SelectedHandler");
+  
             }
         }
 
@@ -91,7 +87,6 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.SourceName = value;
-                //NotifyPropertyChanged("SourceName");
             }
         }
 
@@ -101,7 +96,6 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.LogName = value;
-                //NotifyPropertyChanged("LogName");
             }
         }
 
@@ -111,7 +105,6 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.ThumbnailSize = value;
-                //NotifyPropertyChanged("ThumbnailSize");
             }
         }
         public string[] ArrHandlers

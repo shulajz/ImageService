@@ -7,15 +7,17 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ImageService.Communication
 {
     class ClientHandler : IClientHandler
     {
-       private IImageController m_controller;
+        private static IImageController m_controller;
+        private static Mutex writerMutex = new Mutex();
         private StreamReader reader;
-        private StreamWriter writer;
+        private static StreamWriter writer;
         private System.Diagnostics.EventLog m_eventLog1;
         public ClientHandler(IImageController controller, System.Diagnostics.EventLog eventLog1)
        {
@@ -29,23 +31,16 @@ namespace ImageService.Communication
                 NetworkStream stream = client.GetStream();
                 reader = new StreamReader(stream);
                 writer = new StreamWriter(stream);
-                bool result;
+               
             while (true)
             {
                     try
                     {
+                        
                         string commandLine = reader.ReadLine();
                         int commandID = JsonConvert.DeserializeObject<int>(commandLine);
-                
-                        string args = m_controller.ExecuteCommand(commandID, null, out result);
-                        if (result == true)
-                        {
-                            JObject configObj = new JObject();
-                            configObj["commandID"] = commandID;
-                            configObj["args"] = args;
-                            writer.WriteLine(configObj.ToString());
-                        }
-
+                        sendCommand(commandID);
+                        
                     }
                     catch (Exception e)
                     {
@@ -57,5 +52,21 @@ namespace ImageService.Communication
 
             }).Start();
         }
+
+        public static void sendCommand(int commandID)
+        {
+            bool result;
+            string args = m_controller.ExecuteCommand(commandID, null, out result);
+            if (result == true)
+            {
+                JObject configObj = new JObject();
+                configObj["commandID"] = commandID;
+                configObj["args"] = args;
+                writerMutex.WaitOne();
+                writer.WriteLine(configObj.ToString());
+                writerMutex.ReleaseMutex();
+            }
+        }
+
     }
 }

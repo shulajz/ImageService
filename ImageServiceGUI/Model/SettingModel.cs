@@ -17,19 +17,21 @@ namespace ImageServiceGUI.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Setting setting; 
-        //public IEnumerable<string> HandlersList { get; private set; }
-        //public ObservableCollection<string> modelSettingsHandlers { get; set; }
+
 
         public SettingModel()
         {
             string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.GetConfigCommand);
             ClientSingleton client = ClientSingleton.getInstance;
             client.CommandReceivedEvent += settingsOnCommand;
-            //modelSettingsHandlers = new ObservableCollection<string>();
             client.write(outputCommand);
             client.wait();
             
           
+        }
+        public void sendRemoveRequest()
+        {
+
         }
 
         protected void OnPropertyChanged(string name)
@@ -63,7 +65,6 @@ namespace ImageServiceGUI.Model
             set
             {
                 setting.OutPutDir = value;
-                OnPropertyChanged("OutPutDir");
             }
         }
 
@@ -73,7 +74,6 @@ namespace ImageServiceGUI.Model
             set
             {
                 setting.SourceName = value;
-                OnPropertyChanged("SourceName");
             }
         }
 
@@ -82,8 +82,7 @@ namespace ImageServiceGUI.Model
             get { return setting.LogName; }
             set
             {
-                setting.LogName = value;
-                OnPropertyChanged("LogName");
+                setting.LogName = value; 
             }
         }
 
@@ -92,8 +91,7 @@ namespace ImageServiceGUI.Model
             get { return setting.ThumbnailSize; }
             set
             {
-                setting.ThumbnailSize = value;
-                OnPropertyChanged("ThumbnailSize");
+                setting.ThumbnailSize = value; 
             }
         }
 
@@ -103,6 +101,7 @@ namespace ImageServiceGUI.Model
             set
             {
                 setting.ArrHandlers = value;
+                OnPropertyChanged("ArrHandlers");
 
             }
         }

@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using ImageServiceGUI.Communication;
 using ImageService.Communication.Modal;
 using ImageService.Communication.Enums;
+using System.Threading;
 
 
 
@@ -21,37 +22,15 @@ namespace ImageServiceGUI.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<Log> model_log { get; set;}
+        private ClientSingleton client;
 
 
         public LogModel()
         {
-            string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.LogCommand);
-            ClientSingleton client = ClientSingleton.getInstance;
-            client.CommandReceivedEvent += logOnCommand;
-            client.write(outputCommand);
-            client.wait();
+            client = ClientSingleton.getInstance;
             model_log = new ObservableCollection<Log>();
-
-            //model_log.Add(new Log() { Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() { Type = "INFO", Message = "hgvvvvvvvvvvvvvcci" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() {Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() {Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() {Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
-            //model_log.Add(new Log() {Type = "INFO", Message = "hi" });
-            //model_log.Add(new Log() { Type = "ERROR", Message = "hi" });
-            //model_log.Add(new Log() { Type = "WARNNING", Message = "hi" });
+            client.CommandReceivedEvent += logOnCommand;
+            sendLogCommand();
 
         }
         protected void OnPropertyChanged(string name)
@@ -70,6 +49,15 @@ namespace ImageServiceGUI.Model
                 } 
             }
             
+        }
+
+        private void sendLogCommand()
+        {
+          
+            string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.LogCommand);
+            client.write(outputCommand);
+            client.wait();
+
         }
     } 
 }
