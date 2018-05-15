@@ -36,13 +36,8 @@ namespace ImageServiceGUI.ViewModel
 
             this.RemoveCommand = new DelegateCommand<object>(this.OnRemove,this.CanRemove);
             this.m_settingModel = settingModel;
-            //m_settingModel.OutPutDir = "shula";
-            //m_settingModel.ThumbnailSize = 150;
             m_settingModel.PropertyChanged += propChangedMethod;
             this.HandlersList = VM_model_setting;
-
-            //string[] handlersListTemp = new[] { "hi", "there", "shula", "how", "are", "you", "today", "great", "thanks" };
-
         }
 
         public void propChangedMethod(object sender, PropertyChangedEventArgs e)
@@ -54,13 +49,11 @@ namespace ImageServiceGUI.ViewModel
 
         private void OnRemove(object obj)
         {
-            m_settingModel.OutPutDir = "or";
+         
             CommandReceivedEventArgs e = new CommandReceivedEventArgs((int)CommandEnum.RemoveHandler, null,
                 m_settingModel.SelectedHandler);
             m_settingModel.WriteToClient(e);
-            m_settingModel.modelSettingsHandlers.Remove(m_settingModel.SelectedHandler);
-
-
+ 
         }
         private bool CanRemove(object obj)
         {
@@ -77,7 +70,6 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.SelectedHandler = value;
-                //NotifyPropertyChanged("SelectedHandler");
             }
         }
 
@@ -89,7 +81,6 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.OutPutDir = value;
-
             }
         }
 
@@ -99,7 +90,6 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.SourceName = value;
-                //NotifyPropertyChanged("SourceName");
             }
         }
 
@@ -109,7 +99,6 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.LogName = value;
-                //NotifyPropertyChanged("LogName");
             }
         }
 
@@ -119,19 +108,9 @@ namespace ImageServiceGUI.ViewModel
             set
             {
                 m_settingModel.ThumbnailSize = value;
-                //NotifyPropertyChanged("ThumbnailSize");
             }
         }
-        //public string[] ArrHandlers
-        //{
-        //    get { return m_settingModel.ArrHandlers; }
-        //    set
-        //    {
-        //        m_settingModel.ArrHandlers = value;
-                
 
-        //    }
-        //}
     }
 
 

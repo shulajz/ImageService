@@ -13,9 +13,5 @@ namespace ImageServiceGUI.Model
     {
         event PropertyChangedEventHandler PropertyChanged;
         ObservableCollection<Log> model_log { get; set; }
-
-        //event PropertyChangedEventHandler PropertyChanged;
-        //string Type { get; set; }
-        //string Message { get; set; }
     }
 }

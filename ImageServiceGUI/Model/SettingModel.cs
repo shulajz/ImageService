@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using ImageService.Communication.Enums;
 using ImageService.Communication.Modal;
 using ImageService.Modal;
+using System.Windows;
 
 namespace ImageServiceGUI.Model
 {
@@ -30,7 +31,7 @@ namespace ImageServiceGUI.Model
                 (int)CommandEnum.GetConfigCommand,
                 null,
                 null);
-
+            setting = new Setting();
             client = ClientSingleton.getInstance;
             client.CommandReceivedEvent += settingsOnCommand;
             modelSettingsHandlers = new ObservableCollection<string>();
@@ -61,14 +62,10 @@ namespace ImageServiceGUI.Model
             }
             else if (e.CommandID == (int)CommandEnum.RemoveHandler)
             {
-      
-                try
+                Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     modelSettingsHandlers.Remove(e.Args);
-                }catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                }));
             }
         }
        

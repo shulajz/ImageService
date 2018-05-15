@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ImageServiceGUI"
         xmlns:controlers="clr-namespace:ImageServiceGUI.Views"
         mc:Ignorable="d"
-        Title="ImageApp" Height="450" Width="800" Background="Gray">
+        Title="ImageApp" Height="450" Width="800" Background="{Binding BackgroundColor}">
     <TabControl Margin="5" SelectionChanged="TabControl_SelectionChanged" >
                 
         <TabItem Header="Setting" Width="70">

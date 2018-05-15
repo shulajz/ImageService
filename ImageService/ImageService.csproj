@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImageService\Commands\RemoveHandlerCommand.cs" />
+    <Compile Include="ImageService\Communication\Client.cs" />
     <Compile Include="ImageService\Communication\ClientHandler.cs" />
     <Compile Include="ImageService\Communication\IClientHandler.cs" />
     <Compile Include="ImageService\AppConfig.cs" />

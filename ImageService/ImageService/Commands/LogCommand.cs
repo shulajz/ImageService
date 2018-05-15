@@ -15,9 +15,10 @@ namespace ImageService.Commands
     public class LogCommand : ICommand
     {
         private static List<Log> logList;
-
+       // private TCPServerChannel m_tcpServer;
         public LogCommand()
         {
+            //m_tcpServer = tcpServer;
             logList = new List<Log>();
         }
         /// <summary>
@@ -45,8 +46,7 @@ namespace ImageService.Commands
         public static void onReceiveCommandLog(object sender, MessageReceivedEventArgs e)
         {
             logList.Add(new Log() { Message = e.m_message, Type = e.m_status });
-            //ClientHandler.sendCommand((int)CommandEnum.LogCommand);
-        }
 
+        }
     }
 }

@@ -17,8 +17,6 @@ namespace ImageService.Communication
     class ClientHandler : IClientHandler
     {
        private IImageController m_controller;
-        private StreamReader reader;
-        private StreamWriter writer;
         private static Mutex writerMutex = new Mutex();
         private System.Diagnostics.EventLog m_eventLog1;
         public ClientHandler(IImageController controller, System.Diagnostics.EventLog eventLog1)
@@ -26,19 +24,17 @@ namespace ImageService.Communication
             m_controller = controller;
             m_eventLog1 = eventLog1;
        }
-       public void HandleClient(TcpClient TcpClient, List<TcpClient> listOfClients)
+       public void HandleClient(Client client, List<Client> listOfClients)
         {
             new Task(() =>
             {
-                NetworkStream stream = TcpClient.GetStream();
-                reader = new StreamReader(stream);
-                writer = new StreamWriter(stream);
+         
                 bool result;
             while (true)
             {
                     try
                     {
-                        string commandLine = reader.ReadLine();
+                        string commandLine = client.Reader.ReadLine();
                         m_eventLog1.WriteEntry("after commandline:" + commandLine);
 
                         CommandReceivedEventArgs e = JsonConvert.DeserializeObject<CommandReceivedEventArgs>(commandLine);
@@ -61,14 +57,15 @@ namespace ImageService.Communication
                         {
                             if (e.CommandID == (int)CommandEnum.RemoveHandler)
                             {
-                                foreach (TcpClient client in listOfClients)
+                                foreach (Client clientItem in listOfClients)
                                 {
                                     m_eventLog1.WriteEntry("after foreach. the RequestDirPath is=" + e.RequestDirPath);
+                                    writerMutex.WaitOne();
                                     JObject Obj = new JObject();
                                     Obj["commandID"] = e.CommandID;
                                     Obj["args"] = e.RequestDirPath;
-                                    writerMutex.WaitOne();
-                                    writer.WriteLine(Obj.ToString());
+                                    m_eventLog1.WriteEntry("CommandID is=" + e.CommandID);
+                                    clientItem.Writer.WriteLine(Obj.ToString());
                                     writerMutex.ReleaseMutex();
                                 }
                             }
@@ -77,7 +74,7 @@ namespace ImageService.Communication
                                 JObject Obj = new JObject();
                                 Obj["commandID"] = e.CommandID;
                                 Obj["args"] = args;
-                                writer.WriteLine(Obj.ToString());
+                                client.Writer.WriteLine(Obj.ToString());
                             }
                         }
 
@@ -87,7 +84,7 @@ namespace ImageService.Communication
                         m_eventLog1.WriteEntry("Error in clientHandler:" + e.Message);
                         break;
                     }
-                    writer.Flush();
+                    client.Writer.Flush();
                 }
 
             }).Start();

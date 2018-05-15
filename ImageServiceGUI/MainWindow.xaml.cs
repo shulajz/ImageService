@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ImageServiceGUI.Model;
+using ImageServiceGUI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,12 @@ namespace ImageServiceGUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private WindowsViewModel vm;
         public MainWindow()
         {
             InitializeComponent();
+            vm = new WindowsViewModel(new WindowsModel());
+            this.DataContext = vm;
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)

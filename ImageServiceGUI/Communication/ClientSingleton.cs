@@ -25,6 +25,7 @@ namespace ImageServiceGUI.Communication
         private bool listening;
         private static ClientSingleton instance;
         private bool needToWait;
+        private bool serverConnect;
         //private TCPClientChannel client;
 
         private ClientSingleton()
@@ -46,10 +47,13 @@ namespace ImageServiceGUI.Communication
 
         public void write(string command)
         {
-            Console.WriteLine("BEFORE WRITE: " + command);
-            writer.WriteLine(command);
-            writer.Flush();
-            Console.WriteLine("AFTER WRITE: " + command);
+            if (serverConnect)
+            {
+                Console.WriteLine("BEFORE WRITE: " + command);
+                writer.WriteLine(command);
+                writer.Flush();
+                Console.WriteLine("AFTER WRITE: " + command);
+            }
         }
 
       
@@ -94,19 +98,32 @@ namespace ImageServiceGUI.Communication
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             TcpClient client = new TcpClient();
-            client.Connect(ep);///if exception the service close
-            listening = true;
-            Console.WriteLine("You are connected");
-            stream = client.GetStream();
-            reader = new StreamReader(stream);
-            writer = new StreamWriter(stream);
-            readCommands();
+            try
+            {
+                client.Connect(ep);
+                serverConnect = true;
+                listening = true;
+                Console.WriteLine("You are connected");
+                stream = client.GetStream();
+                reader = new StreamReader(stream);
+                writer = new StreamWriter(stream);
+                readCommands();
+            }
+            catch (Exception)///if exception the service close
+            {
+                serverConnect = false;
+            }
         }
 
 
         public void wait()
         {
             while (needToWait) { }
+        }
+        
+        public bool CheckIfServerConnect()
+        {
+            return serverConnect;
         }
     }
 }

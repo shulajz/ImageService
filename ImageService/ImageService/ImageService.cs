@@ -121,7 +121,7 @@ namespace ImageService
                 ClientHandler clientHandler = new ClientHandler(controller, eventLog1);
 
                 TCPServerChannel server = new TCPServerChannel(8000, clientHandler, eventLog1);
-
+                logging.MessageReceivedEvent += server.SendLog;
 
 
                 server.Start();
