@@ -69,8 +69,10 @@
     <Compile Include="Model\ISettingModel.cs" />
     <Compile Include="Model\LogModel.cs" />
     <Compile Include="Model\SettingModel.cs" />
+    <Compile Include="Model\WindowsModel.cs" />
     <Compile Include="ViewModel\LogViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
+    <Compile Include="ViewModel\WindowsViewModel.cs" />
     <Compile Include="Views\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>

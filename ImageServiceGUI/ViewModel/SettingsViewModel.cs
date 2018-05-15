@@ -58,8 +58,9 @@ namespace ImageServiceGUI.ViewModel
             CommandReceivedEventArgs e = new CommandReceivedEventArgs((int)CommandEnum.RemoveHandler, null,
                 m_settingModel.SelectedHandler);
             m_settingModel.WriteToClient(e);
-            //m_settingModel.RemoveHandlerFromCollection(m_settingModel.SelectedHandler);
-            
+            m_settingModel.modelSettingsHandlers.Remove(m_settingModel.SelectedHandler);
+
+
         }
         private bool CanRemove(object obj)
         {

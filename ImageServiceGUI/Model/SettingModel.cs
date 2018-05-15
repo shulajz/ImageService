@@ -61,10 +61,13 @@ namespace ImageServiceGUI.Model
             }
             else if (e.CommandID == (int)CommandEnum.RemoveHandler)
             {
-                string path = JsonConvert.DeserializeObject<string>(e.Args);
-                if (modelSettingsHandlers.Contains(path))
+      
+                try
                 {
-                    modelSettingsHandlers.Remove(path);
+                    modelSettingsHandlers.Remove(e.Args);
+                }catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
         }

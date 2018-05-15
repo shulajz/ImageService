@@ -18,7 +18,7 @@ namespace ImageServiceGUI.Communication
         //private int m_port;
         //private string m_ip;
         //private TcpClient m_client;
-        private Mutex mutex;
+        private static Mutex writerMutex = new Mutex();
         NetworkStream stream;
         private StreamReader reader;
         private StreamWriter writer;
@@ -70,8 +70,10 @@ namespace ImageServiceGUI.Communication
                         }
                         
                         JObject infoObj = JObject.Parse(info);
+                        writerMutex.WaitOne();
                         CommandReceivedEvent?.Invoke(this, new ClientArgs((int)infoObj["commandID"],
                             (string)infoObj["args"]));
+                        writerMutex.ReleaseMutex();
                         needToWait = false;
                        
                       
