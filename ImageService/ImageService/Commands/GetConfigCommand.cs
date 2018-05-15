@@ -32,9 +32,18 @@ namespace ImageService.Commands
             //JObject configObj = new JObject();
             try
             {
-                Setting setting = new Setting() { OutPutDir = m_appConfig.OutPutDir, SourceName = m_appConfig.SourceName,
-                    LogName = m_appConfig.LogName, ThumbnailSize = m_appConfig.ThumbnailSize, ArrHandlers = m_appConfig.ArrHandlers};
+                eventlog1_m.WriteEntry("before setting");
+                Setting setting = new Setting() {
+                    OutPutDir = m_appConfig.OutPutDir,
+                    SourceName = m_appConfig.SourceName,
+                    LogName = m_appConfig.LogName,
+                    ThumbnailSize = m_appConfig.ThumbnailSize,
+                    ArrHandlers = m_appConfig.ArrHandlers};
+               
+
                 string settingJson = JsonConvert.SerializeObject(setting);
+               
+
                 result = true;
                 return settingJson;
             } catch(Exception e) {

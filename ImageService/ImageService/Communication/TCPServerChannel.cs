@@ -14,11 +14,15 @@ namespace ImageService.Communication
         private TcpListener listener;
         private IClientHandler ch;
         private System.Diagnostics.EventLog m_eventLog1;
-
+        private List<TcpClient> listOfClients;
         public TCPServerChannel(int port, IClientHandler ch, System.Diagnostics.EventLog eventLog1)
         {
+            listOfClients = new List<TcpClient>();
             this.m_port = port;
-            this.ch = ch;            this.m_eventLog1 = eventLog1;
+            this.ch = ch;
+            this.m_eventLog1 = eventLog1;
+
+
         }
         public void Start()
         {
@@ -35,8 +39,9 @@ namespace ImageService.Communication
                     try
                     {
                         TcpClient client = listener.AcceptTcpClient();
+                        listOfClients.Add(client);
                         m_eventLog1.WriteEntry("Got new connection");
-                        ch.HandleClient(client);
+                        ch.HandleClient(client, listOfClients);
                     }
                     catch (SocketException)
                     {

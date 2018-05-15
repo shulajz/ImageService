@@ -10,28 +10,42 @@ using ImageServiceGUI.Communication;
 using Newtonsoft.Json.Linq;
 using ImageService.Communication.Enums;
 using ImageService.Communication.Modal;
+using ImageService.Modal;
+using System.Threading;
 
 namespace ImageServiceGUI.Model
 {
     class SettingModel : INotifyPropertyChanged, ISettingModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private Mutex mutex;
         private Setting setting; 
-
+        private ClientSingleton client;
+        //public IEnumerable<string> HandlersList { get; private set; }
+        public ObservableCollection<string> modelSettingsHandlers { get; set; }
 
         public SettingModel()
         {
-            string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.GetConfigCommand);
-            ClientSingleton client = ClientSingleton.getInstance;
-            client.CommandReceivedEvent += settingsOnCommand;
-            client.write(outputCommand);
-            client.wait();
-            
-          
-        }
-        public void sendRemoveRequest()
-        {
+            //string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.GetConfigCommand);
+            CommandReceivedEventArgs e = 
+                new CommandReceivedEventArgs(
+                (int)CommandEnum.GetConfigCommand,
+                null,
+                null);
 
+            client = ClientSingleton.getInstance;
+            client.CommandReceivedEvent += settingsOnCommand;
+            modelSettingsHandlers = new ObservableCollection<string>();
+            //client.write(outputCommand);
+            WriteToClient(e);
+            client.wait();
+        }
+
+        public void WriteToClient(CommandReceivedEventArgs e)
+        {
+            
+            string outputCommand = JsonConvert.SerializeObject(e);
+            client.write(outputCommand);
         }
 
         protected void OnPropertyChanged(string name)
@@ -39,6 +53,27 @@ namespace ImageServiceGUI.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        private void settingsOnCommand(object sender, ClientArgs e)
+        {
+            if (e.CommandID == (int)CommandEnum.GetConfigCommand)
+            {
+                setting = JsonConvert.DeserializeObject<Setting>(e.Args);
+                foreach (string handler in setting.ArrHandlers)
+                    modelSettingsHandlers.Add(handler);
+            }
+            else if (e.CommandID == (int)CommandEnum.RemoveHandler)
+            {
+                try
+                {
+                    string path = JsonConvert.DeserializeObject<string>(e.Args);
+                    modelSettingsHandlers.Remove(path);
+                }catch(Exception ev)
+                {
+                    Console.WriteLine(ev.Message);
+                }
+            }
+        }
+       
         private string m_selectedHandler;
         public string SelectedHandler
         {
@@ -51,20 +86,14 @@ namespace ImageServiceGUI.Model
         }
 
 
-        private void settingsOnCommand(object sender, ClientArgs e)
-        {
-            if (e.CommandID == (int)CommandEnum.GetConfigCommand)
-            {
-                setting = JsonConvert.DeserializeObject<Setting>(e.Args);
-            
-            }
-        }
+       
         public string OutPutDir
         {
             get { return setting.OutPutDir; }
             set
             {
                 setting.OutPutDir = value;
+                OnPropertyChanged("OutPutDir");
             }
         }
 
@@ -74,6 +103,7 @@ namespace ImageServiceGUI.Model
             set
             {
                 setting.SourceName = value;
+                OnPropertyChanged("SourceName");
             }
         }
 
@@ -82,7 +112,8 @@ namespace ImageServiceGUI.Model
             get { return setting.LogName; }
             set
             {
-                setting.LogName = value; 
+                setting.LogName = value;
+                OnPropertyChanged("LogName");
             }
         }
 
@@ -91,19 +122,19 @@ namespace ImageServiceGUI.Model
             get { return setting.ThumbnailSize; }
             set
             {
-                setting.ThumbnailSize = value; 
+                setting.ThumbnailSize = value;
+                OnPropertyChanged("ThumbnailSize");
             }
         }
 
-        public string[] ArrHandlers
-        {
-            get { return setting.ArrHandlers; }
-            set
-            {
-                setting.ArrHandlers = value;
-                OnPropertyChanged("ArrHandlers");
+        //public string[] ArrHandlers
+        //{
+        //    get { return setting.ArrHandlers; }
+        //    set
+        //    {
+        //        setting.ArrHandlers = value;
 
-            }
-        }
+        //    }
+        //}
     }
 }
