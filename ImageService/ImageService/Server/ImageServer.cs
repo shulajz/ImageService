@@ -64,14 +64,12 @@ namespace ImageService.Server
         /// <summary>
         /// Sends the command.
         /// </summary>
-        public void sendCommand()
+        public void sendCommand(string handlerToClose)
         {
             string[] args = { };
             CommandReceivedEventArgs eventArgs =
-                new CommandReceivedEventArgs((int)CommandEnum.CloseCommand, args , "*");
-            m_logging.Log("sendCommand1", MessageTypeEnum.FAIL);
+                new CommandReceivedEventArgs((int)CommandEnum.CloseCommand, args , handlerToClose);
             CommandRecievedEvent?.Invoke(this, eventArgs);
-            m_logging.Log("sendCommand2", MessageTypeEnum.FAIL);
         }
 
         ////– handler will call this function to tell server it closed

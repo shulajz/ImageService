@@ -120,7 +120,7 @@ namespace ImageService
                 m_imageServer = new ImageServer(logging, appConfig.ArrHandlers, controller);
                 ClientHandler clientHandler = new ClientHandler(controller, eventLog1);
 
-                TCPServerChannel server = new TCPServerChannel(8000, clientHandler, eventLog1);
+                TCPServerChannel server = new TCPServerChannel(8000, clientHandler, eventLog1, m_imageServer);
                 logging.MessageReceivedEvent += server.SendLog;
 
 
@@ -156,7 +156,7 @@ namespace ImageService
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");
-            m_imageServer.sendCommand();
+            m_imageServer.sendCommand("*");
         }
 
         /// <summary>

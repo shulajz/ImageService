@@ -1,6 +1,7 @@
 ﻿using ImageService.Communication.Enums;
 using ImageService.Controller;
 using ImageService.Modal;
+using ImageService.Server;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -16,7 +17,7 @@ namespace ImageService.Communication
 {
     class ClientHandler : IClientHandler
     {
-       private IImageController m_controller;
+        private IImageController m_controller;
         private static Mutex writerMutex = new Mutex();
         private System.Diagnostics.EventLog m_eventLog1;
         private bool listening = true;
@@ -25,7 +26,7 @@ namespace ImageService.Communication
             m_controller = controller;
             m_eventLog1 = eventLog1;
        }
-       public void HandleClient(Client client, List<Client> listOfClients)
+       public void HandleClient(Client client, List<Client> listOfClients, ImageServer imageServer)
         {
             new Task(() =>
             {
@@ -61,8 +62,10 @@ namespace ImageService.Communication
                             {
                                 if (e.CommandID == (int)CommandEnum.RemoveHandler)
                                 {
+                                    imageServer.sendCommand(e.RequestDirPath);
                                     foreach (Client clientItem in listOfClients)
                                     {
+
                                         m_eventLog1.WriteEntry("after foreach. the RequestDirPath is=" + e.RequestDirPath);
                                         writerMutex.WaitOne();
                                         JObject Obj = new JObject();
@@ -70,6 +73,7 @@ namespace ImageService.Communication
                                         Obj["args"] = e.RequestDirPath;
                                         m_eventLog1.WriteEntry("CommandID is=" + e.CommandID);
                                         clientItem.Writer.WriteLine(Obj.ToString());
+                                        clientItem.Writer.Flush();
                                         writerMutex.ReleaseMutex();
                                     }
                                 }
@@ -79,6 +83,7 @@ namespace ImageService.Communication
                                     Obj["commandID"] = e.CommandID;
                                     Obj["args"] = args;
                                     client.Writer.WriteLine(Obj.ToString());
+                                    client.Writer.Flush();
                                 }
                             }
                         }
@@ -88,7 +93,7 @@ namespace ImageService.Communication
                         m_eventLog1.WriteEntry("Error in clientHandler:" + e.Message);
                         break;
                     }
-                    client.Writer.Flush();
+                    
                 }
 
             }).Start();

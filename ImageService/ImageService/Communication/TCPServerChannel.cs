@@ -1,6 +1,8 @@
 ﻿
 using ImageService.Communication.Enums;
 using ImageService.Communication.Modal;
+using ImageService.Modal;
+using ImageService.Server;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -17,19 +19,26 @@ namespace ImageService.Communication
 {
     class TCPServerChannel
     {
+        private ImageServer m_imageServer;
         private static Mutex writerMutex = new Mutex();
 
         private int m_port;
         private TcpListener listener;
-        private IClientHandler ch;
+        private IClientHandler m_ch;
         private System.Diagnostics.EventLog m_eventLog1;
         private List<Client> listOfClients;
-        public TCPServerChannel(int port, IClientHandler ch, System.Diagnostics.EventLog eventLog1)
+
+        //constructor
+        public TCPServerChannel(
+            int port, IClientHandler ch,
+            System.Diagnostics.EventLog eventLog1,
+            ImageServer imageServer)
         {
+            m_imageServer = imageServer;
             listOfClients = new List<Client>();
-            this.m_port = port;
-            this.ch = ch;
-            this.m_eventLog1 = eventLog1;
+            m_port = port;
+            m_ch = ch;
+            m_eventLog1 = eventLog1;
 
 
         }
@@ -56,7 +65,7 @@ namespace ImageService.Communication
                         client.Writer = new StreamWriter(client.Stream);
                         listOfClients.Add(client);
                         m_eventLog1.WriteEntry("Got new connection");
-                        ch.HandleClient(client, listOfClients);
+                        m_ch.HandleClient(client, listOfClients, m_imageServer);
                     }
                     catch (SocketException)
                     {
@@ -90,7 +99,7 @@ namespace ImageService.Communication
                 clientItem.Writer.WriteLine(Obj.ToString());
                 clientItem.Writer.Flush();
                 System.Threading.Thread.Sleep(5);
-                writerMutex.ReleaseMutex();////
+                writerMutex.ReleaseMutex();
                     
             }
             });

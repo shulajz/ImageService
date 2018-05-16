@@ -23,11 +23,10 @@ namespace ImageService.Commands
             //JObject configObj = new JObject();
             try
             {
-                // m_imageServer.sendCommand();
+                //sendCommand(args[0]);
                 //string[] args1 = { };
-                //CommandReceivedEventArgs eventArgs =
-                //    new CommandReceivedEventArgs((int)CommandEnum.CloseCommand, args, "*");
-                ////m_logging.Log("sendCommand1", MessageTypeEnum.FAIL);
+                // CommandReceivedEventArgs eventArgs =
+                //  new CommandReceivedEventArgs((int)CommandEnum.CloseCommand, args, "*");
                 //m_imageServer.CommandRecievedEvent?.Invoke(this, eventArgs);
                 //Setting setting = new Setting()
                 //{
@@ -38,7 +37,7 @@ namespace ImageService.Commands
                 //    ArrHandlers = m_appConfig.ArrHandlers
                 //};
                 //string settingJson = JsonConvert.SerializeObject(setting);
-                 string pathJson = JsonConvert.SerializeObject(args[0]);
+                string pathJson = JsonConvert.SerializeObject(args[0]); //return the handler thats being removed
                 result = true;
                 return pathJson;
                

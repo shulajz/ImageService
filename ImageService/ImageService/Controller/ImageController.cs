@@ -15,6 +15,7 @@ namespace ImageService.Controller
 {
     public class ImageController : IImageController
     {
+        //private ImageServer m_imageServer;
         private IImageServiceModal m_modal;   //The Modal Object
         private AppConfig m_appConfig;
         private Dictionary<int, ICommand> commands;
@@ -31,7 +32,6 @@ namespace ImageService.Controller
             
         {
             //m_imageServer = imageServer;
-           // m_tcpServer = server;
             m_appConfig = appConfig;
             m_modal = modal;                    // Storing the Modal Of The System
             commands = new Dictionary<int, ICommand>()
