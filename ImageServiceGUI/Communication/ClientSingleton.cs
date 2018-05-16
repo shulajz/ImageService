@@ -67,6 +67,7 @@ namespace ImageServiceGUI.Communication
                 {
                     try
                     {
+                        writerMutex.WaitOne();
                         string info = reader.ReadLine();
                         while (reader.Peek() > 0)
                         {
@@ -74,7 +75,7 @@ namespace ImageServiceGUI.Communication
                         }
                         
                         JObject infoObj = JObject.Parse(info);
-                        writerMutex.WaitOne();
+                      
                         CommandReceivedEvent?.Invoke(this, new ClientArgs((int)infoObj["commandID"],
                             (string)infoObj["args"]));
                         writerMutex.ReleaseMutex();

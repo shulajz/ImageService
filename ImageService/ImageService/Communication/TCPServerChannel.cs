@@ -74,19 +74,27 @@ namespace ImageService.Communication
         }
         public void SendLog(object sender, MessageReceivedEventArgs e)
         {
-             foreach (Client clientItem in listOfClients)
+            Task task = new Task(() =>
             {
+                foreach (Client clientItem in listOfClients)
+            {
+                writerMutex.WaitOne();
                 List<Log> logList = new List<Log>();
                 logList.Add(new Log() { Message = e.m_message, Type = e.m_status });
                 string logs = JsonConvert.SerializeObject(logList);
-                //m_eventLog1.WriteEntry("after foreach. the RequestDirPath is=" + e.RequestDirPath);
-                writerMutex.WaitOne();
+                m_eventLog1.WriteEntry("after foreach. the RequestDirPath is=" + e.m_message);
+               
                 JObject Obj = new JObject();
                 Obj["commandID"] = (int)CommandEnum.LogCommand;
                 Obj["args"] = logs;
                 clientItem.Writer.WriteLine(Obj.ToString());
+                clientItem.Writer.Flush();
+                System.Threading.Thread.Sleep(5);
                 writerMutex.ReleaseMutex();
+                    
             }
+            });
+            task.Start();
         }
        
     }
