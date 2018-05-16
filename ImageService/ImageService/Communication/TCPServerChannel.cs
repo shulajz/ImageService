@@ -90,7 +90,7 @@ namespace ImageService.Communication
                 clientItem.Writer.WriteLine(Obj.ToString());
                 clientItem.Writer.Flush();
                 System.Threading.Thread.Sleep(5);
-                writerMutex.ReleaseMutex();//
+                writerMutex.ReleaseMutex();////
                     
             }
             });
