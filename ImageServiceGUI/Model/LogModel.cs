@@ -11,6 +11,7 @@ using ImageServiceGUI.Communication;
 using ImageService.Communication.Modal;
 using ImageService.Communication.Enums;
 using ImageService.Modal;
+using System.Windows;
 
 
 
@@ -54,11 +55,16 @@ namespace ImageServiceGUI.Model
         {
            if( e.CommandID == (int)CommandEnum.LogCommand)
             {
+              
                 List<Log> logsList = JsonConvert.DeserializeObject<List<Log>>(e.Args);
-                foreach (Log log in logsList)
+                Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
-                    model_log.Add(log);
-                } 
+                    foreach (Log log in logsList)
+                    {
+
+                        model_log.Add(log);
+                    }
+                }));
             }
             
         }

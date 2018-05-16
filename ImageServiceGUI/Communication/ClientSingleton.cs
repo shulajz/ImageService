@@ -1,7 +1,4 @@
 ﻿
-using ImageService.Communication.Enums;
-using ImageService.Modal;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -71,7 +68,6 @@ namespace ImageServiceGUI.Communication
                     try
                     {
                         writerMutex.WaitOne();
-
                         string info = reader.ReadLine();
                         while (reader.Peek() > 0)
                         {
@@ -79,6 +75,7 @@ namespace ImageServiceGUI.Communication
                         }
                         
                         JObject infoObj = JObject.Parse(info);
+                      
                         CommandReceivedEvent?.Invoke(this, new ClientArgs((int)infoObj["commandID"],
                             (string)infoObj["args"]));
                         writerMutex.ReleaseMutex();
@@ -98,23 +95,6 @@ namespace ImageServiceGUI.Communication
             task.Start();
         }
 
-        ~ClientSingleton()
-        {
-            diconnect();
-        }
-
-        public void diconnect()
-        {
-            listening = false;
-            instance.diconnect();
-            CommandReceivedEventArgs e =
-               new CommandReceivedEventArgs(
-               (int)CommandEnum.CloseCommand,
-               null,
-               null);
-            string outputCommand = JsonConvert.SerializeObject(e);
-            //write(outputCommand);
-        }
         public void start()
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
