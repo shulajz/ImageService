@@ -75,15 +75,12 @@ namespace ImageServiceGUI.Communication
                         {
                             info += reader.ReadLine();
                         }
-                        
                         JObject infoObj = JObject.Parse(info);
                       
                         CommandReceivedEvent?.Invoke(this, new ClientArgs((int)infoObj["commandID"],
                             (string)infoObj["args"]));
                         writerMutex.ReleaseMutex();
                         needToWait = false;
-                       
-                      
                     }
                     catch (Exception e)
                     {

@@ -68,7 +68,7 @@ namespace ImageService.Server
         {
             string[] args = { };
             CommandReceivedEventArgs eventArgs =
-                new CommandReceivedEventArgs((int)CommandEnum.CloseCommand, args , handlerToClose);
+                new CommandReceivedEventArgs((int)CommandEnum.RemoveHandler, args , handlerToClose);
             CommandRecievedEvent?.Invoke(this, eventArgs);
         }
 

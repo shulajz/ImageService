@@ -11,5 +11,6 @@ namespace ImageService.Communication
     interface IClientHandler
     {
         void HandleClient(Client client, List<Client> list, ImageServer imageServer);
+        void sendCommandToClient(Client client, int command, string args);
     }
 }

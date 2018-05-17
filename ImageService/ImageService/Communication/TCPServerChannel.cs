@@ -81,21 +81,13 @@ namespace ImageService.Communication
         {
             Task task = new Task(() =>
             {
+                List<Log> logList = new List<Log>();
+                logList.Add(new Log() { Message = e.m_message, Type = e.m_status });
                 foreach (Client clientItem in listOfClients)
                 {
-                    writerMutex.WaitOne();
-                    List<Log> logList = new List<Log>();
-                    logList.Add(new Log() { Message = e.m_message, Type = e.m_status });
                     string logs = JsonConvert.SerializeObject(logList);
-                    m_eventLog1.WriteEntry("after foreach. the RequestDirPath is=" + e.m_message);
-
-                    JObject Obj = new JObject();
-                    Obj["commandID"] = (int)CommandEnum.LogCommand;
-                    Obj["args"] = logs;
-                    clientItem.Writer.WriteLine(Obj.ToString());
-                    clientItem.Writer.Flush();
+                    m_ch.sendCommandToClient(clientItem, (int)CommandEnum.LogCommand, logs);
                     System.Threading.Thread.Sleep(5);
-                    writerMutex.ReleaseMutex();
                 }
             });
             task.Start();

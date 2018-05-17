@@ -24,9 +24,9 @@ namespace ImageService.Commands
             try
             {
                 m_appConfig.removeHandler(args[0]);
-                string pathJson = JsonConvert.SerializeObject(args[0]); //return the handler thats being removed
+                //string pathJson = JsonConvert.SerializeObject(args[0]); //return the handler thats being removed
                 result = true;
-                return pathJson;
+                return args[0];
             }
             catch (Exception e)
             {

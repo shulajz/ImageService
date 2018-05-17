@@ -73,7 +73,7 @@ namespace ImageService.Controller.Handlers
             if (e.RequestDirPath.Equals(m_path) || e.RequestDirPath.Equals("*"))
             {
                 //check if the command is close
-                if (e.CommandID == (int)CommandEnum.CloseCommand)
+                if (e.CommandID == (int)CommandEnum.RemoveHandler)
                 {
                     //close
                     closeHandler();
