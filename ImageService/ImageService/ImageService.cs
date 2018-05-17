@@ -111,18 +111,13 @@ namespace ImageService
 
                 modal = new ImageServiceModal(appConfig.OutPutDir, appConfig.ThumbnailSize, logging);
                 controller = new ImageController(modal, appConfig);
-
-
-                
                 m_imageServer = new ImageServer(logging, appConfig.ArrHandlers, controller);
                 ClientHandler clientHandler = new ClientHandler(controller, eventLog1);
-
                 server = new TCPServerChannel(8000, clientHandler, eventLog1, m_imageServer);
                 logging.MessageReceivedEvent += server.SendLog;
 
 
                 server.Start();
-                //create the ImageServer         
 
             }
             catch (Exception ex)
