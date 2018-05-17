@@ -1,10 +1,5 @@
 ﻿using ImageService.Modal;
 using ImageServiceGUI.Communication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ImageServiceGUI.Model
 {
@@ -25,7 +20,6 @@ namespace ImageServiceGUI.Model
         }
         public void WriteToClient(CommandReceivedEventArgs e)
         {
-            //string outputCommand = JsonConvert.SerializeObject(e);
             client.write(e);
         }
         private string m_backgroundColor;

@@ -1,27 +1,18 @@
-﻿
-using ImageService.Communication.Enums;
+﻿using ImageService.Communication.Enums;
 using ImageService.Communication.Modal;
-using ImageService.Modal;
-using ImageService.Server;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace ImageService.Communication
 {
-    class TCPServerChannel
+    class TCPServerChannel :ITCPServerChannel
     {
-        private ImageServer m_imageServer;
         private static Mutex writerMutex = new Mutex();
-
         private int m_port;
         private TcpListener listener;
         private IClientHandler m_ch;
@@ -30,9 +21,8 @@ namespace ImageService.Communication
 
         //constructor
         public TCPServerChannel(int port, IClientHandler ch,
-            System.Diagnostics.EventLog eventLog1,ImageServer imageServer)
+            System.Diagnostics.EventLog eventLog1)
         {
-            m_imageServer = imageServer;
             listOfClients = new List<Client>();
             m_port = port;
             m_ch = ch;
@@ -61,7 +51,7 @@ namespace ImageService.Communication
                         client.Writer = new StreamWriter(client.Stream);
                         listOfClients.Add(client);
                         m_eventLog1.WriteEntry("Got new connection");
-                        m_ch.HandleClient(client, listOfClients, m_imageServer);
+                        m_ch.HandleClient(client, listOfClients);
                     }
                     catch (SocketException)
                     {
@@ -77,6 +67,7 @@ namespace ImageService.Communication
         {
             listener.Stop();
         }
+
         public void SendLog(object sender, MessageReceivedEventArgs e)
         {
             Task task = new Task(() =>
@@ -87,7 +78,7 @@ namespace ImageService.Communication
                 {
                     string logs = JsonConvert.SerializeObject(logList);
                     m_ch.sendCommandToClient(clientItem, (int)CommandEnum.LogCommand, logs);
-                    System.Threading.Thread.Sleep(5);
+                    Thread.Sleep(5);
                 }
             });
             task.Start();

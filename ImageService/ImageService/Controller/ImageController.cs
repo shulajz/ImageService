@@ -1,27 +1,16 @@
 ﻿using ImageService.Commands;
-using ImageService.Communication;
-//using ImageService.ImageService.Commands;
 using ImageService.Communication.Enums;
-//using ImageService.ImageService.Commands;
 using ImageService.Modal;
-using ImageService.Server;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ImageService.Controller
 {
     public class ImageController : IImageController
     {
-        //private ImageServer m_imageServer;
         private IImageServiceModal m_modal;   //The Modal Object
         private AppConfig m_appConfig;
         private Dictionary<int, ICommand> commands;
-        //private TCPServerChannel m_tcpServer;
 
-        //private ImageServer m_imageServer;
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageController"/> class.
         /// </summary>
@@ -29,7 +18,6 @@ namespace ImageService.Controller
         public ImageController(IImageServiceModal modal, AppConfig appConfig)
             
         {
-            //m_imageServer = imageServer;
             m_appConfig = appConfig;
             m_modal = modal;                    // Storing the Modal Of The System
             commands = new Dictionary<int, ICommand>()

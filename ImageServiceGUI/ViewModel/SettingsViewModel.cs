@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ImageServiceGUI.Model;
 using System.Windows.Input;
-using System.Diagnostics;
-//using Microsoft.Practices.Prism.Commands;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using ImageService.Modal;
@@ -56,6 +50,7 @@ namespace ImageServiceGUI.ViewModel
             m_settingModel.WriteToClient(e);
  
         }
+
         private bool CanRemove(object obj)
         {
             if (string.IsNullOrEmpty(m_settingModel.SelectedHandler))
@@ -74,8 +69,6 @@ namespace ImageServiceGUI.ViewModel
             }
         }
 
-
-  
         public string OutPutDir
         {
             get { return m_settingModel.OutPutDir; }
@@ -111,11 +104,6 @@ namespace ImageServiceGUI.ViewModel
                 m_settingModel.ThumbnailSize = value;
             }
         }
-
     }
-
-
-
-
 }
     

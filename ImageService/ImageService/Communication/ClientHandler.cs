@@ -6,12 +6,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace ImageService.Communication
 {
@@ -19,14 +16,18 @@ namespace ImageService.Communication
     {
         private IImageController m_controller;
         private static Mutex writerMutex = new Mutex();
-        private System.Diagnostics.EventLog m_eventLog1;
+        private EventLog m_eventLog1;
         private bool listening = true;
-        public ClientHandler(IImageController controller, System.Diagnostics.EventLog eventLog1)
+        private IImageServer m_imageServer;
+
+        public ClientHandler(IImageController controller, 
+            EventLog eventLog1, IImageServer imageServer)
        {
+            m_imageServer = imageServer;
             m_controller = controller;
             m_eventLog1 = eventLog1;
        }
-       public void HandleClient(Client client, List<Client> listOfClients, ImageServer imageServer)
+       public void HandleClient(Client client, List<Client> listOfClients)
         {
             new Task(() =>
             {
@@ -54,13 +55,12 @@ namespace ImageService.Communication
                                     path[0] = e.RequestDirPath; //if its not RemoveCommand this will be NULL!
                                     m_eventLog1.WriteEntry("after args. the path[0] is=" + path[0]);
                                 }
-
                                 string args = m_controller.ExecuteCommand(e.CommandID, path, out result);
                                 if (result == true)
                                 {
                                     if (e.CommandID == (int)CommandEnum.RemoveHandler)
                                     {
-                                        imageServer.sendCommand(e.RequestDirPath);
+                                        m_imageServer.sendCommand(e.RequestDirPath);
                                         foreach (Client clientItem in listOfClients)
                                         {
                                             sendCommandToClient(clientItem, e.CommandID, args);

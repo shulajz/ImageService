@@ -1,19 +1,11 @@
 ﻿using ImageService.Communication.Modal;
-
 using ImageService.Logging;
-
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-
-
 
 namespace ImageService.Modal
 {
@@ -79,9 +71,9 @@ namespace ImageService.Modal
                     + m_thumbnailDirFolderName,
                     year, month);
                 
-                System.Drawing.Image image = System.Drawing.Image.FromFile(newPath);
+                Image image = Image.FromFile(newPath);
                 
-                System.Drawing.Image thumb = image.GetThumbnailImage(
+                Image thumb = image.GetThumbnailImage(
                     m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
 
                 fName = Path.GetFileName(newPath);
@@ -114,7 +106,7 @@ namespace ImageService.Modal
         public void createFolderHierarchy(string path, int year, int month)
         {
             //create the directory if its not created already
-            DirectoryInfo dir= System.IO.Directory.CreateDirectory(path);
+            DirectoryInfo dir = Directory.CreateDirectory(path);
             //if outPutDir then hide directory
             if (path.Equals(m_OutputFolder)){
                 dir.Attributes = FileAttributes.Directory | FileAttributes.Hidden;

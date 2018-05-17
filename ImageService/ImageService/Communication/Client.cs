@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ImageService.Communication
 {
     public class Client
     {
-
         private NetworkStream m_stream;
         public NetworkStream Stream
         {
@@ -18,7 +12,6 @@ namespace ImageService.Communication
             set
             {
                 m_stream = value;
-
             }
         }
 
@@ -29,7 +22,6 @@ namespace ImageService.Communication
             set
             {
                 m_reader = value;
-
             }
         }
 
@@ -40,7 +32,6 @@ namespace ImageService.Communication
             set
             {
                 m_writer = value;
-
             }
         }
 
@@ -52,7 +43,6 @@ namespace ImageService.Communication
             set
             {
                 m_tcpClient = value;
-
             }
         }
     }

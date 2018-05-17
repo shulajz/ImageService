@@ -1,24 +1,15 @@
-﻿using ImageService.Commands;
-using ImageService.Communication;
-using ImageService.Communication.Enums;
-using ImageService.Communication.Modal;
-
+﻿using ImageService.Communication.Modal;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ImageService.Commands
 {
     public class LogCommand : ICommand
     {
         private static List<Log> logList;
-       // private TCPServerChannel m_tcpServer;
         public LogCommand()
         {
-            //m_tcpServer = tcpServer;
             logList = new List<Log>();
         }
         /// <summary>
@@ -33,7 +24,6 @@ namespace ImageService.Commands
             try
             {
                 logs = JsonConvert.SerializeObject(logList);
-                //logList.Clear();
                 result = true;
                 return logs;
             }

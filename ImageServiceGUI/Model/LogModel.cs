@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-
 using Newtonsoft.Json;
 using ImageServiceGUI.Communication;
 using ImageService.Communication.Modal;
 using ImageService.Communication.Enums;
 using ImageService.Modal;
 using System.Windows;
-
-
-
-//using ImageService.Logging.Modal;
 
 namespace ImageServiceGUI.Model
 {
@@ -28,12 +20,8 @@ namespace ImageServiceGUI.Model
 
         public LogModel()
         {
-            //string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.LogCommand);
-            CommandReceivedEventArgs e =
-                new CommandReceivedEventArgs(
-                (int)CommandEnum.LogCommand,
-                null,
-                null);
+            CommandReceivedEventArgs e =new CommandReceivedEventArgs(
+                (int)CommandEnum.LogCommand, null, null);
             client = ClientSingleton.getInstance;
             client.CommandReceivedEvent += logOnCommand;
             WriteToClient(e);
@@ -43,7 +31,6 @@ namespace ImageServiceGUI.Model
         }
         public void WriteToClient(CommandReceivedEventArgs e)
         {
-            //string outputCommand = JsonConvert.SerializeObject(e);
             client.write(e);
         }
         protected void OnPropertyChanged(string name)
@@ -66,7 +53,6 @@ namespace ImageServiceGUI.Model
                     }
                 }));
             }
-            
         }
     } 
 }

@@ -1,20 +1,11 @@
-﻿using ImageService.Commands;
-using ImageService.Communication.Modal;
-using ImageService.Modal;
+﻿using ImageService.Communication.Modal;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ImageService.Commands
 {
     class GetConfigCommand : ICommand
-
     {
-        
         private AppConfig m_appConfig;
         public GetConfigCommand(AppConfig appConfig)
         {
@@ -28,15 +19,11 @@ namespace ImageService.Commands
         /// <returns>System.String.</returns>
         public string Execute(string[] args, out bool result)
         {
-            //JObject configObj = new JObject();
             try
             {
-                Setting setting = new Setting() {
-                OutPutDir = m_appConfig.OutPutDir,
-                SourceName = m_appConfig.SourceName,
-                LogName = m_appConfig.LogName,
-                ThumbnailSize = m_appConfig.ThumbnailSize,
-                ArrHandlers = m_appConfig.ArrHandlers};
+                Setting setting = new Setting() { OutPutDir = m_appConfig.OutPutDir,
+                SourceName = m_appConfig.SourceName, LogName = m_appConfig.LogName,
+                ThumbnailSize = m_appConfig.ThumbnailSize, ArrHandlers = m_appConfig.ArrHandlers};
                 string settingJson = JsonConvert.SerializeObject(setting);
                 result = true;
                 return settingJson;

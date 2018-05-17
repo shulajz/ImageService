@@ -2,21 +2,15 @@
 using ImageService.Communication.Modal;
 using ImageService.Controller;
 using ImageService.Controller.Handlers;
-
 using ImageService.Logging;
 using ImageService.Modal;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace ImageService.Server
 {
-    public class ImageServer
+    public class ImageServer : IImageServer
     {
         #region Members
         private IImageController m_controller;
@@ -25,7 +19,7 @@ namespace ImageService.Server
 
         #region Properties
         // The event that notifies about a new Command being recieved
-        public event EventHandler<CommandReceivedEventArgs> CommandRecievedEvent;
+        private event EventHandler<CommandReceivedEventArgs> CommandRecievedEvent;
         #endregion
 
         /// <summary>
@@ -45,7 +39,6 @@ namespace ImageService.Server
                 m_logging.Log(path,MessageTypeEnum.INFO);
                 createHandler(path);//create a handler
             }
-
         }
 
 
@@ -53,7 +46,7 @@ namespace ImageService.Server
         /// Creates the handler.
         /// </summary>
         /// <param name="dirPath">The directory path.</param>
-        public void createHandler(string dirPath)
+        private void createHandler(string dirPath)
         {
             IDirectoryHandler handler = new DirectoryHandler(dirPath, m_controller,m_logging);
             CommandRecievedEvent += handler.OnCommandReceived;
@@ -79,7 +72,7 @@ namespace ImageService.Server
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An EventArgs that contains the event data.</param>
-        public void onCloseServer(object sender, DirectoryCloseEventArgs e)
+        private void onCloseServer(object sender, DirectoryCloseEventArgs e)
         {
             if (sender is DirectoryHandler)
             {

@@ -1,13 +1,4 @@
-﻿using ImageService.Communication.Enums;
-using ImageService.Modal;
-using ImageService.Server;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System;
 
 namespace ImageService.Commands
 {
@@ -23,8 +14,8 @@ namespace ImageService.Commands
             
             try
             {
+                //remove handler in this path in the app config
                 m_appConfig.removeHandler(args[0]);
-                //string pathJson = JsonConvert.SerializeObject(args[0]); //return the handler thats being removed
                 result = true;
                 return args[0];
             }
@@ -32,7 +23,6 @@ namespace ImageService.Commands
             {
                 result = false;
                 return e.Message;
-
             }
         }
     }

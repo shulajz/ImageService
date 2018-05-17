@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 using System.Runtime.InteropServices;
 using System.Configuration;
-using System.Text;
-using System.Threading.Tasks;
 using ImageService.Server;
 using ImageService.Modal;
 using ImageService.Controller;
 using ImageService.Logging;
-
-//using System.Configuration;
-
 using ImageService.Communication;
 using ImageService.Commands;
 using ImageService.Communication.Modal;
@@ -28,7 +20,7 @@ namespace ImageService
         private IImageServiceModal modal;
         private IImageController controller;
         private ILoggingService logging;
-        private TCPServerChannel server;
+        private ITCPServerChannel server;
 
 
 
@@ -59,10 +51,10 @@ namespace ImageService
             {
                 logName = args[1];
             }
-            eventLog1 = new System.Diagnostics.EventLog();
-            if (!System.Diagnostics.EventLog.SourceExists(eventSourceName))
+            eventLog1 = new EventLog();
+            if (!EventLog.SourceExists(eventSourceName))
             {
-                System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
+                EventLog.CreateEventSource(eventSourceName, logName);
             }
             eventLog1.Source = ConfigurationManager.AppSettings["SourceName"];
             eventLog1.Log = ConfigurationManager.AppSettings["LogName"];
@@ -112,13 +104,10 @@ namespace ImageService
                 modal = new ImageServiceModal(appConfig.OutPutDir, appConfig.ThumbnailSize, logging);
                 controller = new ImageController(modal, appConfig);
                 m_imageServer = new ImageServer(logging, appConfig.ArrHandlers, controller);
-                ClientHandler clientHandler = new ClientHandler(controller, eventLog1);
-                server = new TCPServerChannel(8000, clientHandler, eventLog1, m_imageServer);
+                ClientHandler clientHandler = new ClientHandler(controller, eventLog1, m_imageServer);
+                server = new TCPServerChannel(8000, clientHandler, eventLog1);
                 logging.MessageReceivedEvent += server.SendLog;
-
-
                 server.Start();
-
             }
             catch (Exception ex)
             {

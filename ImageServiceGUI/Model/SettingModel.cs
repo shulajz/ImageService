@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using ImageServiceGUI.Communication;
-using Newtonsoft.Json.Linq;
 using ImageService.Communication.Enums;
 using ImageService.Communication.Modal;
 using ImageService.Modal;
@@ -20,30 +15,21 @@ namespace ImageServiceGUI.Model
         public event PropertyChangedEventHandler PropertyChanged;
         private Setting setting; 
         private ClientSingleton client;
-        //public IEnumerable<string> HandlersList { get; private set; }
         
-
         public SettingModel()
         {
-            //string outputCommand = JsonConvert.SerializeObject((int)CommandEnum.GetConfigCommand);
-            CommandReceivedEventArgs e = 
-                new CommandReceivedEventArgs(
-                (int)CommandEnum.GetConfigCommand,
-                null,
-                null);
+            CommandReceivedEventArgs e = new CommandReceivedEventArgs(
+                (int)CommandEnum.GetConfigCommand, null, null);
             setting = new Setting();
             client = ClientSingleton.getInstance;
             client.CommandReceivedEvent += settingsOnCommand;
             modelSettingsHandlers = new ObservableCollection<string>();
-            //client.write(outputCommand);
             WriteToClient(e);
             client.wait();
         }
 
         public void WriteToClient(CommandReceivedEventArgs e)
         {
-            
-            //string outputCommand = JsonConvert.SerializeObject(e);
             client.write(e);
         }
 
@@ -78,15 +64,12 @@ namespace ImageServiceGUI.Model
             }
         }
 
-
-       
         public string OutPutDir
         {
             get { return setting.OutPutDir; }
             set
             {
                 setting.OutPutDir = value;
-               // OnPropertyChanged("OutPutDir");
             }
         }
 
@@ -96,7 +79,6 @@ namespace ImageServiceGUI.Model
             set
             {
                 setting.SourceName = value;
-                //OnPropertyChanged("SourceName");
             }
         }
 
@@ -106,7 +88,6 @@ namespace ImageServiceGUI.Model
             set
             {
                 setting.LogName = value;
-                //OnPropertyChanged("LogName");
             }
         }
 
@@ -116,7 +97,6 @@ namespace ImageServiceGUI.Model
             set
             {
                 setting.ThumbnailSize = value;
-               // OnPropertyChanged("ThumbnailSize");
             }
         }
         public ObservableCollection<string> modelSettingsHandlers

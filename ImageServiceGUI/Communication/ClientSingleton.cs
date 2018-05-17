@@ -1,15 +1,11 @@
 ﻿
-using ImageService.Communication.Enums;
 using ImageService.Modal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,9 +14,6 @@ namespace ImageServiceGUI.Communication
     class ClientSingleton
     {
         public event EventHandler<ClientArgs> CommandReceivedEvent;
-        //private int m_port;
-        //private string m_ip;
-        //private TcpClient m_client;
         private static Mutex writerMutex = new Mutex();
         NetworkStream stream;
         private StreamReader reader;
@@ -29,7 +22,6 @@ namespace ImageServiceGUI.Communication
         private static ClientSingleton instance;
         private bool needToWait;
         private bool serverConnect;
-        //private TCPClientChannel client;
 
         private ClientSingleton()
         {
@@ -42,7 +34,6 @@ namespace ImageServiceGUI.Communication
             get
             {
                 if (instance == null)
-                    //string j = "127.0.0.1";
                     instance = new ClientSingleton();
                 return instance;
             }
@@ -87,8 +78,6 @@ namespace ImageServiceGUI.Communication
                         Console.WriteLine("Error in read: " + e.Message);
                         break;
                     }
-
-                    
                 }
             });
             task.Start();
@@ -125,17 +114,6 @@ namespace ImageServiceGUI.Communication
         {
             return serverConnect;
         }
-
-        //~ClientSingleton()
-        //{
-        //    Console.WriteLine("ClientSingleton finaly");
-        //    CommandReceivedEventArgs e =
-        //     new CommandReceivedEventArgs(
-        //     (int)CommandEnum.CloseClient,
-        //     null,
-        //     null);
-        //    write(e);
-        //}
     }
 }
 
