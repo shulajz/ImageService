@@ -13,36 +13,20 @@ namespace ImageService.Commands
 {
     class RemoveHandlerCommand : ICommand
     {
-        //private ImageServer m_imageServer;
-        public RemoveHandlerCommand()
+        private AppConfig m_appConfig;
+        public RemoveHandlerCommand(AppConfig appConfig)
         {
-            //m_imageServer = imageServer;
+            m_appConfig = appConfig;
         }
         public string Execute(string[] args, out bool result)
         {
-            //JObject configObj = new JObject();
+            
             try
             {
-                //sendCommand(args[0]);
-                //string[] args1 = { };
-                // CommandReceivedEventArgs eventArgs =
-                //  new CommandReceivedEventArgs((int)CommandEnum.CloseCommand, args, "*");
-                //m_imageServer.CommandRecievedEvent?.Invoke(this, eventArgs);
-                //Setting setting = new Setting()
-                //{
-                //    OutPutDir = m_appConfig.OutPutDir,
-                //    SourceName = m_appConfig.SourceName,
-                //    LogName = m_appConfig.LogName,
-                //    ThumbnailSize = m_appConfig.ThumbnailSize,
-                //    ArrHandlers = m_appConfig.ArrHandlers
-                //};
-                //string settingJson = JsonConvert.SerializeObject(setting);
+                m_appConfig.removeHandler(args[0]);
                 string pathJson = JsonConvert.SerializeObject(args[0]); //return the handler thats being removed
                 result = true;
                 return pathJson;
-               
-
-                //return settingJson;
             }
             catch (Exception e)
             {

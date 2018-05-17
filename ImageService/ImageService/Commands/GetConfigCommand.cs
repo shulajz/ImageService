@@ -14,11 +14,10 @@ namespace ImageService.Commands
     class GetConfigCommand : ICommand
 
     {
-        private System.Diagnostics.EventLog eventlog1_m;
+        
         private AppConfig m_appConfig;
-        public GetConfigCommand(AppConfig appConfig, System.Diagnostics.EventLog eventlog1)
+        public GetConfigCommand(AppConfig appConfig)
         {
-            eventlog1_m = eventlog1;
             m_appConfig = appConfig;
         }
         /// <summary>
@@ -32,18 +31,13 @@ namespace ImageService.Commands
             //JObject configObj = new JObject();
             try
             {
-                eventlog1_m.WriteEntry("before setting");
                 Setting setting = new Setting() {
-                    OutPutDir = m_appConfig.OutPutDir,
-                    SourceName = m_appConfig.SourceName,
-                    LogName = m_appConfig.LogName,
-                    ThumbnailSize = m_appConfig.ThumbnailSize,
-                    ArrHandlers = m_appConfig.ArrHandlers};
-               
-
+                OutPutDir = m_appConfig.OutPutDir,
+                SourceName = m_appConfig.SourceName,
+                LogName = m_appConfig.LogName,
+                ThumbnailSize = m_appConfig.ThumbnailSize,
+                ArrHandlers = m_appConfig.ArrHandlers};
                 string settingJson = JsonConvert.SerializeObject(setting);
-               
-
                 result = true;
                 return settingJson;
             } catch(Exception e) {

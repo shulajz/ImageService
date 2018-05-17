@@ -1,4 +1,7 @@
 ﻿
+using ImageService.Communication.Enums;
+using ImageService.Modal;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -45,14 +48,13 @@ namespace ImageServiceGUI.Communication
             }
         }
 
-        public void write(string command)
+        public void write(CommandReceivedEventArgs e)
         {
+            string command = JsonConvert.SerializeObject(e);
             if (serverConnect)
             {
-                Console.WriteLine("BEFORE WRITE: " + command);
                 writer.WriteLine(command);
                 writer.Flush();
-                Console.WriteLine("AFTER WRITE: " + command);
             }
         }
 
@@ -125,6 +127,17 @@ namespace ImageServiceGUI.Communication
         public bool CheckIfServerConnect()
         {
             return serverConnect;
+        }
+
+        ~ClientSingleton()
+        {
+            Console.WriteLine("ClientSingleton finaly");
+            CommandReceivedEventArgs e =
+             new CommandReceivedEventArgs(
+             (int)CommandEnum.CloseClient,
+             null,
+             null);
+            write(e);
         }
     }
 }

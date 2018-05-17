@@ -101,19 +101,15 @@ namespace ImageService
                 SetServiceStatus(this.ServiceHandle, ref serviceStatus);
 
                 //read from app config
-                AppConfig appConfig = new AppConfig(eventLog1);
-                eventLog1.WriteEntry("after app config");
-                eventLog1.WriteEntry("the output dir=" + appConfig.OutPutDir);
-                eventLog1.WriteEntry("the ArrHandlers =" + appConfig.ArrHandlers[0]);
-
-
+                AppConfig appConfig = new AppConfig();
+           
                 //create the LoggingService
                 logging = new LoggingService();
                 logging.MessageReceivedEvent += onMsg;
                 logging.MessageReceivedEvent += LogCommand.onReceiveCommandLog;
 
                 modal = new ImageServiceModal(appConfig.OutPutDir, appConfig.ThumbnailSize, logging);
-                controller = new ImageController(modal, appConfig, eventLog1);
+                controller = new ImageController(modal, appConfig);
 
 
                 

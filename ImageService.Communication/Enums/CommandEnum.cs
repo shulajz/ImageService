@@ -12,7 +12,7 @@ namespace ImageService.Communication.Enums
         GetConfigCommand,
         LogCommand,
         RemoveHandler,
-        CloseCommand
-
+        CloseCommand,
+        CloseClient
     }
 }

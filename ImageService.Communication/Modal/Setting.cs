@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -58,8 +59,8 @@ namespace ImageService.Communication.Modal
                 OnPropertyChanged("ThumbnailSize");
             }
         }
-        private string[] m_arrHandlers;
-        public string[] ArrHandlers
+        private ObservableCollection<string> m_arrHandlers;
+        public ObservableCollection<string> ArrHandlers
         {
             get { return m_arrHandlers; }
             set

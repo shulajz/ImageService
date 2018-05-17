@@ -76,6 +76,11 @@ namespace ImageService.Communication
                                         clientItem.Writer.Flush();
                                         writerMutex.ReleaseMutex();
                                     }
+                                }else if (e.CommandID == (int)CommandEnum.CloseClient)
+                                {
+                                    m_eventLog1.WriteEntry("here");
+                                    listOfClients.Remove(client);
+                                    m_eventLog1.WriteEntry("client exit");
                                 }
                                 else
                                 {

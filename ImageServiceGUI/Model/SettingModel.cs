@@ -21,7 +21,7 @@ namespace ImageServiceGUI.Model
         private Setting setting; 
         private ClientSingleton client;
         //public IEnumerable<string> HandlersList { get; private set; }
-        public ObservableCollection<string> modelSettingsHandlers { get; set; }
+        
 
         public SettingModel()
         {
@@ -43,8 +43,8 @@ namespace ImageServiceGUI.Model
         public void WriteToClient(CommandReceivedEventArgs e)
         {
             
-            string outputCommand = JsonConvert.SerializeObject(e);
-            client.write(outputCommand);
+            //string outputCommand = JsonConvert.SerializeObject(e);
+            client.write(e);
         }
 
         protected void OnPropertyChanged(string name)
@@ -57,8 +57,6 @@ namespace ImageServiceGUI.Model
             if (e.CommandID == (int)CommandEnum.GetConfigCommand)
             {
                 setting = JsonConvert.DeserializeObject<Setting>(e.Args);
-                foreach (string handler in setting.ArrHandlers)
-                    modelSettingsHandlers.Add(handler);
             }
             else if (e.CommandID == (int)CommandEnum.RemoveHandler)
             {
@@ -88,7 +86,7 @@ namespace ImageServiceGUI.Model
             set
             {
                 setting.OutPutDir = value;
-                OnPropertyChanged("OutPutDir");
+               // OnPropertyChanged("OutPutDir");
             }
         }
 
@@ -98,7 +96,7 @@ namespace ImageServiceGUI.Model
             set
             {
                 setting.SourceName = value;
-                OnPropertyChanged("SourceName");
+                //OnPropertyChanged("SourceName");
             }
         }
 
@@ -108,7 +106,7 @@ namespace ImageServiceGUI.Model
             set
             {
                 setting.LogName = value;
-                OnPropertyChanged("LogName");
+                //OnPropertyChanged("LogName");
             }
         }
 
@@ -118,18 +116,16 @@ namespace ImageServiceGUI.Model
             set
             {
                 setting.ThumbnailSize = value;
-                OnPropertyChanged("ThumbnailSize");
+               // OnPropertyChanged("ThumbnailSize");
             }
         }
-
-        //public string[] ArrHandlers
-        //{
-        //    get { return setting.ArrHandlers; }
-        //    set
-        //    {
-        //        setting.ArrHandlers = value;
-
-        //    }
-        //}
+        public ObservableCollection<string> modelSettingsHandlers
+        {
+            get { return setting.ArrHandlers; }
+            set
+            {
+                setting.ArrHandlers = value;
+            }
+        }
     }
 }

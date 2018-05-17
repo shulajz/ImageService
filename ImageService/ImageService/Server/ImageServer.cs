@@ -35,7 +35,7 @@ namespace ImageService.Server
         /// <param name="arrHandlers">The array handlers.</param>
         /// <param name="mController">The controller.</param>
         public ImageServer(ILoggingService mLogging,
-            string[] arrHandlers, IImageController mController)
+            ObservableCollection<string> arrHandlers, IImageController mController)
         {
             m_logging = mLogging;
             m_controller = mController;

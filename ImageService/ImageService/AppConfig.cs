@@ -5,40 +5,35 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace ImageService
 {
     public class AppConfig
-    { 
+    {
 
-       
-        public AppConfig(System.Diagnostics.EventLog eventlog1 )
+
+        public AppConfig()
         {
-            
-            m_arrHandlers = ConfigurationManager.AppSettings["Handler"].Split(';');
-            eventlog1.WriteEntry(m_arrHandlers[0]);
-            //foreach (string handler in arrHandlers)
-            //{
-            //    m_arrHandlers.Add(handler);
-
-            //}
+            m_arrHandlers = new ObservableCollection<string>();
+            string[] handlers = ConfigurationManager.AppSettings["Handler"].Split(';'); 
+            foreach (string handler in handlers)
+            {
+                m_arrHandlers.Add(handler);
+            }
             m_OutPutDir = ConfigurationManager.AppSettings["OutputDir"];
-            eventlog1.WriteEntry(m_OutPutDir);
             m_SourceName = ConfigurationManager.AppSettings["SourceName"];
-            eventlog1.WriteEntry(m_SourceName);
             m_ThumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
-           // eventlog1.WriteEntry(m_ThumbnailSize);
             m_LogName = ConfigurationManager.AppSettings["LogName"];
-            eventlog1.WriteEntry(m_LogName);
-
+           
         }
        
 
-        private string [] m_arrHandlers;
-        public string [] ArrHandlers
+        private ObservableCollection<string> m_arrHandlers;
+        public ObservableCollection<string> ArrHandlers
         {
             get { return m_arrHandlers; }
-            set
+            private set
             {
                 m_arrHandlers = value;
 
@@ -50,7 +45,7 @@ namespace ImageService
         public string OutPutDir
         {
             get { return m_OutPutDir; }
-            set
+            private set
             {
                 m_OutPutDir = value;
 
@@ -61,7 +56,7 @@ namespace ImageService
         public string SourceName
         {
             get { return m_SourceName; }
-            set
+            private set
             {
                 m_SourceName = value;
 
@@ -72,7 +67,7 @@ namespace ImageService
         public string LogName
         {
             get { return m_LogName; }
-            set
+            private set
             {
                 m_LogName = value;
 
@@ -83,13 +78,16 @@ namespace ImageService
         public int ThumbnailSize
         {
             get { return m_ThumbnailSize; }
-            set
+            private set
             {
                 m_ThumbnailSize = value;
 
             }
         }
-
+        public void removeHandler(string handlerToRemove)
+        {
+            m_arrHandlers.Remove(handlerToRemove);
+        }
     }
 }
 

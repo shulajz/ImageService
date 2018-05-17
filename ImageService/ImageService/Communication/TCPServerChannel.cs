@@ -29,18 +29,14 @@ namespace ImageService.Communication
         private List<Client> listOfClients;
 
         //constructor
-        public TCPServerChannel(
-            int port, IClientHandler ch,
-            System.Diagnostics.EventLog eventLog1,
-            ImageServer imageServer)
+        public TCPServerChannel(int port, IClientHandler ch,
+            System.Diagnostics.EventLog eventLog1,ImageServer imageServer)
         {
             m_imageServer = imageServer;
             listOfClients = new List<Client>();
             m_port = port;
             m_ch = ch;
             m_eventLog1 = eventLog1;
-
-
         }
         public void Start()
         {
@@ -86,22 +82,21 @@ namespace ImageService.Communication
             Task task = new Task(() =>
             {
                 foreach (Client clientItem in listOfClients)
-            {
-                writerMutex.WaitOne();
-                List<Log> logList = new List<Log>();
-                logList.Add(new Log() { Message = e.m_message, Type = e.m_status });
-                string logs = JsonConvert.SerializeObject(logList);
-                m_eventLog1.WriteEntry("after foreach. the RequestDirPath is=" + e.m_message);
-               
-                JObject Obj = new JObject();
-                Obj["commandID"] = (int)CommandEnum.LogCommand;
-                Obj["args"] = logs;
-                clientItem.Writer.WriteLine(Obj.ToString());
-                clientItem.Writer.Flush();
-                System.Threading.Thread.Sleep(5);
-                writerMutex.ReleaseMutex();
-                    
-            }
+                {
+                    writerMutex.WaitOne();
+                    List<Log> logList = new List<Log>();
+                    logList.Add(new Log() { Message = e.m_message, Type = e.m_status });
+                    string logs = JsonConvert.SerializeObject(logList);
+                    m_eventLog1.WriteEntry("after foreach. the RequestDirPath is=" + e.m_message);
+
+                    JObject Obj = new JObject();
+                    Obj["commandID"] = (int)CommandEnum.LogCommand;
+                    Obj["args"] = logs;
+                    clientItem.Writer.WriteLine(Obj.ToString());
+                    clientItem.Writer.Flush();
+                    System.Threading.Thread.Sleep(5);
+                    writerMutex.ReleaseMutex();
+                }
             });
             task.Start();
         }

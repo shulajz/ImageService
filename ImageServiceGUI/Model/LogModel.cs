@@ -43,8 +43,8 @@ namespace ImageServiceGUI.Model
         }
         public void WriteToClient(CommandReceivedEventArgs e)
         {
-            string outputCommand = JsonConvert.SerializeObject(e);
-            client.write(outputCommand);
+            //string outputCommand = JsonConvert.SerializeObject(e);
+            client.write(e);
         }
         protected void OnPropertyChanged(string name)
         {
