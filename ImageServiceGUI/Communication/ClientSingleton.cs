@@ -129,16 +129,16 @@ namespace ImageServiceGUI.Communication
             return serverConnect;
         }
 
-        ~ClientSingleton()
-        {
-            Console.WriteLine("ClientSingleton finaly");
-            CommandReceivedEventArgs e =
-             new CommandReceivedEventArgs(
-             (int)CommandEnum.CloseClient,
-             null,
-             null);
-            write(e);
-        }
+        //~ClientSingleton()
+        //{
+        //    Console.WriteLine("ClientSingleton finaly");
+        //    CommandReceivedEventArgs e =
+        //     new CommandReceivedEventArgs(
+        //     (int)CommandEnum.CloseClient,
+        //     null,
+        //     null);
+        //    write(e);
+        //}
     }
 }
 

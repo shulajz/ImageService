@@ -30,7 +30,7 @@ namespace ImageService.Communication
         {
             new Task(() =>
             {
-         
+                listening = true;
                 bool result;
             while (listening)
             {
@@ -45,7 +45,7 @@ namespace ImageService.Communication
                             m_eventLog1.WriteEntry("after CommandReceivedEventArgs:" + e.CommandID.ToString());
                             
                             string[] path = new string[2];
-                            m_eventLog1.WriteEntry("the dirPath is =" + e.RequestDirPath);
+                           // m_eventLog1.WriteEntry("the dirPath is =" + e.RequestDirPath);
 
 
                             if (e.RequestDirPath != null)
@@ -54,8 +54,9 @@ namespace ImageService.Communication
                                 path[0] = e.RequestDirPath; //if its not RemoveCommand this will be NULL!
                                 m_eventLog1.WriteEntry("after args. the path[0] is=" + path[0]);
                             }
-
+                            m_eventLog1.WriteEntry("before exec");
                             string args = m_controller.ExecuteCommand(e.CommandID, path, out result);
+                            m_eventLog1.WriteEntry("after exec = " + args);
 
 
                             if (result == true)
@@ -76,11 +77,14 @@ namespace ImageService.Communication
                                         clientItem.Writer.Flush();
                                         writerMutex.ReleaseMutex();
                                     }
-                                }else if (e.CommandID == (int)CommandEnum.CloseClient)
-                                {
+
+                             } else if (e.CommandID == (int)CommandEnum.CloseClient) {
                                     m_eventLog1.WriteEntry("here");
                                     listOfClients.Remove(client);
+                                    
                                     m_eventLog1.WriteEntry("client exit");
+                                    listening = false;
+
                                 }
                                 else
                                 {

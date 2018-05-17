@@ -1,4 +1,5 @@
-﻿using ImageServiceGUI.Communication;
+﻿using ImageService.Modal;
+using ImageServiceGUI.Communication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,11 @@ namespace ImageServiceGUI.Model
             {
                 m_backgroundColor = "Gray";
             }
+        }
+        public void WriteToClient(CommandReceivedEventArgs e)
+        {
+            //string outputCommand = JsonConvert.SerializeObject(e);
+            client.write(e);
         }
         private string m_backgroundColor;
         public string BackgroundColor

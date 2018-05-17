@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using ImageServiceGUI.Model;
 using System.Windows.Input;
 using System.Diagnostics;
-using Microsoft.Practices.Prism.Commands;
+//using Microsoft.Practices.Prism.Commands;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using ImageService.Modal;
 using ImageService.Communication.Enums;
+using Prism.Commands;
 
 namespace ImageServiceGUI.ViewModel
 {
