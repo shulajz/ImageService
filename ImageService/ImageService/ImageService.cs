@@ -28,7 +28,8 @@ namespace ImageService
         private IImageServiceModal modal;
         private IImageController controller;
         private ILoggingService logging;
-       
+        private TCPServerChannel server;
+
 
 
         //private System.ComponentModel.IContainer components;
@@ -116,7 +117,7 @@ namespace ImageService
                 m_imageServer = new ImageServer(logging, appConfig.ArrHandlers, controller);
                 ClientHandler clientHandler = new ClientHandler(controller, eventLog1);
 
-                TCPServerChannel server = new TCPServerChannel(8000, clientHandler, eventLog1, m_imageServer);
+                server = new TCPServerChannel(8000, clientHandler, eventLog1, m_imageServer);
                 logging.MessageReceivedEvent += server.SendLog;
 
 
@@ -153,6 +154,7 @@ namespace ImageService
         {
             eventLog1.WriteEntry("In onStop.");
             m_imageServer.sendCommand("*");
+            server.Stop();
         }
 
         /// <summary>
