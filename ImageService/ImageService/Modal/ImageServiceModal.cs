@@ -184,12 +184,14 @@ namespace ImageService.Modal
 
         public string checkIfFileNameExist(string newPath, string oldPath, int year, int month)
         {
+            bool nameFileAlreadyExist = false;
             int count = 1;
             bool onlyOneTime = true;
             string fileNameOnly = Path.GetFileNameWithoutExtension(newPath);
             string extension = Path.GetExtension(newPath);
             while (File.Exists(newPath))
             {
+                nameFileAlreadyExist = true;
                 if (onlyOneTime)
                 {
                     m_logging.Log("name of file "+ newPath + " already exist",
@@ -199,10 +201,14 @@ namespace ImageService.Modal
                 string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
                 newPath = Path.Combine(m_OutputFolder + "\\" +
                     year + "\\" + month + "\\", tempFileName + extension);
+                if (nameFileAlreadyExist)
+                {
+                    m_logging.Log("change the name file to " + Path.GetFileName(newPath),
+                     MessageTypeEnum.INFO);
+                }
             }
-            m_logging.Log("change the name file to " + Path.GetFileName(newPath),
-                MessageTypeEnum.INFO);
-            return newPath;//
+          
+            return newPath;
         }
     }
     

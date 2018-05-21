@@ -36,7 +36,6 @@ namespace ImageService.Server
 
             foreach (string path in arrHandlers)
             {
-                m_logging.Log(path,MessageTypeEnum.INFO);
                 createHandler(path);//create a handler
             }
         }

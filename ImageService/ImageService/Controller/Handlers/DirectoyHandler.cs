@@ -1,10 +1,6 @@
 ﻿using ImageService.Modal;
 using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using ImageService.Logging;
 
@@ -114,7 +110,7 @@ namespace ImageService.Controller.Handlers
             if (m.Success)
             {
                 string[] paths = { e.FullPath };
-        
+                m_logging.Log("relevant picture was created in the handler directory " + e.FullPath, MessageTypeEnum.INFO);
                 CommandReceivedEventArgs eventArgs = new CommandReceivedEventArgs(
                     (int)CommandEnum.NewFileCommand, paths, m_path);
                 OnCommandReceived(this, eventArgs);
