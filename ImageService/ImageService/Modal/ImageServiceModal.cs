@@ -201,13 +201,14 @@ namespace ImageService.Modal
                 string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
                 newPath = Path.Combine(m_OutputFolder + "\\" +
                     year + "\\" + month + "\\", tempFileName + extension);
-                if (nameFileAlreadyExist)
-                {
-                    m_logging.Log("change the name file to " + Path.GetFileName(newPath),
-                     MessageTypeEnum.INFO);
-                }
+             
             }
-          
+            if (nameFileAlreadyExist)
+            {
+                m_logging.Log("change the name file to " + Path.GetFileName(newPath),
+                 MessageTypeEnum.INFO);
+            }
+
             return newPath;
         }
     }
