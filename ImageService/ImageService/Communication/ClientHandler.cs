@@ -18,12 +18,12 @@ namespace ImageService.Communication
         private static Mutex writerMutex = new Mutex();
         private EventLog m_eventLog1;
         private bool listening = true;
-        private IImageServer m_imageServer;
+        
 
         public ClientHandler(IImageController controller, 
-            EventLog eventLog1, IImageServer imageServer)
+            EventLog eventLog1)
        {
-            m_imageServer = imageServer;
+           
             m_controller = controller;
             m_eventLog1 = eventLog1;
        }
@@ -60,7 +60,6 @@ namespace ImageService.Communication
                                 {
                                     if (e.CommandID == (int)CommandEnum.RemoveHandler)
                                     {
-                                        m_imageServer.sendCommand(e.RequestDirPath);
                                         foreach (Client clientItem in listOfClients)
                                         {
                                             sendCommandToClient(clientItem, e.CommandID, args);

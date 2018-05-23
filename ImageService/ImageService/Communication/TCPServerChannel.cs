@@ -78,7 +78,7 @@ namespace ImageService.Communication
                 {
                     string logs = JsonConvert.SerializeObject(logList);
                     m_ch.sendCommandToClient(clientItem, (int)CommandEnum.LogCommand, logs);
-                    //Thread.Sleep(5);
+                    Thread.Sleep(5);
                 }
             });
             task.Start();

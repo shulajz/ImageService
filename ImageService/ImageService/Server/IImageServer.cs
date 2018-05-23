@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageService.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace ImageService.Server
 {
-    interface IImageServer
+    public interface IImageServer
     {
-        void sendCommand(string handlerToClose);
+        void sendRemoveCommand(string handlerToClose);
+        void initImageServer(IImageController controller);
     }
 }

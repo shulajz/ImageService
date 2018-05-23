@@ -16,7 +16,7 @@ namespace ImageService
 {
     public partial class ImageService : ServiceBase
     {
-        private ImageServer m_imageServer;          // The Image Server.
+        private IImageServer m_imageServer;          // The Image Server.
         private IImageServiceModal modal;
         private IImageController controller;
         private ILoggingService logging;
@@ -102,9 +102,12 @@ namespace ImageService
                 logging.MessageReceivedEvent += LogCommand.onReceiveCommandLog;
 
                 modal = new ImageServiceModal(appConfig.OutPutDir, appConfig.ThumbnailSize, logging);
-                controller = new ImageController(modal, appConfig);
-                m_imageServer = new ImageServer(logging, appConfig.ArrHandlers, controller);
-                ClientHandler clientHandler = new ClientHandler(controller, eventLog1, m_imageServer);
+                //controller = new ImageController(modal, appConfig);
+                m_imageServer = new ImageServer(logging, appConfig.ArrHandlers);
+                controller = new ImageController(modal, appConfig, m_imageServer);
+                m_imageServer.initImageServer(controller);
+
+                ClientHandler clientHandler = new ClientHandler(controller, eventLog1);
                 server = new TCPServerChannel(8000, clientHandler, eventLog1);
                 logging.MessageReceivedEvent += server.SendLog;
                 server.Start();
@@ -137,7 +140,7 @@ namespace ImageService
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");
-            m_imageServer.sendCommand("*");
+            m_imageServer.sendRemoveCommand("*");
             server.Stop();
         }
 

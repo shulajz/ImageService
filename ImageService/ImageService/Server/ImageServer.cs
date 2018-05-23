@@ -14,6 +14,7 @@ namespace ImageService.Server
     {
         #region Members
         private IImageController m_controller;
+        ObservableCollection<string> m_arrHandlers;
         private ILoggingService m_logging;
         #endregion
 
@@ -29,12 +30,21 @@ namespace ImageService.Server
         /// <param name="arrHandlers">The array handlers.</param>
         /// <param name="mController">The controller.</param>
         public ImageServer(ILoggingService mLogging,
-            ObservableCollection<string> arrHandlers, IImageController mController)
+            ObservableCollection<string> arrHandlers)
         {
             m_logging = mLogging;
-            m_controller = mController;
+            //m_controller = mController;
+            m_arrHandlers = arrHandlers;
+            //foreach (string path in arrHandlers)
+            //{
+            //    createHandler(path);//create a handler
+            //}
+        }
 
-            foreach (string path in arrHandlers)
+        public void initImageServer(IImageController controller)
+        {
+            m_controller = controller;
+            foreach (string path in m_arrHandlers)
             {
                 createHandler(path);//create a handler
             }
@@ -56,7 +66,7 @@ namespace ImageService.Server
         /// <summary>
         /// Sends the command.
         /// </summary>
-        public void sendCommand(string handlerToClose)
+        public void sendRemoveCommand(string handlerToClose)
         {
             string[] args = { };
             CommandReceivedEventArgs eventArgs =
