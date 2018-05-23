@@ -9,25 +9,55 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using ImageService.Logging;
+using ImageService.Communication.Modal;
 
 namespace ImageService.Communication
 {
+    /// <summary>
+    /// Class ClientHandler.
+    /// </summary>
+    /// <seealso cref="ImageService.Communication.IClientHandler" />
     class ClientHandler : IClientHandler
     {
+        /// <summary>
+        /// The m controller
+        /// </summary>
         private IImageController m_controller;
+        /// <summary>
+        /// The writer mutex
+        /// </summary>
         private static Mutex writerMutex = new Mutex();
+        /// <summary>
+        /// The m event log1
+        /// </summary>
         private EventLog m_eventLog1;
+        /// <summary>
+        /// The listening
+        /// </summary>
         private bool listening = true;
-        
+        private ILoggingService m_logging;
 
-        public ClientHandler(IImageController controller, 
-            EventLog eventLog1)
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ClientHandler"/> class.
+        /// </summary>
+        /// <param name="controller">The controller.</param>
+        /// <param name="eventLog1">The event log1.</param>
+        public ClientHandler(IImageController controller,
+            ILoggingService logging)
        {
-           
+            m_logging = logging;
+
             m_controller = controller;
-            m_eventLog1 = eventLog1;
        }
-       public void HandleClient(Client client, List<Client> listOfClients)
+        /// <summary>
+        /// Handles the client.
+        /// </summary>
+        /// <param name="client">The client.</param>
+        /// <param name="listOfClients">The list of clients.</param>
+        public void HandleClient(Client client, List<Client> listOfClients)
         {
             new Task(() =>
             {
@@ -44,7 +74,9 @@ namespace ImageService.Communication
                             CommandReceivedEventArgs e = JsonConvert.DeserializeObject<CommandReceivedEventArgs>(commandLine);
                             if (e.CommandID == (int)CommandEnum.CloseClient)
                             {
+                               
                                 listOfClients.Remove(client);
+                                m_logging.Log("A client has closed", MessageTypeEnum.INFO);
                                 listening = false;
                             }
                             else
@@ -75,13 +107,19 @@ namespace ImageService.Communication
                     }
                     catch (Exception e)
                     {
-                        m_eventLog1.WriteEntry("Error in clientHandler:" + e.Message);
+                        m_logging.Log("Error in ClientHandler", MessageTypeEnum.FAIL);
                         break;
                     }
                 }
             }).Start();
         }
 
+        /// <summary>
+        /// Sends the command to client.
+        /// </summary>
+        /// <param name="client">The client.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="args">The arguments.</param>
         public void sendCommandToClient(Client client, int command, string args)
         {
             writerMutex.WaitOne();

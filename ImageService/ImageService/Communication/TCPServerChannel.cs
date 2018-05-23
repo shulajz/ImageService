@@ -1,5 +1,6 @@
 ﻿using ImageService.Communication.Enums;
 using ImageService.Communication.Modal;
+using ImageService.Logging;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -20,13 +21,11 @@ namespace ImageService.Communication
         private List<Client> listOfClients;
 
         //constructor
-        public TCPServerChannel(int port, IClientHandler ch,
-            System.Diagnostics.EventLog eventLog1)
+        public TCPServerChannel(int port, IClientHandler ch)
         {
             listOfClients = new List<Client>();
             m_port = port;
             m_ch = ch;
-            m_eventLog1 = eventLog1;
         }
         public void Start()
         {
@@ -50,7 +49,6 @@ namespace ImageService.Communication
                         client.Reader = new StreamReader(client.Stream);
                         client.Writer = new StreamWriter(client.Stream);
                         listOfClients.Add(client);
-                        m_eventLog1.WriteEntry("Got new connection");
                         m_ch.HandleClient(client, listOfClients);
                     }
                     catch (SocketException)
@@ -68,6 +66,11 @@ namespace ImageService.Communication
             listener.Stop();
         }
 
+        /// <summary>
+        /// Sends the log.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="MessageReceivedEventArgs"/> instance containing the event data.</param>
         public void SendLog(object sender, MessageReceivedEventArgs e)
         {
             Task task = new Task(() =>

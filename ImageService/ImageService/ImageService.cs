@@ -107,8 +107,8 @@ namespace ImageService
                 controller = new ImageController(modal, appConfig, m_imageServer);
                 m_imageServer.initImageServer(controller);
 
-                ClientHandler clientHandler = new ClientHandler(controller, eventLog1);
-                server = new TCPServerChannel(8000, clientHandler, eventLog1);
+                ClientHandler clientHandler = new ClientHandler(controller, logging);
+                server = new TCPServerChannel(8000, clientHandler);
                 logging.MessageReceivedEvent += server.SendLog;
                 server.Start();
             }

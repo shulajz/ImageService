@@ -1,3 +1,313 @@
+commit 9eb1fde6592b10f66e0f3e52732e56de4a5ef523
+Author: user <user@USERPC>
+Date:   Wed May 23 12:59:45 2018 +0300
+
+    send remove command  to the image server in the RemoveCommand class
+
+commit 296cca6cbc0dd0e2492b75f1d2f5c61d794dec78
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Wed May 23 07:34:50 2018 +0300
+
+    erase sleep
+
+commit b02ade54935a92b703c2e080a8a766da34151a45
+Author: user <user@USERPC>
+Date:   Mon May 21 15:19:00 2018 +0300
+
+    change logs
+
+commit f810f168291748185ce9f5bb298cc3b4c7ad6cd8
+Author: user <user@USERPC>
+Date:   Mon May 21 15:14:57 2018 +0300
+
+    change some logs
+
+commit 09d3e9ccfe5f34b37f87eceaf06cc688b44ce8b7
+Author: user <user@USERPC>
+Date:   Fri May 18 02:19:49 2018 +0300
+
+    add interfaces
+
+commit 1fb36370df3744caeff3d1be605b797b7b610c60
+Author: user <user@USERPC>
+Date:   Thu May 17 18:00:18 2018 +0300
+
+    g
+
+commit 8bbc2c20e0958fb9f4046f895c1aaa6f24e8aed5
+Author: user <user@USERPC>
+Date:   Thu May 17 17:57:18 2018 +0300
+
+    d
+
+commit 754c36a5cf8508a6d4fb7bbcfc681d35365eb7e0
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu May 17 15:53:33 2018 +0300
+
+    client close
+
+commit a7498deeaba3dc56c7ab2b1babcb5c48eb486981
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu May 17 15:30:12 2018 +0300
+
+    close client
+
+commit 0dbfa18011c9d2936ed597e80a1bb7d72fcb6894
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu May 17 14:18:26 2018 +0300
+
+    on close command
+
+commit ee4f6ca2087c00ea8be63fc9f2c464c17b2f88c0
+Author: user <user@USERPC>
+Date:   Thu May 17 13:50:49 2018 +0300
+
+    remove handler from app config
+
+commit 661aa86d5a8a8f13c60bc4159ad4d15c19f47f7c
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Wed May 16 20:12:27 2018 +0300
+
+    remove handler
+
+commit 9470590314c960bf6c5b1ebb84a9f5128464743e
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu May 17 02:19:41 2018 +0300
+
+    kk
+
+commit f4a26915ada711707741b8e45d4b53ed1e2f769d
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu May 17 02:17:04 2018 +0300
+
+    jj
+
+commit 3b5853958d463c31b69d23efcc90df718698ec2d
+Merge: 66fe362 c2197a9
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu May 17 02:03:57 2018 +0300
+
+    h
+
+commit 66fe362f942cd00147dc9996c7d9c4dd2aa0fa38
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu May 17 02:02:10 2018 +0300
+
+    close command
+
+commit c2197a940df8007c14d820002dbf7a3a1e4afe8c
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Wed May 16 12:55:17 2018 +0300
+
+    log work :)
+
+commit 1b84459508d40d066d00993130adfee7d023c773
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue May 15 19:30:33 2018 +0300
+
+    changes
+
+commit 4a729c41958414738551ae7352473b8d7aa67a60
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue May 15 15:47:52 2018 +0300
+
+    d
+
+commit 14417219f761a28a88d8be37192b6e472c2e712f
+Merge: 859ebb2 f3fc96b
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Tue May 15 02:54:34 2018 +0300
+
+    s
+
+commit f3fc96b23429a24337b749e33a8a72b5b42c89eb
+Merge: 1900529 f1c8a7d
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue May 15 14:50:21 2018 +0300
+
+    change
+
+commit 1900529a156f26d73cc4498b12c58b3f670602f1
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue May 15 13:10:49 2018 +0300
+
+    edit
+
+commit f1c8a7de5d7e397992c5738cd58513802f4ab33e
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Tue May 15 10:07:27 2018 +0300
+
+    edit
+
+commit 859ebb2fd390283c8f261fb9c1a9ddffebf82452
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Tue May 15 02:51:26 2018 +0300
+
+    h
+
+commit 51d41523615753df8ad2ff2c8386b2e9751cb07b
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sat May 12 20:54:38 2018 +0300
+
+    adding the remove handler command
+
+commit d4e49053eb10d7837e4bc2afc641216c8cc305e6
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Thu May 10 21:46:20 2018 +0300
+
+    delete eventLog in while
+
+commit 15cd885bc66b68d35ba883e1ed88d4228be72728
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Thu May 10 21:33:14 2018 +0300
+
+    some changes
+
+commit fd5f3a763c62c9e92fdf7c0d56b554999a4b2f84
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Wed May 9 21:17:45 2018 +0300
+
+    push
+
+commit 5a5ef9aeb062c0aac3a8a6fee12bd3fb440a951c
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Wed May 9 20:33:15 2018 +0300
+
+    args work
+
+commit 9a5a2efbbd3f4097fe0e42a9fa892e41e907675a
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Wed May 9 15:52:32 2018 +0300
+
+    hi
+
+commit 1906d3453186066eae26d957933ae113309237f8
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Wed May 9 18:46:18 2018 +0300
+
+    edit
+
+commit 64707ed3a204fa10b10597a5e2f4b35509c851fa
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue May 8 23:04:36 2018 +0300
+
+    edit
+
+commit f8a4e35d936d50ea3097e442a625722eda8f02df
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun May 6 05:48:10 2018 +0300
+
+    f
+
+commit f0a240c61d6d55fde155fc5e0021ca09e07212f8
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun May 6 05:23:45 2018 +0300
+
+    adding tcp stuff
+
+commit 6a6868c21cd4950e7233e0a2d0aff6a803b74ff0
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sat May 5 19:12:21 2018 +0300
+
+    editing
+
+commit 43284f8350dcba0120dc83d65178dcb6ea861276
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Fri May 4 04:04:55 2018 +0300
+
+    style things and color the Type in the log
+
+commit bb61c943df26a0218f9dd50f7a91fee9c2c50d48
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Thu May 3 16:36:18 2018 +0300
+
+    jmhj
+
+commit 3e79b016a0a89defcb37cae52487a43ac8cfb799
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Thu May 3 16:35:13 2018 +0300
+
+    c
+
+commit fc52680ad7ef3b5be24600b1ae8dea706351b948
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Thu May 3 14:59:42 2018 +0300
+
+    c
+
+commit d727d9875b27c84faaa467caf06a1182122d61b5
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Thu May 3 13:19:44 2018 +0300
+
+    xaml log
+
+commit 5b0617ab60564dd06612f7a0576bf3b894f27122
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Thu May 3 09:40:00 2018 +0300
+
+    s
+
+commit fd99b648a3d67676e0dfb9c2a878ff4ef836a0ed
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Wed May 2 20:15:29 2018 +0300
+
+    adding things
+
+commit 27479faffa4cb25194fcaba69f0cf71184556e93
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue May 1 21:08:31 2018 +0300
+
+    change
+
+commit 2c04d29d2ae9a1dff25461a76415e080a51c6361
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Tue May 1 21:07:03 2018 +0300
+
+    hi
+
+commit 1b948799dc1cee183739e085845acd46d2fe050b
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 15 14:06:13 2018 +0300
+
+    edit
+
+commit b7168bf87a748fd020fd316b6a9281c6c26e41a8
+Merge: 2d51821 0ee2541
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 15 13:54:23 2018 +0300
+
+    Merge branch 'master' of https://github.com/shulajz/ImageService
+
+commit 0ee254156f520a6e816848d9e109235233fd69cd
+Author: Shulamit Ajzner <shulajz@hotmail.com>
+Date:   Sun Apr 15 13:53:52 2018 +0300
+
+    log
+
+commit 2d51821265e279bbd0747fb821c22fa716aab53a
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 15 13:51:41 2018 +0300
+
+    j
+
+commit 0ffcc1af94e15059282b6e78437703c6de3b4ee6
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 15 13:39:50 2018 +0300
+
+    k
+
+commit d5a1bac800bda785b98421684f809a216449ad07
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 15 13:19:20 2018 +0300
+
+    move file 2
+
+commit 843c989785402333f958502d1c87923f140c2451
+Author: or shaashua <orshaashua@gmail.com>
+Date:   Sun Apr 15 13:17:57 2018 +0300
+
+    move file
+
 commit 734c2d5abac69a8ee61e7a31cf179b39ed64108e
 Author: Shulamit Ajzner <shulajz@hotmail.com>
 Date:   Sun Apr 15 12:28:17 2018 +0300
