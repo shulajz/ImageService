@@ -29,9 +29,7 @@ namespace ImageService.Communication
         /// </summary>
         private static Mutex writerMutex = new Mutex();
         /// <summary>
-        /// The m event log1
         /// </summary>
-        private EventLog m_eventLog1;
         /// <summary>
         /// The listening
         /// </summary>
@@ -85,7 +83,6 @@ namespace ImageService.Communication
                                 if (e.RequestDirPath != null)
                                 {
                                     path[0] = e.RequestDirPath; //if its not RemoveCommand this will be NULL!
-                                    m_eventLog1.WriteEntry("after args. the path[0] is=" + path[0]);
                                 }
                                 string args = m_controller.ExecuteCommand(e.CommandID, path, out result);
                                 if (result == true)
@@ -107,7 +104,7 @@ namespace ImageService.Communication
                     }
                     catch (Exception e)
                     {
-                        m_logging.Log("Error in ClientHandler", MessageTypeEnum.FAIL);
+                        m_logging.Log("Error in ClientHandler" + e.Message, MessageTypeEnum.FAIL);
                         break;
                     }
                 }

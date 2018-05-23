@@ -17,7 +17,6 @@ namespace ImageService.Communication
         private int m_port;
         private TcpListener listener;
         private IClientHandler m_ch;
-        private System.Diagnostics.EventLog m_eventLog1;
         private List<Client> listOfClients;
 
         //constructor
@@ -34,7 +33,6 @@ namespace ImageService.Communication
 
             listener.Start();
 
-            m_eventLog1.WriteEntry("Waiting for connections...");
 
             Task task = new Task(() =>
             {
@@ -56,7 +54,6 @@ namespace ImageService.Communication
                         break;
                     }
                 }
-                m_eventLog1.WriteEntry("Server stopped");
             });
             task.Start();
         }
