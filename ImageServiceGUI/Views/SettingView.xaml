@@ -8,8 +8,22 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <StackPanel Margin="3">
-        <TextBlock  FontStyle="Oblique" Grid.Row="0" Padding="3" Margin="3" FontSize="35" FontWeight="Bold"
-                           HorizontalAlignment="Center" Text="Settings" VerticalAlignment="Top" >
+        <TextBlock>
+            <TextBlock.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Padding" Value="3"/>
+                    <Setter Property="Margin" Value="3"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontSize" Value="35"/>
+                    <Setter Property="FontStyle" Value="Oblique"/>
+                    <Setter Property="Grid.Row" Value="0" />
+                    <Setter Property="Text" Value="Settings" />
+                    <Setter Property="FontFamily" Value="Verdana"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="VerticalAlignment" Value="Top"/>
+                </Style>
+            </TextBlock.Resources>
             <TextBlock.Effect>
                 <DropShadowEffect
                     ShadowDepth="6"
