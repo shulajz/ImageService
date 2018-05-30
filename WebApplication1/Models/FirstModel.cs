@@ -18,33 +18,37 @@ namespace ImageServiceWeb.Models
             handlers.Add("shula");
             m_setting = new Setting()
             {
-                OutPutDir = "output dir",
+                OutPutDir = "output dir 111",
                 SourceName = "source name",
-                LogName = "log name",
+                LogName = "log name 3333333 ",
                 ThumbnailSize = 120,
                 ArrHandlers = handlers
             };
-           // OutPutDir = m_setting.OutPutDir;
+            OutPutDir = m_setting.OutPutDir;
+            SourceName = m_setting.SourceName;
+            LogName = m_setting.LogName;
+            ThumbnailSize = m_setting.ThumbnailSize;
+            //ArrHandlers = m_setting
         }
-      
-        [Required]
-        [DataType(DataType.Text)]
-        [Display(Name = "dd")]
-        public string OutPutDir123 { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "SourceName")]
+        [Display(Name = "OutPutDir:")]
+        public string OutPutDir { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "SourceName:")]
         public string SourceName { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "LogName")]
+        [Display(Name = "LogName:")]
         public string LogName { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "ThumbnailSize")]
+        [Display(Name = "ThumbnailSize:")]
         public int ThumbnailSize { get; set; }
     }
 }

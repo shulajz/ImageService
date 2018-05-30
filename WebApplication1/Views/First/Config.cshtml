@@ -8,26 +8,26 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="table table-striped-group">
+    <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.DisplayNameFor(m => m.OutPutDir123)
-            <div class="col-md-10">
-                @Html.DisplayFor(modelItem => modelItem.OutPutDir123, new { @class = "table table-striped" })
-            </div>
-            @Html.DisplayNameFor(m => m.SourceName)
-            <div class="col-md-10">
-                @Html.DisplayFor(m => m.SourceName, new { @class = "table table-striped" })
-            </div>
-            @Html.DisplayNameFor(m => m.LogName)
-            <div class="col-md-10">
-                @Html.DisplayFor(m => m.LogName, new { @class = "table table-striped" })
-            </div>
-            @Html.DisplayNameFor(m => m.ThumbnailSize)
-            <div class="col-md-10">
-                @Html.DisplayFor(m => m.ThumbnailSize, new { @class = "table table-striped" })
-            </div>
+            @Html.LabelFor(m => m.OutPutDir, new { @class = "col-md-2 control-label" })
+
+            @Html.DisplayFor(modelItem => modelItem.OutPutDir, new { @class = "col-md-2 control-label" })
+            <br />
+            @Html.LabelFor(m => m.SourceName, new { @class = "col-md-2 control-label" })
+
+            @Html.DisplayFor(m => m.SourceName, new { @class = "col-md-2 control-label" })
+            <br />
+            @Html.LabelFor(m => m.LogName, new { @class = "col-md-2 control-label" })
+
+            @Html.DisplayFor(m => m.LogName, new { @class = "col-md-2 control-label" })
+            <br />
+            @Html.LabelFor(m => m.ThumbnailSize, new { @class = "col-md-2 control-label" })
+
+            @Html.DisplayFor(m => m.ThumbnailSize, new { @class = "col-md-2 control-label" })
+            <br />
         </div>
 
         <div class="form-group">

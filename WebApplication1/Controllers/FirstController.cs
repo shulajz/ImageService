@@ -12,14 +12,14 @@ namespace ImageServiceWeb.Controllers
     {
         static FirstModel m = new FirstModel()
         {
-      
-                OutPutDir123 = "output dir 111111 ",
-                SourceName = "source name 222222 ",
-                LogName = "log name 3333333 ",
-                ThumbnailSize = 120,
-                //ArrHandlers = handlers
-            
-    };
+
+            //OutPutDir = "output dir 111111 ",
+            //SourceName = "source name 222222 ",
+            //LogName = "log name 3333333 ",
+            //ThumbnailSize = 120,
+            //ArrHandlers = handlers
+
+        };
         
       
         // GET: First
