@@ -8,32 +8,28 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="table table-striped-group">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
+        <p>
             @Html.LabelFor(m => m.OutPutDir, new { @class = "col-md-2 control-label" })
 
             @Html.DisplayFor(modelItem => modelItem.OutPutDir, new { @class = "col-md-2 control-label" })
-            <br />
+        </p>
+        <p>
             @Html.LabelFor(m => m.SourceName, new { @class = "col-md-2 control-label" })
 
             @Html.DisplayFor(m => m.SourceName, new { @class = "col-md-2 control-label" })
-            <br />
+        </p>
+        <p>
             @Html.LabelFor(m => m.LogName, new { @class = "col-md-2 control-label" })
 
             @Html.DisplayFor(m => m.LogName, new { @class = "col-md-2 control-label" })
-            <br />
+        </p>
+        <p>
             @Html.LabelFor(m => m.ThumbnailSize, new { @class = "col-md-2 control-label" })
 
             @Html.DisplayFor(m => m.ThumbnailSize, new { @class = "col-md-2 control-label" })
-            <br />
-        </div>
+        </p>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
     </div>
 }
