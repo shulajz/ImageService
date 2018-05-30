@@ -24,13 +24,13 @@ namespace ImageServiceWeb.Models
                 ThumbnailSize = 120,
                 ArrHandlers = handlers
             };
-            OutPutDir = m_setting.OutPutDir;
+           // OutPutDir = m_setting.OutPutDir;
         }
       
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "OutPutDir")]
-        public string OutPutDir { get; set; }
+        [Display(Name = "dd")]
+        public string OutPutDir123 { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
