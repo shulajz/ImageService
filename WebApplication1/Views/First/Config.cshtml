@@ -9,14 +9,12 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-     
         <hr />
-
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(m => m.OutPutDir, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.OutPutDir, new { @class = "form-control" })
+                @Html.LabelFor(modelItem => modelItem.OutPutDir, new { @class = "form-control" })
             </div>
             @Html.LabelFor(m => m.SourceName, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
@@ -30,7 +28,6 @@
             <div class="col-md-10">
                 @Html.TextBoxFor(m => m.ThumbnailSize, new { @class = "form-control" })
             </div>
-      
         </div>
 
         <div class="form-group">

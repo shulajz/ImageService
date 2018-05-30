@@ -11,7 +11,7 @@ namespace ImageServiceWeb.Models
     public class FirstModel
     {
         private Setting m_setting;
-        FirstModel()
+        public FirstModel()
         {
             ObservableCollection<string> handlers = new ObservableCollection<string>();
             handlers.Add("or");
@@ -29,7 +29,7 @@ namespace ImageServiceWeb.Models
       
         [Required]
         [DataType(DataType.Text)]
-        //[Display(Name = "OutPutDir")]
+        [Display(Name = "OutPutDir")]
         public string OutPutDir { get; set; }
 
         [Required]
