@@ -67,7 +67,7 @@ namespace ImageService.Communication
                     {
                         string commandLine = client.Reader.ReadLine();
                         if (commandLine != null)
-                        {
+                        {//
 
                             CommandReceivedEventArgs e = JsonConvert.DeserializeObject<CommandReceivedEventArgs>(commandLine);
                             if (e.CommandID == (int)CommandEnum.CloseClient)
