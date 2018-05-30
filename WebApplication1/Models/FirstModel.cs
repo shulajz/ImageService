@@ -28,7 +28,7 @@ namespace ImageServiceWeb.Models
             SourceName = m_setting.SourceName;
             LogName = m_setting.LogName;
             ThumbnailSize = m_setting.ThumbnailSize;
-            //ArrHandlers = m_setting
+            HandlersArr = handlers;
         }
 
         [Required]
@@ -50,5 +50,11 @@ namespace ImageServiceWeb.Models
         [DataType(DataType.Text)]
         [Display(Name = "ThumbnailSize:")]
         public int ThumbnailSize { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "HandlersArr:")]
+        public ObservableCollection<string> HandlersArr { get; set; }
+
     }
 }

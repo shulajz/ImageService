@@ -30,6 +30,21 @@
 
             @Html.DisplayFor(m => m.ThumbnailSize, new { @class = "col-md-2 control-label" })
         </p>
+        <br />
+        <p><label>The Handlers:</label></p>
+        <ul class="nav nav-pills nav-stacked">
+
+            @foreach (var item in Model.HandlersArr)
+            {
+                <li>
+                    <a href="#" id="item">
+                        @Html.DisplayFor(modelItem => item)
+
+                    </a>
+                </li>
+            }
+        </ul>
 
     </div>
+
 }
