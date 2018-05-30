@@ -13,5 +13,23 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+
+        // GET: First
+        public ActionResult Config()
+        {
+            return View();
+        }
+
+        // GET: First
+        public ActionResult Photos()
+        {
+            return View();
+        }
+
+        // GET: First
+        public ActionResult Logs()
+        {
+            return View();
+        }
     }
 }
