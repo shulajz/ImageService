@@ -14,7 +14,7 @@ namespace ImageServiceWeb.Models
         public ConfigModel()
         {
             ObservableCollection<string> handlers = new ObservableCollection<string>();
-            handlers.Add("or");
+            handlers.Add("or and nir");
             handlers.Add("shula");
             m_setting = new Setting()
             {

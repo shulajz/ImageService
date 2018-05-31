@@ -10,16 +10,8 @@ namespace ImageServiceWeb.Controllers
 {
     public class FirstController : Controller
     {
-        static ConfigModel m = new ConfigModel()
-        {
-
-            //OutPutDir = "output dir 111111 ",
-            //SourceName = "source name 222222 ",
-            //LogName = "log name 3333333 ",
-            //ThumbnailSize = 120,
-            //ArrHandlers = handlers
-
-        };
+        static ConfigModel config_model = new ConfigModel();
+        static LogsModel log_model = new LogsModel();
         
       
         // GET: First
@@ -31,7 +23,7 @@ namespace ImageServiceWeb.Controllers
         // GET: First
         public ActionResult Config()
         {
-            return View(m);
+            return View(config_model);
         }
 
         // GET: First
@@ -43,7 +35,7 @@ namespace ImageServiceWeb.Controllers
         // GET: First
         public ActionResult Logs()
         {
-            return View();
+            return View(log_model);
         }
         // GET: First
         public ActionResult RemoveHandler()
@@ -54,11 +46,42 @@ namespace ImageServiceWeb.Controllers
         [HttpPost]
         public bool RemoveHandlerMethod(string pathOfHandlerToRemove)
         {
-            string temp = m.HandlersArr[0];
+            string temp = config_model.HandlersArr[0];
             //here we need to remove handler from the service
             //if succsess remove from the model handllers list
-            m.HandlersArr.Remove(pathOfHandlerToRemove);
+            config_model.HandlersArr.Remove(pathOfHandlerToRemove);
             return true;
+        }
+
+        [HttpPost]
+        public List<Log> getLogsForType(string type)
+        {
+            MessageTypeEnum temp = MessageTypeEnum.FAIL;
+            switch (type)
+            {
+                case "fail":
+                    temp = MessageTypeEnum.FAIL;
+                    break;
+                case "info":
+                    temp = MessageTypeEnum.INFO;
+                    
+                    break;
+                case "warning":
+                    temp = MessageTypeEnum.WARNING;
+                    break;
+                default:
+                    
+                    break;
+            }
+        
+        List<Log> logsTemp = new List<Log>();
+            foreach (Log log in log_model.m_logs) {
+                if (log.Type == temp || type == null)
+                {
+                    logsTemp.Add(log);
+                }
+            }
+            return logsTemp;
         }
     }
 }

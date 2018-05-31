@@ -1,7 +1,39 @@
-﻿
+﻿@model ImageServiceWeb.Models.LogsModel
 @{
     ViewBag.Title = "Logs";
 }
 
 <h2>Logs</h2>
 
+
+    <div class="col-md-10">
+        <input type="text" id="typeID" />
+    </div>
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="OK" class="btn btn-default" id="btnOK" />
+    </div>
+    <div  class="alert alert-success" id="info" type="text"></div>
+    <div class="alert alert-danger" id="fail" type="text"></div>
+    <div class="alert alert-warning" id="warning" type="text"></div>
+    <ul id="lstProducts"></ul>
+
+}
+
+<script>
+    $("#btnOK").click(function () {
+
+        var input = {
+            type: $("#typeID").val(),  
+        };
+
+        $.post("@Url.Action("getLogsForType")", input, function (result) {
+            for (log in result) {
+                $("#lstProducts").append("<li>" + result.val + "</li>");
+            }
+            
+        });
+    });
+    
+
+
+</script>

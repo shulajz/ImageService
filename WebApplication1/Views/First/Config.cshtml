@@ -54,11 +54,10 @@
 <script>
     $("li").click(function () {
         
-        var path = $(this).text();
-        path = path.replace(/\s\s+/g, '');
-       
+        var itemText = $(this).text();
+        //delete from the item unnecessary sapces and break line  
+        var path = itemText.replace(/\s\s+/g, '');
         localStorage.setItem('objectToPass', path);
-        localStorage.setItem('objectToPass2', this);
         window.location.href = "RemoveHandler";
             
     });
