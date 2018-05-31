@@ -54,7 +54,9 @@ namespace ImageServiceWeb.Controllers
         [HttpPost]
         public bool RemoveHandlerMethod(string pathOfHandlerToRemove)
         {
-            Console.WriteLine(pathOfHandlerToRemove);
+            string temp = m.HandlersArr[0];
+            //here we need to remove handler from the service
+            //if succsess remove from the model handllers list
             m.HandlersArr.Remove(pathOfHandlerToRemove);
             return true;
         }

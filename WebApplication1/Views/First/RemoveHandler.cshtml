@@ -14,13 +14,16 @@
 
    
     $("#btnOK").click(function () {
+        
+        document.getElementById("btnOK").disabled = true;
+        document.getElementById("btnCANCEL").disabled = true;
         var path = localStorage['objectToPass'];
         localStorage.removeItem('objectToPass'); // Clear the localStorage
         var handler = localStorage['objectToPass2'];
         localStorage.removeItem('objectToPass'); // Clear the localStorage
         //alert(path);
         var input = {
-            pathOfHandlerToRemove: $("#path").val()
+            pathOfHandlerToRemove: path
         };
         $.post("@Url.Action("RemoveHandlerMethod")", input, function (result) {
             

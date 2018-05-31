@@ -38,7 +38,7 @@
             @foreach (var item in Model.HandlersArr)
             {
                 <li>
-                    <a href="#" id="item">
+                    <a href="#">
                         @Html.DisplayFor(modelItem => item)
 
                     </a>
@@ -52,9 +52,11 @@
 
 
 <script>
-    $("#item").click(function () {
+    $("li").click(function () {
         
         var path = $(this).text();
+        path = path.replace(/\s\s+/g, '');
+       
         localStorage.setItem('objectToPass', path);
         localStorage.setItem('objectToPass2', this);
         window.location.href = "RemoveHandler";
