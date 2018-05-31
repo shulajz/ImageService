@@ -1,4 +1,4 @@
-﻿
+﻿@model ImageServiceWeb.Models.RemoveHandlerModel
 @{
     ViewBag.Title = "RemoveHandler";
 }
@@ -10,12 +10,25 @@
 <button class="btn-danger" type="button" id="btnCANCEL" style="margin:10px">CANCEL</button>
 
 
-
 <script>
-    $("#btnOK").click(function () {
-        
-    });
 
+   
+    $("#btnOK").click(function () {
+        var path = localStorage['objectToPass'];
+        localStorage.removeItem('objectToPass'); // Clear the localStorage
+        var handler = localStorage['objectToPass2'];
+        localStorage.removeItem('objectToPass'); // Clear the localStorage
+
+        $.post("@Url.Action("RemoveHandlerMethod")", path, function (result) {
+            if(result == "True"){
+                $.import_js('Config.js');
+                hideJS(handler);
+            } 
+            window.location.href = "Config";
+            
+        });
+     });
+    
     $("#btnCANCEL").click(function () {
         window.location.href = "Config";
     });

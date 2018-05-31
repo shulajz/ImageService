@@ -10,7 +10,7 @@ namespace ImageServiceWeb.Controllers
 {
     public class FirstController : Controller
     {
-        static FirstModel m = new FirstModel()
+        static ConfigModel m = new ConfigModel()
         {
 
             //OutPutDir = "output dir 111111 ",
@@ -49,6 +49,13 @@ namespace ImageServiceWeb.Controllers
         public ActionResult RemoveHandler()
         {
             return View();
+        }
+
+        [HttpPost]
+        public bool RemoveHandlerMethod(string pathOfHandlerToRemove)
+        {
+            Console.WriteLine(pathOfHandlerToRemove);
+            return true;
         }
     }
 }

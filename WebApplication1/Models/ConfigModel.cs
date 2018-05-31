@@ -8,10 +8,10 @@ using System.Web;
 
 namespace ImageServiceWeb.Models
 {
-    public class FirstModel
+    public class ConfigModel
     {
         private Setting m_setting;
-        public FirstModel()
+        public ConfigModel()
         {
             ObservableCollection<string> handlers = new ObservableCollection<string>();
             handlers.Add("or");

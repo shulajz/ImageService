@@ -1,9 +1,10 @@
-﻿@model ImageServiceWeb.Models.FirstModel
+﻿@model ImageServiceWeb.Models.ConfigModel
 @{
     ViewBag.Title = "Config";
 }
 
 <h2>Config</h2>
+   
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -52,7 +53,14 @@
 
 <script>
     $("#item").click(function () {
+        var path = $(this).text();
+        localStorage.setItem('objectToPass', path);
+        localStorage.setItem('objectToPass2', this);
         window.location.href = "RemoveHandler";
-            $(this).hide;
-        });
+            
+    });
+
+    function remove(x) {
+        $(x).hide;
+    }
 </script>
