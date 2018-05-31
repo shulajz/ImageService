@@ -1,4 +1,4 @@
-﻿@model ImageServiceWeb.Models.RemoveHandlerModel
+﻿@model ImageServiceWeb.Models.ConfigModel
 @{
     ViewBag.Title = "RemoveHandler";
 }
@@ -9,7 +9,7 @@
 <button class="btn btn-primary" type="button" id="btnOK" style="margin:10px">OK</button>
 <button class="btn-danger" type="button" id="btnCANCEL" style="margin:10px">CANCEL</button>
 
-/
+
 <script>
 
    
@@ -18,12 +18,12 @@
         localStorage.removeItem('objectToPass'); // Clear the localStorage
         var handler = localStorage['objectToPass2'];
         localStorage.removeItem('objectToPass'); // Clear the localStorage
-
-        $.post("@Url.Action("RemoveHandlerMethod")", path, function (result) {
-            if(result == "True"){
-                $.import_js('Config.js');
-                hideJS(handler);
-            } 
+        //alert(path);
+        var input = {
+            pathOfHandlerToRemove: $("#path").val()
+        };
+        $.post("@Url.Action("RemoveHandlerMethod")", input, function (result) {
+            
             window.location.href = "Config";
             
         });

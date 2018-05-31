@@ -55,6 +55,7 @@ namespace ImageServiceWeb.Controllers
         public bool RemoveHandlerMethod(string pathOfHandlerToRemove)
         {
             Console.WriteLine(pathOfHandlerToRemove);
+            m.HandlersArr.Remove(pathOfHandlerToRemove);
             return true;
         }
     }
