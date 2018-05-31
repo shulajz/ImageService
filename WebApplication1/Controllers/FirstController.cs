@@ -45,5 +45,10 @@ namespace ImageServiceWeb.Controllers
         {
             return View();
         }
+        // GET: First
+        public ActionResult RemoveHandler()
+        {
+            return View();
+        }
     }
 }
