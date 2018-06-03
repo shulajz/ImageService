@@ -21,6 +21,7 @@ namespace ImageServiceWeb.Controllers
         static ConfigModel config_Model = new ConfigModel();
         static LogsModel log_Model = new LogsModel();
         static ImageWebModel image_Web_Model = new ImageWebModel();
+        static PhotosModel photos_Model = new PhotosModel(config_Model.OutPutDir);
 
 
         // GET: First
@@ -38,7 +39,7 @@ namespace ImageServiceWeb.Controllers
         // GET: First
         public ActionResult Photos()
         {
-            return View();
+            return View(photos_Model);
         }
 
         // GET: First

@@ -22,6 +22,9 @@ namespace ImageServiceWeb.Models
             m_logs.Add(new Log() { Type = MessageTypeEnum.FAIL, Message = "msg_FAIL" });
             m_logs.Add(new Log() { Type = MessageTypeEnum.FAIL, Message = "msg_fail" });
             m_logs.Add(new Log() { Type = MessageTypeEnum.WARNING, Message = "msg_warning" });
+            m_logs.Add(new Log() { Type = MessageTypeEnum.WARNING, Message = "msg_warning" });
+            m_logs.Add(new Log() { Type = MessageTypeEnum.WARNING, Message = "msg_warning" });
+            m_logs.Add(new Log() { Type = MessageTypeEnum.WARNING, Message = "msg_warning" });
         }
        
         public MessageTypeEnum chosenType { get; set; }
