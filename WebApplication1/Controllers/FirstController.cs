@@ -1,29 +1,38 @@
 ﻿using ImageService.Communication.Modal;
 using ImageServiceWeb.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 
 namespace ImageServiceWeb.Controllers
 {
+
     public class FirstController : Controller
     {
-        static ConfigModel config_model = new ConfigModel();
-        static LogsModel log_model = new LogsModel();
-        
-      
-        // GET: First
-        public ActionResult Index()
+        static public List<Student> students = new List<Student>()
         {
-            return View();
+
+        };
+        static ConfigModel config_Model = new ConfigModel();
+        static LogsModel log_Model = new LogsModel();
+        static ImageWebModel image_Web_Model = new ImageWebModel();
+
+
+        // GET: First
+        public ActionResult ImageWebModel()
+        {
+            return View(image_Web_Model);
         }
             
         // GET: First
         public ActionResult Config()
         {
-            return View(config_model);
+            return View(config_Model);
         }
 
         // GET: First
@@ -35,7 +44,7 @@ namespace ImageServiceWeb.Controllers
         // GET: First
         public ActionResult Logs()
         {
-            return View(log_model);
+            return View(log_Model);
         }
         // GET: First
         public ActionResult RemoveHandler()
@@ -46,15 +55,15 @@ namespace ImageServiceWeb.Controllers
         [HttpPost]
         public bool RemoveHandlerMethod(string pathOfHandlerToRemove)
         {
-            string temp = config_model.HandlersArr[0];
+            string temp = config_Model.HandlersArr[0];
             //here we need to remove handler from the service
             //if succsess remove from the model handllers list
-            config_model.HandlersArr.Remove(pathOfHandlerToRemove);
+            config_Model.HandlersArr.Remove(pathOfHandlerToRemove);
             return true;
         }
 
         [HttpPost]
-        public List<Log> getLogsForType(string type)
+        public void getLogsForType(string type)
         {
             MessageTypeEnum temp = MessageTypeEnum.FAIL;
             switch (type)
@@ -70,18 +79,19 @@ namespace ImageServiceWeb.Controllers
                     temp = MessageTypeEnum.WARNING;
                     break;
                 default:
-                    
+                    type = null;
                     break;
             }
-        
-        List<Log> logsTemp = new List<Log>();
-            foreach (Log log in log_model.m_logs) {
+
+            log_Model.LogMessages.Clear();
+            foreach (Log log in log_Model.m_logs) {
                 if (log.Type == temp || type == null)
                 {
-                    logsTemp.Add(log);
+                    log_Model.LogMessages.Add(log.Message);
                 }
             }
-            return logsTemp;
+            
+            
         }
     }
 }
