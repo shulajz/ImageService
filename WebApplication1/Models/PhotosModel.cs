@@ -16,12 +16,11 @@ namespace ImageServiceWeb.Models
         {
             m_OutputDir = OutputDir;
             thumbnailPath = OutputDir + "\\" + "Thumbnails";
-            foreach (string file in System.IO.Directory.GetFiles(
-                thumbnailPath, "*.thumb", SearchOption.AllDirectories))
-            {
-                Photo photo = new Photo();
-
-            }
+            //foreach (string file in System.IO.Directory.GetFiles(
+            //    thumbnailPath, "*.thumb", SearchOption.AllDirectories))
+            //{
+            //    //Photo photo = new Photo();
+            //}
         }
 
 

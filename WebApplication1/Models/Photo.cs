@@ -17,42 +17,13 @@ namespace ImageServiceWeb.Models
         public Photo(string path)
         {
             m_path = path;
-            m_Date = GetDateTakenFromImage(path);
+            Date = GetDateTakenFromImage(path);
 
 
         }
-        private string m_Name;
-        public string Name
-        {
-            get { return m_Name; }
-            set
-            {
-                m_Name = value;
-
-            }
-        }
-
-        private DateTime m_Date;
-        public DateTime Date
-        {
-            get { return m_Date; }
-            set
-            {
-                m_Date = value;
-
-            }
-        }
-
-        private string m_id;
-        public string ID
-        {
-            get { return m_id; }
-            set
-            {
-                m_id = value;
-
-            }
-        }
+        public string Name { get; set; }
+        public DateTime Date { get; set; }
+        public string ID { get; set; }
 
         /// <summary>
         /// Gets the date taken from image.

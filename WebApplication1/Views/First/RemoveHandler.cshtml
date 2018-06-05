@@ -20,7 +20,7 @@
         
         var path = localStorage['objectToPass'];
         localStorage.removeItem('objectToPass'); // Clear the localStorage
-        var input = {
+        var input = { 
             pathOfHandlerToRemove: path
         };
         $.post("@Url.Action("RemoveHandlerMethod")", input, function (result) {
