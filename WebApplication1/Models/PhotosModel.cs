@@ -19,7 +19,7 @@ namespace ImageServiceWeb.Models
             int id = 0;
             thumbnailPath = OutputDir + "\\" + "Thumbnails";
             foreach (string file in System.IO.Directory.GetFiles(
-                thumbnailPath, "*.png", SearchOption.AllDirectories))
+                thumbnailPath, "*.jpg", SearchOption.AllDirectories))
             {
                
                 Photo photo = new Photo(file);

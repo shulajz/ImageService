@@ -18,7 +18,7 @@ namespace ImageServiceWeb.Models
             handlers.Add("shula");
             m_setting = new Setting()
             {
-                OutPutDir = "C:\\Users\\user\\Desktop\\TEST1",
+                OutPutDir = "C:\\Users\\user\\Source\\Repos\\ImageService\\WebApplication1\\OutputDir",
                 SourceName = "source name",
                 LogName = "log name 3333333 ",
                 ThumbnailSize = 120,

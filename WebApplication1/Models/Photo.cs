@@ -13,10 +13,11 @@ namespace ImageServiceWeb.Models
 {
     public class Photo
     {
-        private string m_path;
-        public Photo(string path)
+        public string path { get; set; }
+
+        public Photo(string pathStr)
         {
-            m_path = path;
+            path = pathStr;
             DateTime date = GetDateTakenFromImage(path);
             Year = date.Year;
             Month = date.Month;
