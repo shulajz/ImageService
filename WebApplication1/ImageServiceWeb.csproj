@@ -101,8 +101,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="OutputDir\Thumbnails\2017\6\20170609_104953.jpg" />
-    <Content Include="OutputDir\Thumbnails\2017\7\20170721_160528.jpg" />
-    <Content Include="OutputDir\Thumbnails\2018\5\גדס.PNG" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="OutputDir\Thumbnails\2017\6\Thumbs.db" />
