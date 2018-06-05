@@ -17,13 +17,15 @@ namespace ImageServiceWeb.Models
         public Photo(string path)
         {
             m_path = path;
-            Date = GetDateTakenFromImage(path);
-
-
+            DateTime date = GetDateTakenFromImage(path);
+            Year = date.Year;
+            Month = date.Month;
+            Name = Path.GetFileName(path);
         }
-        public string Name { get; set; }
-        public DateTime Date { get; set; }
-        public string ID { get; set; }
+        private string Name { get; set; }
+        private int Year { get; set; }
+        private int Month { get; set; }
+        public int ID { get; set; }
 
         /// <summary>
         /// Gets the date taken from image.
