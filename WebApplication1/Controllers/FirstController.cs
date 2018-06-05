@@ -53,6 +53,11 @@ namespace ImageServiceWeb.Controllers
             return View();
         }
 
+        public ActionResult ViewPhoto()
+        {
+            return View();
+        }
+
         [HttpPost]
         public bool RemoveHandlerMethod(string pathOfHandlerToRemove)
         {
