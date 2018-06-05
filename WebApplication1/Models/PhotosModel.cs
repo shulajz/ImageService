@@ -12,19 +12,22 @@ namespace ImageServiceWeb.Models
         private string m_OutputDir;
         private string thumbnailPath;
         public List<Photo> images { get; set; }
+        public List<string> pathsForTest { get; set; }
         public PhotosModel(string OutputDir)
         {
             images = new List<Photo>();
+            pathsForTest = new List<string>();
             m_OutputDir = OutputDir;
             int id = 0;
             thumbnailPath = OutputDir + "\\" + "Thumbnails";
             foreach (string file in System.IO.Directory.GetFiles(
-                thumbnailPath, "*.jpg", SearchOption.AllDirectories))
+                thumbnailPath, "*.png", SearchOption.AllDirectories))
             {
                
                 Photo photo = new Photo(file);
                 photo.ID = id;
                 images.Add(photo);
+                pathsForTest.Add(photo.path);
                 id++;
             }
         }

@@ -3,19 +3,46 @@
     ViewBag.Title = "Photos";
 }
 
-<h2>Photos</h2>
+<head>
+    <link type="text/css" rel="stylesheet" href="~/Views/First/PhotosStyle.css" />
+</head>
 
-    <div class="row">
-        <div class="col-sm-6 col-md-4">
+<h2>Photos</h2>
+@foreach (var item in Model.images)
+{
+    <div>
+        <div class="col-sm-5 col-md-3" >
             <div class="thumbnail">
-                <img src="..\OutputDir\Thumbnails\2017\7\20170721_160528.jpg" class="img-circle" alt="Cinque Terre" >
-                <div class="caption">
-                    <h3>Thumbnail label</h3>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Delete</a></p>
+               
+                <img src="@Url.Content(item.path)" class="img-circle" alt="Cinque Terre" >
+                    <div class="caption">
+                        <shula>Thumbnail label</shula>
+                        <div class="table table-striped-group">
+                            <hr />
+                            <p>
+                                @Html.LabelFor(m => item.Name, new { @class = "col-md-2 control-label" })
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.DisplayFor(modelItem => item.Name, new { @class = "col-md-2 control-label" })
+                            </p>
+                            <p>
+                                @Html.LabelFor(m => item.Year, new { @class = "col-md-2 control-label" })
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.DisplayFor(modelItem => item.Year, new { @class = "col-md-2 control-label" })
+                            </p>
+                            <p>
+                                @Html.LabelFor(m => item.Month, new { @class = "col-md-2 control-label" })
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.DisplayFor(modelItem => item.Month, new { @class = "col-md-2 control-label" })
+                            </p>
+                        </div>
+                            <p><a href="#" id="viewBtn" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Delete</a></p>
+                       
                 </div>
+              
             </div>
+            <br />
         </div>
     </div>
+    }
 
 

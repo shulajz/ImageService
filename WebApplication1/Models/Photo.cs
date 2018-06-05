@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -17,15 +18,30 @@ namespace ImageServiceWeb.Models
 
         public Photo(string pathStr)
         {
-            path = pathStr;
-            DateTime date = GetDateTakenFromImage(path);
+           
+            DateTime date = GetDateTakenFromImage(pathStr);
             Year = date.Year;
             Month = date.Month;
-            Name = Path.GetFileName(path);
+            
+            Name = Path.GetFileName(pathStr);
+           // int index = pathStr.LastIndexOf('\\');
+            path ="..\\OutputDir\\Thumbnails\\" + Year + "\\" + Month + "\\" + Name;
         }
-        private string Name { get; set; }
-        private int Year { get; set; }
-        private int Month { get; set; }
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Name:")]
+        public string Name { get; set; }
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Year:")]
+        public int Year { get; set; }
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Month:")]
+        public int Month { get; set; }
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "ID:")]
         public int ID { get; set; }
 
         /// <summary>

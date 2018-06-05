@@ -100,11 +100,22 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="OutputDir\Thumbnails\2017\6\20170609_104953.jpg" />
+    <Content Include="OutputDir\Thumbnails\2017\6\activeGradient.png" />
+    <Content Include="OutputDir\Thumbnails\2017\6\back_ts_16 - Copy.png" />
+    <Content Include="OutputDir\Thumbnails\2017\6\calendar - Copy.png" />
+    <Content Include="OutputDir\Thumbnails\2017\6\calendar.png" />
+    <Content Include="OutputDir\Thumbnails\2017\6\calendarArrows.png" />
+    <Content Include="OutputDir\Thumbnails\2017\6\calendarArrows8bit.png" />
+    <Content Include="OutputDir\Thumbnails\2017\6\cancel_15%281%29.png" />
+    <Content Include="OutputDir\Thumbnails\2017\6\cancel_15.png" />
+    <Content Include="OutputDir\Thumbnails\2017\6\cancel_hover_15.png" />
+    <Content Include="OutputDir\Thumbnails\2017\6\checkmarkNoBorder.png" />
+    <Content Include="OutputDir\Thumbnails\2017\6\colors7x10%281%29.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="OutputDir\Thumbnails\2017\6\Thumbs.db" />
     <Content Include="OutputDir\Thumbnails\2017\7\Thumbs.db" />
+    <Content Include="OutputDir\Thumbnails\2017\6\colors7x10%282%29.thumb" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -112,6 +123,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\First\PhotosStyle.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
