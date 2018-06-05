@@ -14,18 +14,18 @@ namespace ImageServiceWeb.Models
 {
     public class Photo
     {
-        public string path { get; set; }
-
+        public string ThumbPath { get; set; }
+        public string OrignalPath { get; set; }
         public Photo(string pathStr)
         {
            
             DateTime date = GetDateTakenFromImage(pathStr);
             Year = date.Year;
             Month = date.Month;
-            
             Name = Path.GetFileName(pathStr);
-           // int index = pathStr.LastIndexOf('\\');
-            path ="..\\OutputDir\\Thumbnails\\" + Year + "\\" + Month + "\\" + Name;
+            OrignalPath = "..\\..\\OutputDir\\" + Year + "\\" + Month + "\\" + Name;
+            // int index = pathStr.LastIndexOf('\\');
+            ThumbPath = "..\\OutputDir\\Thumbnails\\" + Year + "\\" + Month + "\\" + Name;
         }
         [Required]
         [DataType(DataType.Text)]

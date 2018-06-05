@@ -100,29 +100,28 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="OutputDir\2016\11\20161116_175934.jpg" />
-    <Content Include="OutputDir\2016\11\20161116_175938.jpg" />
-    <Content Include="OutputDir\2016\9\20160916_153523.jpg" />
-    <Content Include="OutputDir\2016\9\20160916_153530.jpg" />
-    <Content Include="OutputDir\2016\9\20160916_153544.jpg" />
-    <Content Include="OutputDir\2016\9\20160916_153547.jpg" />
-    <Content Include="OutputDir\2016\9\20160916_153555.jpg" />
-    <Content Include="OutputDir\2017\4\20170425_152729.jpg" />
-    <Content Include="OutputDir\2018\3\20180301_180605.jpg" />
-    <Content Include="OutputDir\Thumbnails\2016\11\20161116_175934.jpg" />
-    <Content Include="OutputDir\Thumbnails\2016\11\20161116_175938.jpg" />
-    <Content Include="OutputDir\Thumbnails\2016\9\20160916_153523.jpg" />
-    <Content Include="OutputDir\Thumbnails\2016\9\20160916_153530.jpg" />
-    <Content Include="OutputDir\Thumbnails\2016\9\20160916_153544.jpg" />
-    <Content Include="OutputDir\Thumbnails\2016\9\20160916_153547.jpg" />
-    <Content Include="OutputDir\Thumbnails\2016\9\20160916_153555.jpg" />
-    <Content Include="OutputDir\Thumbnails\2017\4\20170425_152729.jpg" />
-    <Content Include="OutputDir\Thumbnails\2018\3\20180301_180605.jpg" />
+    <Content Include="OutputDir\2018\6\20161116_175934.jpg" />
+    <Content Include="OutputDir\2018\6\20161116_175938.jpg" />
+    <Content Include="OutputDir\2018\6\20160916_153523.jpg" />
+    <Content Include="OutputDir\2018\6\20160916_153530.jpg" />
+    <Content Include="OutputDir\2018\6\20160916_153544.jpg" />
+    <Content Include="OutputDir\2018\6\20160916_153547.jpg" />
+    <Content Include="OutputDir\2018\6\20160916_153555.jpg" />
+    <Content Include="OutputDir\2018\6\20170425_152729.jpg" />
+    <Content Include="OutputDir\2018\6\20180301_180605.jpg" />
+    <Content Include="OutputDir\2018\6\colors7x10%281%29.png" />
+    <Content Include="OutputDir\Thumbnails\2018\6\20161116_175934.jpg" />
+    <Content Include="OutputDir\Thumbnails\2018\6\20161116_175938.jpg" />
+    <Content Include="OutputDir\Thumbnails\2018\6\20160916_153523.jpg" />
+    <Content Include="OutputDir\Thumbnails\2018\6\20160916_153530.jpg" />
+    <Content Include="OutputDir\Thumbnails\2018\6\20160916_153544.jpg" />
+    <Content Include="OutputDir\Thumbnails\2018\6\20160916_153547.jpg" />
+    <Content Include="OutputDir\Thumbnails\2018\6\20160916_153555.jpg" />
+    <Content Include="OutputDir\Thumbnails\2018\6\20170425_152729.jpg" />
+    <Content Include="OutputDir\Thumbnails\2018\6\20180301_180605.jpg" />
+    <Content Include="OutputDir\Thumbnails\2018\6\colors7x10%281%29.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="OutputDir\2016\11\Thumbs.db" />
-    <Content Include="OutputDir\2016\9\Thumbs.db" />
-    <Content Include="OutputDir\Thumbnails\2016\9\Thumbs.db" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -144,7 +143,6 @@
     <Compile Include="Models\LogsModel.cs" />
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\PhotosModel.cs" />
-    <Compile Include="Models\RemoveHandlerModel.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -164,6 +162,7 @@
     <Content Include="Views\First\RemoveHandler.cshtml" />
     <Content Include="Views\First\ImageWebModel.cshtml" />
     <Content Include="Views\First\ViewPhoto.cshtml" />
+    <Content Include="Views\First\DeletePhoto.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

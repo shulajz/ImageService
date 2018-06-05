@@ -14,9 +14,9 @@
         <div class="col-sm-5 col-md-3" >
             <div class="thumbnail">
                
-                <img src="@Url.Content(item.path)" class="img-circle" alt="Cinque Terre" >
+                <img src="@Url.Content(item.ThumbPath)" class="img-circle" alt="Cinque Terre" width="200" height="200">
                     <div class="caption">
-                        <shula>Thumbnail label</shula>
+                        <h3>Thumbnail label</h3>
                         <div class="table table-striped-group">
                             <hr />
                             <p>
@@ -36,8 +36,11 @@
                             </p>
                         </div>
                             <p>
-                                <a href="#" id="btnView" class="btn btn-primary" role="button">View</a> 
-                                <a href="#" class="btn btn-default" id="btnDelete" role="button">Delete</a>
+                                
+                                @Html.ActionLink("View", "ViewPhoto", new { item.ID }, new {@class = "btn btn-default"}) 
+                                @Html.ActionLink("Delete", "DeletePhoto", new { item.ID }, new { @class = "btn btn-default" })
+
+
                             </p>
                        
                 </div>
@@ -49,19 +52,15 @@
     }
 <script>
     $("#btnView").click(function () {
-
-
-
+        alert("view");
     });
+ 
 
     $("#btnDelete").click(function () {
-
+        alert("delete");
 
 
     });
-
-
-
 </script>
 
 

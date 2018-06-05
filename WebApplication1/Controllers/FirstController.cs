@@ -14,10 +14,12 @@ namespace ImageServiceWeb.Controllers
 
     public class FirstController : Controller
     {
+        
         static public List<Student> students = new List<Student>()
         {
 
         };
+        static Photo photo;
         static ConfigModel config_Model = new ConfigModel();
         static LogsModel log_Model = new LogsModel();
         static ImageWebModel image_Web_Model = new ImageWebModel();
@@ -52,10 +54,27 @@ namespace ImageServiceWeb.Controllers
         {
             return View();
         }
-
-        public ActionResult ViewPhoto()
+        public Photo GetPhotoByID(int id)
         {
-            return View();
+            foreach(Photo photo in photos_Model.images)
+            {
+                if(photo.ID.Equals(id))
+                {
+                    return photo;
+                }
+            }
+            return null;
+        }
+        public ActionResult ViewPhoto(int id)
+        {
+            photo = GetPhotoByID(id);
+            return View(photo);
+        }
+
+        public ActionResult DeletePhoto(int id)
+        {
+            photo = GetPhotoByID(id);
+            return View(photo);
         }
 
         [HttpPost]
