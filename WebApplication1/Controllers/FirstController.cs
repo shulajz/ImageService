@@ -1,4 +1,6 @@
-﻿using ImageService.Communication.Modal;
+﻿using ImageService.Communication.Enums;
+using ImageService.Communication.Modal;
+using ImageService.Modal;
 using ImageServiceWeb.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -14,16 +16,14 @@ namespace ImageServiceWeb.Controllers
 
     public class FirstController : Controller
     {
-        
-        static public List<Student> students = new List<Student>()
-        {
-
-        };
+       // ClientWebSingleton client = ClientWebSingleton.getInstance();
+        static public List<Student> students = new List<Student>(){};
         static Photo photo;
         static ConfigModel config_Model = new ConfigModel();
         static LogsModel log_Model = new LogsModel();
-        static ImageWebModel image_Web_Model = new ImageWebModel();
         static PhotosModel photos_Model = new PhotosModel(config_Model.OutPutDir);
+        static ImageWebModel image_Web_Model = new ImageWebModel(photos_Model.numberOfPhoto);
+        
 
 
         // GET: First
@@ -78,20 +78,35 @@ namespace ImageServiceWeb.Controllers
         }
 
         [HttpPost]
-        public bool RemoveHandlerMethod(string pathOfHandlerToRemove)
+        public void RemoveHandlerMethod(string pathOfHandlerToRemove)
         {
-            string temp = config_Model.HandlersArr[0];
+            //string temp = config_Model.HandlersArr[0];
             //here we need to remove handler from the service
             //if succsess remove from the model handllers list
-            config_Model.HandlersArr.Remove(pathOfHandlerToRemove);
-            return true;
+            //config_Model.HandlersArr.Remove(pathOfHandlerToRemove);
+            CommandReceivedEventArgs e = new CommandReceivedEventArgs((int)CommandEnum.RemoveHandler, null,
+                pathOfHandlerToRemove);
+            config_Model.WriteToClient(e);
+           
+        }
+
+        [HttpPost]
+        public void DeletePhotoMethod(int id)
+        {
+            photo = GetPhotoByID(id);
+            string path = photo.OrignalPath;
+           // System.IO.File.Delete("OutputDir\\2018\\6\\colors7x10(1).png");
+            photos_Model.images.Remove(photo);
+            image_Web_Model.NumOfPhotos--;
+
+
         }
 
         [HttpPost]
         public void getLogsForType(string type)
         {
             MessageTypeEnum temp = MessageTypeEnum.FAIL;
-            switch (type)
+            switch (type.ToLower())
             {
                 case "fail":
                     temp = MessageTypeEnum.FAIL;
@@ -112,7 +127,7 @@ namespace ImageServiceWeb.Controllers
             foreach (Log log in log_Model.m_logs) {
                 if (log.Type == temp || type == null)
                 {
-                    log_Model.LogMessages.Add(log.Message);
+                    log_Model.LogMessages.Add(log);
                 }
             }
             

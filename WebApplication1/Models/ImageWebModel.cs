@@ -14,9 +14,10 @@ namespace ImageServiceWeb.Models
         static string[] lines = System.IO.File.ReadAllLines(@path);
         public List<Student> students { get; set; }
 
-        public ImageWebModel() {
+        public ImageWebModel(int numOfPhotos) {
             student = new Student();
             ServiceStatus = "OFF";
+            NumOfPhotos = numOfPhotos;
             students = new List<Student>()
             {
             new Student() {   FirstName = lines[0].Split(' ')[0],
@@ -31,7 +32,7 @@ namespace ImageServiceWeb.Models
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Number of photos:")]
-        public string NumOfPhotos { get; set; }
+        public int NumOfPhotos { get; set; }
 
 
         [Required]

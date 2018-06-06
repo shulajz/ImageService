@@ -23,10 +23,9 @@
         var input = { 
             pathOfHandlerToRemove: path
         };
-        $.post("@Url.Action("RemoveHandlerMethod")", input, function (result) {
+        $.post("@Url.Action("RemoveHandlerMethod")", input, function () {
             
-            window.location.href = "Config";
-            
+            window.location.href = "Config";      
         });
      });
     

@@ -13,19 +13,23 @@ using System.Web;
 namespace ImageServiceWeb.Models
 {
     public class Photo
-    {
+    {   
+
         public string ThumbPath { get; set; }
         public string OrignalPath { get; set; }
         public Photo(string pathStr)
         {
-           
-            DateTime date = GetDateTakenFromImage(pathStr);
+
+            
+            int index = pathStr.LastIndexOf("Thumbnail");
+            string path = pathStr.Substring(index + 1);
+          
+            OrignalPath = "..\\..\\OutputDir\\" + path;
+            DateTime date = GetDateTakenFromImage(OrignalPath);
             Year = date.Year;
             Month = date.Month;
-            Name = Path.GetFileName(pathStr);
-            OrignalPath = "..\\..\\OutputDir\\" + Year + "\\" + Month + "\\" + Name;
             // int index = pathStr.LastIndexOf('\\');
-            ThumbPath = "..\\OutputDir\\Thumbnails\\" + Year + "\\" + Month + "\\" + Name;
+            ThumbPath = "..\\..\\OutputDir\\Thumbnails\\" + path;
         }
         [Required]
         [DataType(DataType.Text)]

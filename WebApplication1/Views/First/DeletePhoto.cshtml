@@ -3,6 +3,48 @@
 @{
     ViewBag.Title = "DeletePhoto";
 }
+<head>
+    <style>
+       p1 {
+            color: red;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<h3>Delete Photo</h3>
 
-<h2>DeletePhoto</h2>
+<p1>Are you sure you want to delete this photo? </p1>
+<br/>
+<button class="btn btn-primary" type="button" id="btnYES" style="margin:10px">YES</button>
+@Html.ActionLink("NO", "Photos",null ,new { @class = "btn btn-primary" })
 
+
+<br />
+<br />
+<hr />
+<p>
+    @Html.LabelFor(modelItem => modelItem.Name, new { @class = "control-label" })
+    @Html.DisplayFor(modelItem => modelItem.Name, new { @class = "col-md-1" })
+</p>
+
+<div class="col-sm-5 col-md-3">
+    <div class="thumbnail">
+
+        <img src="@Url.Content(Model.ThumbPath)" class="img-rounded" alt="Cinque Terre" width="304" height="236"> 
+    </div>
+</div>
+
+<script>
+    $("#btnYES").click(function () {
+        var ID = @Model.ID;
+                var input = {
+                    id: ID
+                  
+                };
+
+                $.post("@Url.Action("DeletePhotoMethod")", input, function () {
+                  window.location = window.location.origin + "/First/Photos" 
+                });
+    });
+</script>

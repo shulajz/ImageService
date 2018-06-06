@@ -13,7 +13,7 @@ namespace ImageServiceWeb.Models
         public List<Log> m_logs { get; }
         public LogsModel()
         {
-            LogMessages = new List<string>();
+            LogMessages = new List<Log>();
             m_logs = new List<Log>() ;
             m_logs.Add(new Log() { Type = MessageTypeEnum.INFO, Message = "msgINFO" });
             m_logs.Add(new Log() { Type = MessageTypeEnum.INFO, Message = "msg_info" });
@@ -30,7 +30,7 @@ namespace ImageServiceWeb.Models
         public MessageTypeEnum chosenType { get; set; }
         [Required]
         [DataType(DataType.Text)]
-        public List<string> LogMessages { get; set; }
+        public List<Log> LogMessages { get; set; }
 
     }
 }

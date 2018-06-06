@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ImageServiceGUI
+namespace ImageService.Communication
 {
     public class ClientArgs : EventArgs
     {

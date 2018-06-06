@@ -7,6 +7,7 @@ using ImageService.Communication.Enums;
 using ImageService.Communication.Modal;
 using ImageService.Modal;
 using System.Windows;
+using ImageService.Communication;
 
 namespace ImageServiceGUI.Model
 {

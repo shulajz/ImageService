@@ -3,18 +3,31 @@
     ViewBag.Title = "Photos";
 }
 
+
 <head>
-    <link type="text/css" rel="stylesheet" href="~/Views/First/PhotosStyle.css" />
+    <style>
+        h1 {
+            color: mediumspringgreen;
+            font-weight: bold;
+        }
+        .img-circle{
+            border-radius:50%;
+        }
+      
+    </style>
 </head>
 
-<h2>Photos</h2>
+
+<h1>Photos</h1>
+<br />
 @foreach (var item in Model.images)
 {
     <div>
         <div class="col-sm-5 col-md-3" >
             <div class="thumbnail">
-               
-                <img src="@Url.Content(item.ThumbPath)" class="img-circle" alt="Cinque Terre" width="200" height="200">
+                
+                    <img src="@Url.Content(item.ThumbPath)" class="img-circle" alt="Cinque Terre" >
+             
                     <div class="caption">
                         <h3>Thumbnail label</h3>
                         <div class="table table-striped-group">
@@ -35,32 +48,20 @@
                                 @Html.DisplayFor(modelItem => item.Month, new { @class = "col-md-2 control-label" })
                             </p>
                         </div>
-                            <p>
-                                
-                                @Html.ActionLink("View", "ViewPhoto", new { item.ID }, new {@class = "btn btn-default"}) 
-                                @Html.ActionLink("Delete", "DeletePhoto", new { item.ID }, new { @class = "btn btn-default" })
+                        <p>
+
+                            @Html.ActionLink("View", "ViewPhoto", new { item.ID }, new { @class = "btn btn-info btn-lg" })
+                            @Html.ActionLink("Delete", "DeletePhoto", new { item.ID }, new { @class = "btn btn-danger btn-lg" })
 
 
-                            </p>
-                       
+                        </p>
+
+                    </div>
+
                 </div>
-              
-            </div>
             <br />
         </div>
     </div>
     }
-<script>
-    $("#btnView").click(function () {
-        alert("view");
-    });
- 
-
-    $("#btnDelete").click(function () {
-        alert("delete");
-
-
-    });
-</script>
 
 

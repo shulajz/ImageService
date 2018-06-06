@@ -1,36 +1,73 @@
-﻿using ImageService.Communication.Modal;
+﻿using ImageService.Communication;
+using ImageService.Communication.Enums;
+using ImageService.Communication.Modal;
+using ImageService.Modal;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ImageServiceWeb.Models
 {
     public class ConfigModel
     {
-        private Setting m_setting;
+      
+        private ClientWebSingleton client;
+        private Setting setting;
         public ConfigModel()
         {
-            ObservableCollection<string> handlers = new ObservableCollection<string>();
-            handlers.Add("or and nir");
-            handlers.Add("shula");
-            m_setting = new Setting()
+            
+            setting = new Setting()
             {
-                OutPutDir = "C:\\Users\\user\\Source\\Repos\\ImageService\\WebApplication1\\OutputDir",
-                SourceName = "source name",
-                LogName = "log name 3333333 ",
-                ThumbnailSize = 120,
-                ArrHandlers = handlers
+                //OutPutDir = "C:\\Users\\user\\Source\\Repos\\ImageService\\WebApplication1\\OutputDir",
+                //SourceName = "source name",
+                //LogName = "log name 3333333 ",
+                //ThumbnailSize = 120,
+                //ArrHandlers = handlers
             };
-            OutPutDir = m_setting.OutPutDir;
-            SourceName = m_setting.SourceName;
-            LogName = m_setting.LogName;
-            ThumbnailSize = m_setting.ThumbnailSize;
-            HandlersArr = handlers;
+            client = ClientWebSingleton.getInstance;
+            client.CommandReceivedEvent += settingsOnCommand;
+           
+            CommandReceivedEventArgs e = new CommandReceivedEventArgs(
+                (int)CommandEnum.GetConfigCommand, null, null);
+            WriteToClient(e);
+            client.wait();
+
+        }
+        /// <summary>
+        /// Settingses the on command.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        private void settingsOnCommand(object sender, ClientArgs e)
+        {
+            if (e.CommandID == (int)CommandEnum.GetConfigCommand)
+            {
+                setting = JsonConvert.DeserializeObject<Setting>(e.Args);
+                OutPutDir = setting.OutPutDir;
+                SourceName = setting.SourceName;
+                LogName = setting.LogName;
+                ThumbnailSize = setting.ThumbnailSize;
+                HandlersArr = setting.ArrHandlers;
+
+            }
+            else if (e.CommandID == (int)CommandEnum.RemoveHandler)
+            {
+                //Application.Current.Dispatcher.Invoke(new Action(() =>
+                //{
+                HandlersArr.Remove(e.Args);
+                //}));
+            }
         }
 
+        public void WriteToClient(CommandReceivedEventArgs e)
+        {
+            client.write(e);
+        }
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "OutPutDir:")]
