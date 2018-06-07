@@ -37,7 +37,7 @@ namespace ImageServiceWeb.Models
                 foreach (string file in System.IO.Directory.GetFiles(
                     thumbnailPath, "*", SearchOption.AllDirectories))
                 {
-                    Regex rgx = new Regex(@"(\.bmp$|\.png$|\.jpg$|\.gif$)");
+                    Regex rgx = new Regex(@"(\.bmp$|\.png$|\.jpg$|\.gif$|\.jpeg$)");
                     Match m = rgx.Match(file.ToLower());
 
                     if (m.Success)
