@@ -1,21 +1,21 @@
-﻿
-using ImageService.Communication;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using ImageService.Modal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
+
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
+using ImageService.Communication;
 
-namespace ImageServiceGUI.Communication
+namespace ImageServiceWeb
 {
-    /// <summary>
-    /// Class ClientSingleton.
-    /// </summary>
-    class ClientSingleton
+    public class ClientWebSingleton
     {
         public event EventHandler<ClientArgs> CommandReceivedEvent;
         /// <summary>
@@ -41,7 +41,7 @@ namespace ImageServiceGUI.Communication
         /// <summary>
         /// The instance
         /// </summary>
-        private static ClientSingleton instance;
+        private static ClientWebSingleton instance;
         /// <summary>
         /// The need to wait
         /// </summary>
@@ -54,7 +54,7 @@ namespace ImageServiceGUI.Communication
         /// <summary>
         /// Prevents a default instance of the <see cref="ClientSingleton"/> class from being created.
         /// </summary>
-        private ClientSingleton()
+        private ClientWebSingleton()
         {
 
             start();
@@ -64,12 +64,12 @@ namespace ImageServiceGUI.Communication
         /// Gets the get instance.
         /// </summary>
         /// <value>The get instance.</value>
-        public static ClientSingleton getInstance
+        public static ClientWebSingleton getInstance
         {
             get
             {
                 if (instance == null)
-                    instance = new ClientSingleton();
+                    instance = new ClientWebSingleton();
                 return instance;
             }
         }
@@ -109,7 +109,7 @@ namespace ImageServiceGUI.Communication
                             info += reader.ReadLine();
                         }
                         JObject infoObj = JObject.Parse(info);
-                      
+
                         CommandReceivedEvent?.Invoke(this, new ClientArgs((int)infoObj["commandID"],
                             (string)infoObj["args"]));
                         writerMutex.ReleaseMutex();
@@ -166,6 +166,6 @@ namespace ImageServiceGUI.Communication
         {
             return serverConnect;
         }
+
     }
 }
-

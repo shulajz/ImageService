@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientArgs.cs" />
     <Compile Include="Modal\CommandRecievedEventArgs.cs" />
     <Compile Include="Enums\CommandEnum.cs" />
     <Compile Include="Modal\Log.cs" />

@@ -13,10 +13,14 @@ namespace ImageServiceWeb.Models
         static string path = HostingEnvironment.MapPath("~/App_Data/info.txt");
         static string[] lines = System.IO.File.ReadAllLines(@path);
         public List<Student> students { get; set; }
+        private ClientWebSingleton client;
 
-        public ImageWebModel() {
+        public ImageWebModel(int numOfPhotos)
+        {
             student = new Student();
-            ServiceStatus = "OFF";
+            client = ClientWebSingleton.getInstance;
+            updateServiceStatus();
+            NumOfPhotos = numOfPhotos;
             students = new List<Student>()
             {
             new Student() {   FirstName = lines[0].Split(' ')[0],
@@ -27,11 +31,25 @@ namespace ImageServiceWeb.Models
                 ID = lines[1].Split(' ')[2]
             }
         };
+
+        }
+
+        public void updateServiceStatus()
+        {
+            if (client.CheckIfServerConnect())
+            {
+                ServiceStatus = "ON!";
+            }
+            else
+            {
+                ServiceStatus = "OFF!";
+
+            }
         }
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Number of photos:")]
-        public string NumOfPhotos { get; set; }
+        public int NumOfPhotos { get; set; }
 
 
         [Required]

@@ -2,15 +2,26 @@
 @{
     ViewBag.Title = "ImageWebModel";
 }
+<head>
+    <style>
+        h1 {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
 
-<h2>ImageWebModel</h2>
+<h1>Image Web</h1>
 
-
+<br />
 <div>
     @Html.LabelFor(model => model.ServiceStatus)
     @Html.DisplayFor(model => model.ServiceStatus)
 </div>
-<br />
+<div>
+    @Html.LabelFor(model => model.NumOfPhotos)
+    @Html.DisplayFor(model => model.NumOfPhotos)
+</div><br />
 <table class="table">
     <tr>
         <th>

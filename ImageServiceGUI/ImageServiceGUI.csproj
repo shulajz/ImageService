@@ -72,7 +72,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ClientArgs.cs" />
     <Compile Include="Communication\ClientSingleton.cs" />
     <Compile Include="Model\ILogModel.cs" />
     <Compile Include="Model\ISettingModel.cs" />

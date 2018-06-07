@@ -14,18 +14,25 @@ namespace ImageServiceWeb.Models
 {
     public class Photo
     {
+        private string m_realNameOfOutputDir;
         public string ThumbPath { get; set; }
-        public string OrignalPath { get; set; }
-        public Photo(string pathStr)
+        public string OriginalPath { get; set; }
+        public string ObsolutePathThum { get; set; }
+        public string ObsolutePathNormal { get; set; }
+
+        public Photo(string pathStr, string realNameOfOutputDir)
         {
-           
-            DateTime date = GetDateTakenFromImage(pathStr);
+            ObsolutePathThum = pathStr; //to delete from directory
+            m_realNameOfOutputDir = realNameOfOutputDir;
+            string[] tokens = Regex.Split(pathStr, "Thumbnails");
+            string path2 = tokens[0].TrimEnd('\\');
+            OriginalPath = "..\\..\\" + realNameOfOutputDir + tokens[1]; // in order to show the photo
+            ObsolutePathNormal = path2 + tokens[1]; //to delete from directory
+            DateTime date = GetDateTakenFromImage(ObsolutePathNormal);
             Year = date.Year;
             Month = date.Month;
             Name = Path.GetFileName(pathStr);
-            OrignalPath = "..\\..\\OutputDir\\" + Year + "\\" + Month + "\\" + Name;
-            // int index = pathStr.LastIndexOf('\\');
-            ThumbPath = "..\\OutputDir\\Thumbnails\\" + Year + "\\" + Month + "\\" + Name;
+            ThumbPath = "..\\..\\" + realNameOfOutputDir + "\\Thumbnails" + tokens[1]; // in order to show the photo
         }
         [Required]
         [DataType(DataType.Text)]

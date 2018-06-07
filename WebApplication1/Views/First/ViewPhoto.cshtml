@@ -5,11 +5,11 @@
 
 <h2>ViewPhoto</h2>
 
-    <img src="@Url.Content(Model.OrignalPath)" class="img-rounded" alt="Cinque Terre"  width="300" height="300" >
+<img src="@Url.Content(Model.OriginalPath)" class="img-rounded" alt="Cinque Terre" width="300" height="300">
 
 
 
-<div class="table table-striped-group" >
+<div class="table table-striped-group">
     <hr />
     <p>
         @Html.LabelFor(modelItem => modelItem.Name, new { @class = "col-md-1 control-label" })
@@ -24,6 +24,6 @@
         @Html.DisplayFor(modelItem => modelItem.Month, new { @class = "col-md-1 control-label" })
     </p>
 
-    @Html.ActionLink("Delete", "DeletePhoto", new { Model.ID }, new { @class = "btn btn-default" })
-    
+    @Html.ActionLink("Delete", "DeletePhoto", new { Model.ID }, new { @class = "btn btn-primary btn-md" })
+
 </div>

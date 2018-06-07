@@ -100,26 +100,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="OutputDir\2018\6\20161116_175934.jpg" />
-    <Content Include="OutputDir\2018\6\20161116_175938.jpg" />
-    <Content Include="OutputDir\2018\6\20160916_153523.jpg" />
-    <Content Include="OutputDir\2018\6\20160916_153530.jpg" />
-    <Content Include="OutputDir\2018\6\20160916_153544.jpg" />
-    <Content Include="OutputDir\2018\6\20160916_153547.jpg" />
-    <Content Include="OutputDir\2018\6\20160916_153555.jpg" />
-    <Content Include="OutputDir\2018\6\20170425_152729.jpg" />
-    <Content Include="OutputDir\2018\6\20180301_180605.jpg" />
-    <Content Include="OutputDir\2018\6\colors7x10%281%29.png" />
-    <Content Include="OutputDir\Thumbnails\2018\6\20161116_175934.jpg" />
-    <Content Include="OutputDir\Thumbnails\2018\6\20161116_175938.jpg" />
-    <Content Include="OutputDir\Thumbnails\2018\6\20160916_153523.jpg" />
-    <Content Include="OutputDir\Thumbnails\2018\6\20160916_153530.jpg" />
-    <Content Include="OutputDir\Thumbnails\2018\6\20160916_153544.jpg" />
-    <Content Include="OutputDir\Thumbnails\2018\6\20160916_153547.jpg" />
-    <Content Include="OutputDir\Thumbnails\2018\6\20160916_153555.jpg" />
-    <Content Include="OutputDir\Thumbnails\2018\6\20170425_152729.jpg" />
-    <Content Include="OutputDir\Thumbnails\2018\6\20180301_180605.jpg" />
-    <Content Include="OutputDir\Thumbnails\2018\6\colors7x10%281%29.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -134,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ClientWebSingleton.cs" />
     <Compile Include="Controllers\FirstController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

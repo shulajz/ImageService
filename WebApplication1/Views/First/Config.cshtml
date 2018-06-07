@@ -2,47 +2,56 @@
 @{
     ViewBag.Title = "Config";
 }
+<head>
+    <style>
+        h1 {
+            color: mediumpurple;
+            font-weight: bold;
+        }
+    </style>
+</head>
 
-<h2>Config</h2>
-   
+<h1>Config</h1>
+<br />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="table table-striped-group">
-        <hr />
-        <p style="">
-            @Html.LabelFor(m => m.OutPutDir, new { @class = "col-md-2 control-label" })
-
-            @Html.DisplayFor(modelItem => modelItem.OutPutDir, new { @class = "col-md-2 control-label" })
-        </p>
+    <div>
         <p>
-            @Html.LabelFor(m => m.SourceName, new { @class = "col-md-2 control-label" })
+            @Html.LabelFor(m => m.OutPutDir, new { @class = "col-md-2 control-label" })
+            @Html.DisplayFor(m => m.OutPutDir, new { @class = "col-md-2 control-label" })
+        </p>
+        <br />
+        <p>
 
+            @Html.LabelFor(m => m.SourceName, new { @class = "col-md-2 control-label" })
             @Html.DisplayFor(m => m.SourceName, new { @class = "col-md-2 control-label" })
         </p>
+        <br />
         <p>
             @Html.LabelFor(m => m.LogName, new { @class = "col-md-2 control-label" })
-
             @Html.DisplayFor(m => m.LogName, new { @class = "col-md-2 control-label" })
         </p>
+        <br />
         <p>
             @Html.LabelFor(m => m.ThumbnailSize, new { @class = "col-md-2 control-label" })
-
             @Html.DisplayFor(m => m.ThumbnailSize, new { @class = "col-md-2 control-label" })
         </p>
         <br />
-        <p><label>The Handlers:</label></p>
+        <label>The Handlers:</label>
         <ul class="nav nav-pills nav-stacked">
-
-            @foreach (var item in Model.HandlersArr)
+            @if (Model.HandlersArr != null)
             {
-                <li>
-                    <a href="#">
-                        @Html.DisplayFor(modelItem => item)
+                foreach (var item in Model.HandlersArr)
+                {
+                    <li>
+                        <a href="#">
+                            @Html.DisplayFor(modelItem => item)
+                        </a>
+                    </li>
 
-                    </a>
-                </li>
+                }
             }
         </ul>
 
@@ -53,13 +62,12 @@
 
 <script>
     $("li").click(function () {
-        
         var itemText = $(this).text();
-        //delete from the item unnecessary sapces and break line  
+        //delete from the item unnecessary sapces and break line
         var path = itemText.replace(/\s\s+/g, '');
         localStorage.setItem('objectToPass', path);
         window.location.href = "RemoveHandler";
-            
+
     });
 
     function remove(x) {
