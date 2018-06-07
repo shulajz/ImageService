@@ -18,6 +18,7 @@ namespace ImageServiceWeb.Models
 
         private ClientWebSingleton client;
         private Setting setting;
+        //c'tor
         public ConfigModel()
         {
 
