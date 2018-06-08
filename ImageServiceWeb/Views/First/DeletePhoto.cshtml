@@ -27,14 +27,7 @@
     @Html.LabelFor(modelItem => modelItem.Name, new { @class = "control-label" })
     @Html.DisplayFor(modelItem => modelItem.Name, new { @class = "col-md-1" })
 </p>
-
-<div class="col-sm-5 col-md-3">
-    <div class="thumbnail">
-
-        <img src="@Url.Content(Model.ThumbPath)" class="img-rounded" alt="Cinque Terre" width="304" height="236">
-    </div>
-</div>
-
+        <img src="@Url.Content(Model.ThumbPath)" class="img-rounded" alt="Cinque Terre">
 <script>
     $("#btnYES").click(function () {
         var ID = @Model.ID;
